@@ -100,7 +100,7 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="home" class="relative overflow-hidden pt-20 pb-20 md:pt-32 md:pb-40 fyrm-tech-blue">
+        <section id="home" class="relative overflow-hidden py-12 md:py-20 lg:py-28 fyrm-tech-blue">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="lg:w-3/5">
                     <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight text-white">
@@ -120,11 +120,20 @@
                 </div>
             </div>
             <!-- Dynamic Image Placeholder: Futuristic Fiber Optic Network -->
-            <div class="absolute inset-y-0 right-0 w-full lg:w-2/5 overflow-hidden">
+            <!-- Mobile / small screens: image below content (keeps current look) -->
+            <div class="block lg:hidden mt-8">
                 <img src="images/hero.jpg"
                      alt="Conceptual image showing high-speed fiber optic network and data streams" 
-                     class="h-full w-full object-cover opacity-50" 
+                     class="w-full h-64 object-cover rounded-xl opacity-60" 
                      onerror="this.onerror=null;this.src='https://placehold.co/1200x800/1f2a37/ffffff?text=Placeholder+Image'">
+            </div>
+
+            <!-- Desktop: full-bleed background image that fills the section -->
+            <div class="hidden lg:block absolute inset-0 z-0">
+                <img src="images/hero.jpg"
+                     alt="Conceptual image showing high-speed fiber optic network and data streams" 
+                     class="w-full h-full object-cover opacity-40" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/1600x900/1f2a37/ffffff?text=Placeholder+Image'">
             </div>
         </section>
 
