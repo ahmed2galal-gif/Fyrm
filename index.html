@@ -33,10 +33,10 @@
         .fyrm-tech-border {
             border-color: #3b82f6;
         }
-        /* Style for the client logo placeholders */
+        /* Style for the client logo placeholders (responsive) */
         .logo-placeholder {
             width: 100%;
-            height: 80px;
+            min-height: 5rem; /* use rem so zoom scales naturally */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -45,12 +45,33 @@
             text-align: center;
             font-weight: 600;
             color: #d1d5db;
-            padding: 1rem;
+            padding: 0.75rem;
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .logo-placeholder:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Make all images scale with layout and zoom */
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* Hero styles for fluid layout and zoom friendliness */
+        #home { min-height: 60vh; }
+        .hero-heading { font-size: clamp(2rem, 5vw, 3.75rem); }
+        .hero-mobile-img { height: clamp(10rem, 28vh, 24rem); width: 100%; object-fit: cover; }
+        .hero-desktop-img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Client card helper for consistent padding and responsive text */
+    .client-card { padding: 1rem; }
+    .client-card .text-white { font-size: 1rem; }
+    /* Additional Clients grid specific tweaks */
+    .additional-clients-grid > div { padding: 1rem; min-height: 3.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .additional-clients-grid .text-white { font-size: 1rem; }
+
+        /* Respect user prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; animation: none !important; }
         }
     </style>
 </head>
@@ -103,7 +124,7 @@
         <section id="home" class="relative overflow-hidden py-12 md:py-20 lg:py-28 fyrm-tech-blue">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="lg:w-3/5">
-                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight text-white">
+                    <h1 class="hero-heading text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight text-white">
                         Revolutionary <span class="fyrm-tech-accent">IT Infrastructure</span> Solutions
                     </h1>
                     <p class="mt-6 text-xl text-gray-300 max-w-lg">
@@ -124,7 +145,7 @@
             <div class="block lg:hidden mt-8">
                 <img src="images/hero.jpg"
                      alt="Conceptual image showing high-speed fiber optic network and data streams" 
-                     class="w-full h-64 object-cover rounded-xl opacity-60" 
+                     class="hero-mobile-img w-full rounded-xl opacity-60" 
                      onerror="this.onerror=null;this.src='https://placehold.co/1200x800/1f2a37/ffffff?text=Placeholder+Image'">
             </div>
 
@@ -132,7 +153,7 @@
             <div class="hidden lg:block absolute inset-0 z-0">
                 <img src="images/hero.jpg"
                      alt="Conceptual image showing high-speed fiber optic network and data streams" 
-                     class="w-full h-full object-cover opacity-40" 
+                     class="hero-desktop-img opacity-40" 
                      onerror="this.onerror=null;this.src='https://placehold.co/1600x900/1f2a37/ffffff?text=Placeholder+Image'">
             </div>
         </section>
@@ -283,7 +304,7 @@
                 
                 <!-- Additional Clients (Written List) -->
                 <h3 class="text-2xl font-bold text-white mb-8 border-b border-gray-700 pb-3 mt-12">Additional Clients</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 additional-clients-grid">
                         <!-- Business-style client cards (English names, no icons) -->
                         <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Sama Telecommunications Company</div>
