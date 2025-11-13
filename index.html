@@ -6,6 +6,12 @@
     <title>FYRMTECH - FTTx & Network Infrastructure Solutions</title>
     <link rel="icon" href="images/fyrmtech-logo.png">
     <!-- Load Tailwind CSS -->
+    <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Improved favicon declaration -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/fyrmtech-logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -55,12 +61,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo/Brand Name -->
-                    <div class="flex items-center space-x-4">
-                        <img src="images/fyrmtech-logo.png" alt="FYRMTECH Logo" class="h-10 w-auto" style="max-height: 40px;">
-                        <a href="#home" class="text-2xl font-extrabold fyrm-tech-accent" >
+                    <a href="#home" class="flex items-center space-x-4" aria-label="FYRMTECH - Home">
+                        <img src="images/fyrmtech-logo.png" alt="FYRMTECH Logo" class="h-10 w-auto max-h-10">
+                        <span class="sr-only">FYRMTECH Home</span>
+                        <span class="text-2xl font-extrabold fyrm-tech-accent">
                             FYRM<span class="text-white">TECH</span>
-                        </a>
-                    </div>
+                        </span>
+                    </a>
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8">
                     <a href="#home" class="text-gray-300 hover:text-white transition duration-200">Home</a>
@@ -70,8 +77,11 @@
                     <a href="#contact" class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md">Contact</a>
                 </nav>
                 <!-- Mobile Menu Button (Hamburger) -->
-                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-gray-700">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-gray-700" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open mobile menu">
+                    <svg class="w-6 h-6 text-white" role="img" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <title>Menu</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
                 </button>
             </div>
         </div>
@@ -97,7 +107,7 @@
                         Revolutionary <span class="fyrm-tech-accent">IT Infrastructure</span> Solutions
                     </h1>
                     <p class="mt-6 text-xl text-gray-300 max-w-lg">
-                        Specializing in end-to-end **FTTx and Network Infrastructure** solutions to empower your business in the digital age.
+                        Specializing in end-to-end <strong>FTTx and Network Infrastructure</strong> solutions to empower your business in the digital age.
                     </p>
                     <div class="mt-10 flex space-x-4">
                         <a href="#services" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition duration-300 shadow-xl">
@@ -111,7 +121,7 @@
             </div>
             <!-- Dynamic Image Placeholder: Futuristic Fiber Optic Network -->
             <div class="absolute inset-y-0 right-0 w-full lg:w-2/5 overflow-hidden">
-                <img src="/images/hero.jpg" 
+                <img src="images/hero.jpg"
                      alt="Conceptual image showing high-speed fiber optic network and data streams" 
                      class="h-full w-full object-cover opacity-50" 
                      onerror="this.onerror=null;this.src='https://placehold.co/1200x800/1f2a37/ffffff?text=Placeholder+Image'">
@@ -131,7 +141,7 @@
                 <div class="lg:grid lg:grid-cols-3 lg:gap-12">
                     <div class="lg:col-span-2 space-y-6">
                         <p class="text-xl text-gray-300 leading-relaxed">
-                            FYRMTECH is a highly qualified group of **computer and communication engineers** with **over 15 years of cumulative experience** in communication technologies. We are dedicated to delivering stable, scalable, and secure systems integration.
+                            FYRMTECH is a highly qualified group of <strong>computer and communication engineers</strong> with <strong>over 15 years of cumulative experience</strong> in communication technologies. We are dedicated to delivering stable, scalable, and secure systems integration.
                         </p>
                         <p class="text-lg text-gray-400">
                             We specialize in providing **end-to-end FTTx and Network Infrastructure solutions**, including all related accessories. Our commitment is to leverage the latest technologies to solve the most complex business challenges, ensuring your operations thrive in the digital age.
@@ -144,7 +154,7 @@
                     <div class="mt-10 lg:mt-0 lg:col-span-1">
                         <div class="bg-gray-800 p-6 rounded-xl shadow-2xl space-y-4">
                             <!-- Dynamic Image Placeholder: Team/Collaboration -->
-                            <img src="https://placehold.co/600x300/1e3a8a/ffffff?text=ENGINEERS+COLLABORATING" 
+                            <img src="images/Gemini_Generated_Image_phf0jzphf0jzphf0 (1).png" 
                                  alt="Engineers collaborating on a systems integration project" 
                                  class="w-full h-32 object-cover rounded-lg mb-4" 
                                  onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e3a8a/ffffff?text=Placeholder+Image'">
@@ -178,7 +188,7 @@
 
                 <!-- Dynamic Image Placeholder: Solutions Banner -->
                 <div class="mb-12">
-                    <img src="https://placehold.co/1200x200/3b82f6/ffffff?text=SECURITY+%7C+NETWORKS+%7C+HARDWARE+INTEGRATION" 
+                    <img src="images/unnamed.jpg" 
                          alt="Banner showing various technological elements: server, printer, security camera" 
                          class="w-full h-40 object-cover rounded-xl shadow-xl" 
                          onerror="this.onerror=null;this.src='https://placehold.co/1200x200/3b82f6/ffffff?text=Placeholder+Image'">
@@ -232,40 +242,110 @@
                 <!-- 9 Main Client Logos (Placeholders) -->
                 <h3 class="text-2xl font-bold text-white mb-8 border-b border-gray-700 pb-3">Main Clients</h3>
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 mb-16">
-                    <!-- Placeholders for the 9 key logos (Keep as text until actual files are provided) -->
-                    <img src="images/Orange_logo.svg">
-                    <img src="images/alfa egypt.png">
-                    <img src="images/Al-Futtaim_Group_DL_logo.svg">
-                    <img src="images/Pfizer_logo.svg">
-                    <img src="images/Hero_corporate_logo_RGB.jpg">
-                    <img src="images/Al-Futtaim_idIRTiATVJ_1.png">
-                    <img src="images/Vodafone_Logo_1.png">
-                    <img src="images/ministry of internal affairs.svg">
-                    <img src="images/HC Securities and Investment.jpg">
+                    <!-- Placeholders for the 9 key logos -->
+                    <figure class="logo-placeholder" style="background-color: #FF7900;">
+                        <img src="images/Orange_logo.svg" alt="Orange" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/FF7900/ffffff?text=Orange'">
+                    </figure>
+                    <figure class="logo-placeholder" style="background-color: #ffffff;">
+                        <img src="images/alfa egypt.png" alt="Alfa Egypt" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/D2232A/ffffff?text=Alfa+Egypt'">
+                    </figure>
+                    <figure class="logo-placeholder" style="background-color: #ffffff;">
+                        <img src="images/Al-Futtaim_Group_DL_logo.svg" alt="Al-Futtaim Group" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim'">
+                    </figure>
+                    <figure class="logo-placeholder" style="background-color: #ffffff;">
+                        <img src="images/Pfizer_logo.svg" alt="Pfizer" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0093D0/ffffff?text=Pfizer'">
+                    </figure>
+                    <figure class="logo-placeholder" style="background-color: #ffffff;">
+                        <img src="images/Hero_corporate_logo_RGB.jpg" alt="Hero Corporate" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B74DE/ffffff?text=Hero'">
+                    </figure>
+                    <figure class="logo-placeholder" style="background-color: #ffffff;">
+                        <img src="images/Al-Futtaim_idIRTiATVJ_1.png" alt="Al-Futtaim ID" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim+ID'">
+                    </figure>
+                    <figure class="logo-placeholder" style="background-color: #ffffff;">
+                        <img src="images/Vodafone_Logo_1.png" alt="Vodafone" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/E60000/ffffff?text=Vodafone'">
+                    </figure>
+                    <figure class="logo-placeholder" style="background-color: #333244;">
+                        <img src="images/ministry of internal affairs.svg" alt="Ministry of Internal Affairs" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0C5A32/ffffff?text=Ministry'">
+                    </figure>
+                    <figure class="logo-placeholder" style="background-color: #ffffff;">
+                        <img src="images/HC Securities and Investment.jpg" alt="HC Securities and Investment" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B3D91/ffffff?text=HC+Securities'">
+                    </figure>
                 </div>
                 
                 <!-- Additional Clients (Written List) -->
                 <h3 class="text-2xl font-bold text-white mb-8 border-b border-gray-700 pb-3 mt-12">Additional Clients</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-gray-300">
-                    <ul class="space-y-2">
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>شركة ساما للاتصالات</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>الشركة العربية للأسمنت</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>مدرسة سانت فاطيما</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>النيل للتجارة والهندسة</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>شركة انبي للبترول</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>شركة شل مصر (للبترول)</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>شركة اتش سي للاوراق المالية والاستثمار</li>
-                    </ul>
-                    <ul class="space-y-2">
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>شركة قناة السويس لتداول الحاويات</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>شركة الحصان للاستيراد والتصدير</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>شركة ألفا مصر للتجارة</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>شركة جونسون & جونسون</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>شركة فانتازيا للفنادق</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>جامعة عين شمس - كلية الصيدلة</li>
-                        <li><i data-lucide="check" class="h-4 w-4 inline mr-2 text-blue-500"></i>بنك كريدى اجريكول</li>
-                    </ul>
-                </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <!-- Business-style client cards (English names, no icons) -->
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Sama Telecommunications Company</div>
+                            <div class="text-sm text-gray-400">Enterprise Client</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Arabian Cement Company</div>
+                            <div class="text-sm text-gray-400">Industrial Client</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">St. Fatima School</div>
+                            <div class="text-sm text-gray-400">Education</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Nile Trading & Engineering</div>
+                            <div class="text-sm text-gray-400">Commercial & Engineering</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">ENPPI (Engineering for Petroleum & Process Industries)</div>
+                            <div class="text-sm text-gray-400">Energy & Petrochemical</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Shell Egypt</div>
+                            <div class="text-sm text-gray-400">Energy & Petroleum</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">HC Securities & Investment</div>
+                            <div class="text-sm text-gray-400">Financial Services</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Suez Canal Container Terminal (SCCT)</div>
+                            <div class="text-sm text-gray-400">Logistics & Terminals</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Al Hossen Import & Export</div>
+                            <div class="text-sm text-gray-400">Import / Export</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Alpha Misr for Trading</div>
+                            <div class="text-sm text-gray-400">Trading</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Johnson & Johnson</div>
+                            <div class="text-sm text-gray-400">Healthcare & Consumer Goods</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Fantasia Hotels Company</div>
+                            <div class="text-sm text-gray-400">Hospitality</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Ain Shams University — Faculty of Pharmacy</div>
+                            <div class="text-sm text-gray-400">Education</div>
+                        </div>
+
+                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="text-white font-semibold">Crédit Agricole Bank</div>
+                            <div class="text-sm text-gray-400">Banking & Finance</div>
+                        </div>
+                    </div>
 
             </div>
         </section>
@@ -288,7 +368,7 @@
                             <div>
                                 <h4 class="text-lg font-semibold text-white">Email Us</h4>
                                 <p class="text-gray-400">Send us a direct message for support or sales inquiries.</p>
-                                <a href="mailto:Support@fyrmtech.con" class="fyrm-tech-accent hover:text-blue-400">Support@fyrmtech.con</a>
+                                <a href="mailto:Support@fyrmtech.com" class="fyrm-tech-accent hover:text-blue-400">Support@fyrmtech.com</a>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
@@ -296,7 +376,7 @@
                             <div>
                                 <h4 class="text-lg font-semibold text-white">Call Us</h4>
                                 <p class="text-gray-400">Speak to an engineer during business hours.</p>
-                                <a href="tel:01555111502" class="fyrm-tech-accent hover:text-blue-400">01555111502</a>
+                                <a href="tel:+201555111502" class="fyrm-tech-accent hover:text-blue-400">+20 155 511 1502</a>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
@@ -304,7 +384,7 @@
                             <div>
                                 <h4 class="text-lg font-semibold text-white">Website</h4>
                                 <p class="text-gray-400">Visit our official domain.</p>
-                                <a href="http://www.Fyrmtech.com" target="_blank" class="fyrm-tech-accent hover:text-blue-400">www.Fyrmtech.com</a>
+                                <a href="http://www.Fyrmtech.com" target="_blank" rel="noopener noreferrer" class="fyrm-tech-accent hover:text-blue-400">www.Fyrmtech.com</a>
                             </div>
                         </div>
                     </div>
@@ -327,7 +407,7 @@
                             Replace "Support@fyrmtech.con" in the 'action' attribute below with the exact email 
                             address you want submissions to go to.
                         -->
-                        <form id="contact-form" action="https://formsubmit.co/Support@fyrmtech.con" method="POST" class="space-y-6">
+                        <form id="contact-form" action="https://formsubmit.co/Support@fyrmtech.com" method="POST" class="space-y-6">
                             
                             <!-- Honeypot field (spam prevention) -->
                             <input type="text" name="_honey" style="display:none;">
@@ -336,7 +416,7 @@
                             <!-- Subject line for the email -->
                             <input type="hidden" name="_subject" value="FYRMTECH Website Inquiry">
                             <!-- Redirect after successful submission (optional) -->
-                            <input type="hidden" name="_next" value="[YOUR_THANK_YOU_PAGE_URL_HERE]">
+                            <input type="hidden" name="_next" value="#contact?success=1">
 
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
