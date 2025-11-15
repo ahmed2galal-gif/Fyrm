@@ -109,10 +109,10 @@
             justify-content: center;
             background: transparent;
             border-radius: 0.5rem;
-            padding: clamp(0.75rem, 2vw, 1.5rem);
+            padding: clamp(0.5rem, 1.5vw, 1.5rem);
             transition: all 0.3s ease;
             cursor: pointer;
-            min-height: clamp(100px, 18vw, 180px);
+            min-height: clamp(120px, 22vw, 180px);
         }
 
         .logo-carousel-item:hover {
@@ -122,8 +122,8 @@
         .logo-carousel-item img {
             width: 100%;
             height: 100%;
-            max-width: clamp(90px, 16vw, 160px);
-            max-height: clamp(70px, 13vw, 130px);
+            max-width: clamp(100px, 18vw, 160px);
+            max-height: clamp(85px, 15vw, 130px);
             object-fit: contain;
             filter: grayscale(100%);
             opacity: 0.65;
@@ -144,11 +144,11 @@
             opacity: 1;
         }
 
-        /* Navigation buttons - clean and responsive */
+        /* Navigation buttons - clean and responsive, smaller on mobile */
         .carousel-nav-btn {
             flex: 0 0 auto;
-            width: clamp(40px, 7vw, 50px);
-            height: clamp(40px, 7vw, 50px);
+            width: clamp(36px, 6.5vw, 50px);
+            height: clamp(36px, 6.5vw, 50px);
             border: 2px solid #3b82f6;
             background-color: transparent;
             color: #3b82f6;
@@ -157,7 +157,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-size: clamp(0.875rem, 1.75vw, 1.25rem);
             font-weight: bold;
             transition: all 0.3s ease;
         }
