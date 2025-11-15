@@ -73,6 +73,87 @@
         @media (prefers-reduced-motion: reduce) {
             * { transition: none !important; animation: none !important; }
         }
+
+        /* Carousel container with 3 visible items */
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: clamp(1rem, 2vw, 1.5rem);
+            margin: 0 -1rem;
+            padding: 0 clamp(0.5rem, 2vw, 1rem);
+        }
+
+        .logo-carousel {
+            display: flex;
+            gap: clamp(1rem, 3vw, 2rem);
+            overflow: hidden;
+            flex: 1;
+            padding: clamp(1rem, 2vw, 1.5rem) 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Logo items in carousel - show 3 at a time */
+        .logo-carousel-item {
+            flex: 0 0 calc(33.333% - clamp(0.33rem, 1vw, 0.67rem));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border-radius: 0.5rem;
+            padding: clamp(0.75rem, 1.5vw, 1rem);
+            transition: transform 0.3s ease, filter 0.3s ease;
+            cursor: pointer;
+            min-height: clamp(100px, 15vw, 150px);
+        }
+
+        .logo-carousel-item img {
+            width: 100%;
+            height: 100%;
+            max-width: clamp(80px, 15vw, 140px);
+            max-height: clamp(60px, 12vw, 100px);
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: filter 0.3s ease, opacity 0.3s ease;
+        }
+
+        .logo-carousel-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .logo-carousel-item:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* Navigation buttons */
+        .carousel-nav-btn {
+            flex: 0 0 auto;
+            width: clamp(40px, 6vw, 50px);
+            height: clamp(40px, 6vw, 50px);
+            border: 2px solid #3b82f6;
+            background-color: transparent;
+            color: #3b82f6;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-nav-btn:hover {
+            background-color: #3b82f6;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .carousel-nav-btn:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
@@ -261,37 +342,41 @@
                     </p>
                 </div>
 
-                <!-- 9 Main Client Logos (Placeholders) -->
+                <!-- 9 Main Client Logos (Carousel with 3 visible items) -->
                 <h3 class="text-2xl font-bold text-white mb-8 border-b border-gray-700 pb-3">Main Clients</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 mb-16">
-                    <!-- Placeholders for the 9 key logos -->
-                    <figure class="logo-placeholder" style="background-color: #FF7900;">
-                        <img src="images/Orange_logo.svg" alt="Orange" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/FF7900/ffffff?text=Orange'">
-                    </figure>
-                    <figure class="logo-placeholder" style="background-color: #ffffff;">
-                        <img src="images/alfa egypt.png" alt="Alfa Egypt" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/D2232A/ffffff?text=Alfa+Egypt'">
-                    </figure>
-                    <figure class="logo-placeholder" style="background-color: #ffffff;">
-                        <img src="images/Al-Futtaim_Group_DL_logo.svg" alt="Al-Futtaim Group" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim'">
-                    </figure>
-                    <figure class="logo-placeholder" style="background-color: #ffffff;">
-                        <img src="images/Pfizer_logo.svg" alt="Pfizer" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0093D0/ffffff?text=Pfizer'">
-                    </figure>
-                    <figure class="logo-placeholder" style="background-color: #ffffff;">
-                        <img src="images/Hero_corporate_logo_RGB.jpg" alt="Hero Corporate" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B74DE/ffffff?text=Hero'">
-                    </figure>
-                    <figure class="logo-placeholder" style="background-color: #ffffff;">
-                        <img src="images/Al-Futtaim_idIRTiATVJ_1.png" alt="Al-Futtaim ID" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim+ID'">
-                    </figure>
-                    <figure class="logo-placeholder" style="background-color: #ffffff;">
-                        <img src="images/Vodafone_Logo_1.png" alt="Vodafone" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/E60000/ffffff?text=Vodafone'">
-                    </figure>
-                    <figure class="logo-placeholder" style="background-color: #333244;">
-                        <img src="images/ministry of internal affairs.svg" alt="Ministry of Internal Affairs" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0C5A32/ffffff?text=Ministry'">
-                    </figure>
-                    <figure class="logo-placeholder" style="background-color: #ffffff;">
-                        <img src="images/HC Securities and Investment.jpg" alt="HC Securities and Investment" class="object-contain w-full h-20" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B3D91/ffffff?text=HC+Securities'">
-                    </figure>
+                <div class="carousel-wrapper">
+                    <button class="carousel-nav-btn" id="carousel-prev" aria-label="Previous clients">❮</button>
+                    <div class="logo-carousel" id="logoCarousel">
+                        <!-- Logo items with grayscale on default, color on hover -->
+                        <div class="logo-carousel-item">
+                            <img src="images/orange.png" alt="Orange" onerror="this.onerror=null;this.src='https://placehold.co/200x80/FF7900/ffffff?text=Orange'">
+                        </div>
+                        <div class="logo-carousel-item">
+                            <img src="images/alfa.png" alt="Alfa Egypt" onerror="this.onerror=null;this.src='https://placehold.co/200x80/D2232A/ffffff?text=Alfa+Egypt'">
+                        </div>
+                        <div class="logo-carousel-item">
+                            <img src="images/Futim-Group.png" alt="Al-Futtaim Group" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim'">
+                        </div>
+                        <div class="logo-carousel-item">
+                            <img src="images/pfizer.png" alt="Pfizer" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0093D0/ffffff?text=Pfizer'">
+                        </div>
+                        <div class="logo-carousel-item">
+                            <img src="images/Hero_corporate_logo_RGB.png" alt="Hero Corporate" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B74DE/ffffff?text=Hero'">
+                        </div>
+                        <div class="logo-carousel-item">
+                            <img src="images/futtaim.png" alt="Al-Futtaim ID" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim+ID'">
+                        </div>
+                        <div class="logo-carousel-item">
+                            <img src="images/Vodafone_Logo_1.png" alt="Vodafone" onerror="this.onerror=null;this.src='https://placehold.co/200x80/E60000/ffffff?text=Vodafone'">
+                        </div>
+                        <div class="logo-carousel-item">
+                            <img src="images/4orta.png" alt="Ministry of Internal Affairs" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0C5A32/ffffff?text=Ministry'">
+                        </div>
+                        <div class="logo-carousel-item">
+                            <img src="images/hc.png" alt="HC Securities and Investment" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B3D91/ffffff?text=HC+Securities'">
+                        </div>
+                    </div>
+                    <button class="carousel-nav-btn" id="carousel-next" aria-label="Next clients">❯</button>
                 </div>
                 
                 <!-- Additional Clients (Written List) -->
@@ -513,6 +598,50 @@
                 });
             });
         });
+
+        // Carousel functionality
+        const carousel = document.getElementById('logoCarousel');
+        const prevBtn = document.getElementById('carousel-prev');
+        const nextBtn = document.getElementById('carousel-next');
+        const items = document.querySelectorAll('.logo-carousel-item');
+        const itemWidth = items[0].offsetWidth;
+        const gap = 16; // gap in pixels (approx clamp(1rem, 3vw, 2rem))
+        let currentIndex = 0;
+        let autoScrollInterval;
+
+        function scrollCarousel(direction) {
+            // Calculate total scrollable width (3 items visible)
+            const maxScroll = items.length - 3;
+            
+            if (direction === 'next') {
+                currentIndex = (currentIndex + 1) % (items.length - 2);
+            } else {
+                currentIndex = (currentIndex - 1 + (items.length - 2)) % (items.length - 2);
+            }
+            
+            // Scroll to position
+            const scrollLeft = currentIndex * (itemWidth + gap);
+            carousel.scrollLeft = scrollLeft;
+            
+            // Reset auto-scroll timer
+            resetAutoScroll();
+        }
+
+        function autoScroll() {
+            scrollCarousel('next');
+        }
+
+        function resetAutoScroll() {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = setInterval(autoScroll, 5000); // Auto-scroll every 5 seconds
+        }
+
+        // Button click handlers
+        prevBtn.addEventListener('click', () => scrollCarousel('prev'));
+        nextBtn.addEventListener('click', () => scrollCarousel('next'));
+
+        // Start auto-scroll
+        autoScrollInterval = setInterval(autoScroll, 5000);
     </script>
 
 </body>
