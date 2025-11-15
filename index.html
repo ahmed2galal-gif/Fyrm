@@ -74,17 +74,22 @@
             * { transition: none !important; animation: none !important; }
         }
 
-        /* Carousel container with 3 visible items - professional spacing */
+        /* Carousel container with 3 visible items - responsive and clean */
         .carousel-wrapper {
             position: relative;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: clamp(1rem, 2.5vw, 2rem);
-            margin: clamp(1rem, 2vw, 2rem) -1rem;
-            padding: clamp(1.5rem, 3vw, 2rem) clamp(1rem, 2vw, 1.5rem);
-            background: linear-gradient(135deg, rgba(31, 42, 55, 0.3) 0%, rgba(59, 130, 246, 0.05) 100%);
-            border-radius: 1rem;
+            justify-content: center;
+            gap: clamp(0.75rem, 1.5vw, 1.5rem);
+            margin: clamp(1rem, 2vw, 1.5rem) 0;
+            padding: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        /* Hide nav buttons on very small screens */
+        @media (max-width: 640px) {
+            .carousel-wrapper {
+                gap: clamp(0.5rem, 1vw, 1rem);
+            }
         }
 
         .logo-carousel {
@@ -96,36 +101,38 @@
             scroll-behavior: smooth;
         }
 
-        /* Logo items in carousel - show 3 at a time, larger professional size */
+        /* Logo items in carousel - show 3 at a time, responsive and clean */
         .logo-carousel-item {
             flex: 0 0 calc(33.333% - clamp(0.5rem, 1.5vw, 1rem));
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(31, 42, 55, 0.5);
-            border-radius: 0.75rem;
-            padding: clamp(1.5rem, 3vw, 2.5rem);
+            background: transparent;
+            border-radius: 0.5rem;
+            padding: clamp(0.75rem, 2vw, 1.5rem);
             transition: all 0.3s ease;
             cursor: pointer;
-            min-height: clamp(140px, 20vw, 220px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            min-height: clamp(100px, 18vw, 180px);
         }
 
         .logo-carousel-item:hover {
-            background: rgba(31, 42, 55, 0.8);
-            border: 1px solid rgba(59, 130, 246, 0.6);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+            transform: translateY(-4px);
         }
 
         .logo-carousel-item img {
             width: 100%;
             height: 100%;
-            max-width: clamp(100px, 18vw, 180px);
-            max-height: clamp(80px, 14vw, 140px);
+            max-width: clamp(90px, 16vw, 160px);
+            max-height: clamp(70px, 13vw, 130px);
             object-fit: contain;
             filter: grayscale(100%);
-            opacity: 0.75;
+            opacity: 0.65;
             transition: filter 0.3s ease, opacity 0.3s ease;
+        }
+
+        .logo-carousel-item:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
         }
 
         .logo-carousel-item:hover {
@@ -137,20 +144,20 @@
             opacity: 1;
         }
 
-        /* Navigation buttons - larger professional style */
+        /* Navigation buttons - clean and responsive */
         .carousel-nav-btn {
             flex: 0 0 auto;
-            width: clamp(48px, 8vw, 60px);
-            height: clamp(48px, 8vw, 60px);
+            width: clamp(40px, 7vw, 50px);
+            height: clamp(40px, 7vw, 50px);
             border: 2px solid #3b82f6;
-            background-color: rgba(59, 130, 246, 0.1);
+            background-color: transparent;
             color: #3b82f6;
-            border-radius: 0.75rem;
+            border-radius: 0.5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            font-size: clamp(1rem, 2vw, 1.25rem);
             font-weight: bold;
             transition: all 0.3s ease;
         }
@@ -159,7 +166,7 @@
             background-color: #3b82f6;
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
         }
 
         .carousel-nav-btn:active {
@@ -355,9 +362,8 @@
 
                 <!-- 9 Main Client Logos (Carousel with 3 visible items) -->
                 <div class="mb-6">
-                    <h3 class="text-3xl font-bold text-white mb-2">Main Clients</h3>
-                    <p class="text-gray-400 text-base">Trusted partners and industry leaders we work with</p>
-                    <div class="h-1 w-20 bg-gradient-to-r from-blue-600 to-transparent mt-3 rounded"></div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-white">Main Clients</h3>
+                    <p class="text-gray-400 text-sm md:text-base mt-1">Trusted industry partners</p>
                 </div>
                 <div class="carousel-wrapper">
                     <button class="carousel-nav-btn" id="carousel-prev" aria-label="Previous clients">❮</button>
