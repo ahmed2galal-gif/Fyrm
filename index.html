@@ -222,6 +222,18 @@
         section {
             position: relative;
         }
+        /* Extra-narrow phone adjustments for partners heading */
+        @media (max-width: 400px) {
+            .partners-heading {
+                font-size: 0.9rem !important; /* Slightly larger than default sm for clarity */
+                letter-spacing: 0.08em !important; /* More spacing between uppercase letters */
+                line-height: 1.3 !important; /* Prevent crowding */
+                word-spacing: 0.15em; /* Separate words subtly */
+                white-space: normal; /* Allow natural wrapping */
+                hyphens: auto; /* Fallback if wrapping needed */
+                display: inline-block;
+            }
+        }
         
         /* Subtle gradient overlays between sections */
         section::before {
@@ -524,7 +536,7 @@
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
                 <div class="text-center mb-8 sm:mb-12">
-                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase">Our Valued Partners</h2>
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase partners-heading">Our Valued Partners</h2>
                     <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
                         Trusted by Industry Leaders
                     </p>
