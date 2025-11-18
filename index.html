@@ -65,9 +65,14 @@
         /* Client card helper for consistent padding and responsive text */
     .client-card { padding: 1rem; }
     .client-card .text-white { font-size: 1rem; }
-    /* Additional Clients grid specific tweaks */
+        /* Additional Clients grid specific tweaks */
     .additional-clients-grid > div { padding: 1rem; min-height: 3.5rem; display: flex; flex-direction: column; justify-content: center; }
     .additional-clients-grid .text-white { font-size: 1rem; }
+
+        /* Clients section background */
+        .clients-bg {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('images/bckgrd.jpg') center/cover no-repeat fixed;
+        }
 
         /* Respect user prefers-reduced-motion */
         @media (prefers-reduced-motion: reduce) {
@@ -317,7 +322,7 @@
         </section>
 
         <!-- Clients Section -->
-        <section id="clients" class="py-20 md:py-32 bg-gray-900">
+        <section id="clients" class="py-20 md:py-32 bg-gray-900 clients-bg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="text-base font-semibold fyrm-tech-accent tracking-wide uppercase">Our Valued Partners</h2>
