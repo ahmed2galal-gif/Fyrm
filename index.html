@@ -155,164 +155,67 @@
         /* Mobile optimizations */
         @media (max-width: 768px) {
             /* Increase scroll offset on mobile for fixed header */
-            html {
-                scroll-padding-top: 100px;
-            }
-            
-            /* Remove overlaps - restore large gaps on mobile */
+            html { scroll-padding-top: 100px; }
+
+            /* Mobile-specific background overrides with new SVGs */
+            .about-bg { background-image: url('images/about-bg-mobile.svg') !important; }
+            .services-bg { background-image: url('images/services-bg-mobile.svg') !important; }
+            .contact-bg { background-image: url('images/contact-bg-mobile.svg') !important; }
+            .clients-bg { background-image: url('images/clients-bg-mobile.svg') !important; }
+
+            /* Section containers */
             .about-bg, .services-bg, .contact-bg, .clients-bg {
                 margin-top: 0;
-                padding-top: 4rem !important;
-                padding-bottom: 4rem !important;
+                padding-top: 3.5rem !important;
+                padding-bottom: 3.5rem !important;
                 background-size: cover !important;
-                background-position: center center !important;
-                background-attachment: scroll !important;
+                background-position: center top !important;
             }
-            
-            /* Make sections more spacious on mobile */
-            section {
-                padding-top: 3rem !important;
-                padding-bottom: 3rem !important;
-            }
-            
-            /* Hero section bigger on mobile */
+
+            section { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+
+            /* Hero section (mobile) */
             #home {
-<<<<<<< HEAD
                 min-height: 70vh !important;
                 padding-top: 2rem !important;
-=======
-                min-height: 100vh !important;
-                padding-top: 0.5rem !important;
->>>>>>> c18d11f47764e0a015424045459f35ac1274b9ba
                 padding-bottom: 2rem !important;
                 display: flex !important;
-                align-items: stretch !important;
+                align-items: center !important;
             }
-            
-            .hero-mobile-img {
-                height: clamp(12rem, 30vh, 20rem) !important;
-            }
-            
-            /* Better hero text sizing on mobile */
+            .hero-mobile-img { height: clamp(12rem, 30vh, 20rem) !important; }
             .hero-heading {
-<<<<<<< HEAD
-                font-size: clamp(2.5rem, 11vw, 4rem) !important;
+                font-size: clamp(2.5rem, 10vw, 3.75rem) !important;
                 line-height: 1.1 !important;
-                margin-bottom: 1.5rem !important;
-=======
-                font-size: clamp(2.75rem, 12vw, 4.5rem) !important;
-                line-height: 1.05 !important;
-                margin-bottom: 1.75rem !important;
-                letter-spacing: -0.02em !important;
-                padding-top: 3rem !important;
->>>>>>> c18d11f47764e0a015424045459f35ac1274b9ba
+                margin-bottom: 1.25rem !important;
+                letter-spacing: -0.01em !important;
             }
-            
-            #home .max-w-7xl {
-                padding-top: 0rem !important;
-                padding-bottom: 1rem !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-            }
-            
-            #home p {
-                font-size: 1.25rem !important;
-                line-height: 1.7 !important;
-                margin-top: 1.75rem !important;
-            }
-            
-            #home .mt-8 {
-                margin-top: 2.25rem !important;
-            }
-            
-            #home a {
-                padding: 1rem 2.25rem !important;
-                font-size: 1.1rem !important;
-            }
-            
-            /* Reduce decorative overlay intensity on mobile for better readability */
-            section::before,
-            section::after {
-                height: 60px;
-                opacity: 0.5;
-            }
-            
-            .dots-pattern {
-                opacity: 0.25;
-                background-size: 30px 30px;
-            }
-            
-            /* Better text scaling */
-            .hero-heading {
-                font-size: clamp(1.75rem, 8vw, 2.5rem) !important;
-                line-height: 1.2 !important;
-            }
-            
-            h2 {
-                font-size: 1.75rem !important;
-            }
-            
-            h3 {
-                font-size: 1.25rem !important;
-            }
-            
-            /* Improve touch targets */
-            a, button {
-                min-height: 44px;
-                min-width: 44px;
-            }
-            
-            /* Optimize carousel for mobile */
-            .logo-carousel {
-                gap: 1.5rem !important;
-                padding: 1rem 0 !important;
-            }
-            
-            .logo-carousel-item {
-                flex: 0 0 clamp(100px, 25vw, 140px) !important;
-                min-height: clamp(100px, 25vw, 140px) !important;
-                padding: 0.75rem !important;
-            }
-            
-            /* Better grid on mobile */
-            .additional-clients-grid {
-                gap: 0.75rem !important;
-            }
-            
-            .additional-clients-grid > div {
-                padding: 0.75rem !important;
-                font-size: 0.875rem !important;
-            }
-            
-            /* Optimize footer padding on mobile */
-            footer {
-                padding-top: 1.5rem;
-                padding-bottom: 1.5rem;
-            }
-            
-            /* Ensure proper container padding on mobile */
-            .max-w-7xl {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            
-            /* Fix service card grid on mobile */
-            .grid {
-                gap: 1rem;
-            }
-            
-            /* Optimize hero image on mobile */
-            .hero-desktop-img,
-            .hero-mobile-img {
-                opacity: 0.3;
-            }
-            
-            /* Better card spacing */
-            .bg-gray-900,
-            .bg-gray-800 {
-                margin-bottom: 1rem;
-            }
+            #home .max-w-7xl { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+            #home p { font-size: 1.1rem !important; line-height: 1.6 !important; margin-top: 1rem !important; }
+            #home .mt-8 { margin-top: 1.75rem !important; }
+            #home a { padding: 0.85rem 1.9rem !important; font-size: 1rem !important; }
+
+            /* Visual tweaks */
+            section::before, section::after { height: 60px; opacity: 0.5; }
+            .dots-pattern { opacity: 0.25; background-size: 30px 30px; }
+            h2 { font-size: 1.75rem !important; }
+            h3 { font-size: 1.25rem !important; }
+
+            /* Touch targets */
+            a, button { min-height: 44px; min-width: 44px; }
+
+            /* Logo carousel */
+            .logo-carousel { gap: 1.5rem !important; padding: 1rem 0 !important; }
+            .logo-carousel-item { flex: 0 0 clamp(100px, 25vw, 140px) !important; min-height: clamp(100px, 25vw, 140px) !important; padding: 0.75rem !important; }
+
+            /* Clients grid */
+            .additional-clients-grid { gap: 0.75rem !important; }
+            .additional-clients-grid > div { padding: 0.75rem !important; font-size: 0.875rem !important; }
+
+            footer { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+            .max-w-7xl { padding-left: 1rem; padding-right: 1rem; }
+            .grid { gap: 1rem; }
+            .hero-desktop-img, .hero-mobile-img { opacity: 0.3; }
+            .bg-gray-900, .bg-gray-800 { margin-bottom: 1rem; }
         }
 
         /* Section dividers and decorative elements */

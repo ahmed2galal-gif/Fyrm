@@ -1,0 +1,31 @@
+<svg width="800" height="1400" viewBox="0 0 800 1400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <pattern id="mesh" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#1e293b" stroke-width="0.7" stroke-opacity="0.3"/>
+    </pattern>
+    <radialGradient id="glow" cx="0.5" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.35"/>
+      <stop offset="80%" stop-color="#0f172a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1400" fill="url(#panel)"/>
+  <rect width="800" height="1400" fill="url(#mesh)" opacity="0.3"/>
+  <rect width="800" height="1400" fill="url(#glow)"/>
+  <!-- Client network -->
+  <g stroke="#3b82f6" stroke-width="2" stroke-opacity="0.4" fill="none">
+    <path d="M140 220 L340 300 L560 250 L660 520 L440 760 L180 960 L400 1180"/>
+  </g>
+  <g fill="#3b82f6" fill-opacity="0.55" stroke="#1e3a8a" stroke-width="1" stroke-opacity="0.6">
+    <circle cx="140" cy="220" r="6"/>
+    <circle cx="340" cy="300" r="5"/>
+    <circle cx="560" cy="250" r="7"/>
+    <circle cx="660" cy="520" r="6"/>
+    <circle cx="440" cy="760" r="5"/>
+    <circle cx="180" cy="960" r="6"/>
+    <circle cx="400" cy="1180" r="6"/>
+  </g>
+</svg>

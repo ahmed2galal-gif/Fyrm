@@ -1,0 +1,33 @@
+<svg width="800" height="1400" viewBox="0 0 800 1400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <radialGradient id="focus" cx="0.7" cy="0.25" r="0.6">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.4"/>
+      <stop offset="70%" stop-color="#0f172a" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="48" height="48" patternUnits="userSpaceOnUse">
+      <circle cx="0" cy="0" r="2" fill="#1e3a8a" fill-opacity="0.5"/>
+      <circle cx="24" cy="24" r="2" fill="#1e3a8a" fill-opacity="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="1400" fill="url(#base)"/>
+  <rect width="800" height="1400" fill="url(#focus)"/>
+  <rect width="800" height="1400" fill="url(#dots)" opacity="0.15"/>
+  <!-- Service connection lines -->
+  <g stroke="#3b82f6" stroke-opacity="0.4" stroke-width="2" fill="none">
+    <path d="M100 240 C280 180 520 200 660 160"/>
+    <path d="M140 520 C300 470 500 490 700 430"/>
+    <path d="M180 900 C360 840 560 860 720 800"/>
+  </g>
+  <!-- Nodes -->
+  <g fill="#3b82f6" fill-opacity="0.55" stroke="#1e3a8a" stroke-width="1" stroke-opacity="0.6">
+    <circle cx="660" cy="160" r="6"/>
+    <circle cx="520" cy="200" r="5"/>
+    <circle cx="300" cy="470" r="6"/>
+    <circle cx="560" cy="860" r="6"/>
+    <circle cx="180" cy="900" r="5"/>
+  </g>
+</svg>
