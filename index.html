@@ -150,6 +150,18 @@
 
         /* Mobile optimizations */
         @media (max-width: 768px) {
+            /* Reduce decorative overlay intensity on mobile for better readability */
+            section::before,
+            section::after {
+                height: 60px;
+                opacity: 0.5;
+            }
+            
+            .dots-pattern {
+                opacity: 0.25;
+                background-size: 30px 30px;
+            }
+            
             /* Better text scaling */
             .hero-heading {
                 font-size: clamp(1.75rem, 8vw, 2.5rem) !important;
@@ -192,6 +204,11 @@
                 font-size: 0.875rem !important;
             }
             
+            /* Optimize footer padding on mobile */
+            footer {
+                padding-top: 1.5rem;
+                padding-bottom: 1.5rem;
+            }
         }
 
         /* Section dividers and decorative elements */
@@ -257,8 +274,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: clamp(1rem, 2vw, 2rem) 0;
-            padding: clamp(1.5rem, 3vw, 2rem);
+            margin: clamp(0.75rem, 2vw, 2rem) 0;
+            padding: clamp(1rem, 3vw, 2rem);
         }
 
         .logo-carousel {
@@ -366,7 +383,7 @@
                     <h1 class="hero-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white">
                         Revolutionary <span class="fyrm-tech-accent">IT Infrastructure</span> Solutions
                     </h1>
-                    <p class="mt-6 text-xl text-gray-300 max-w-lg">
+                    <p class="mt-4 sm:mt-6 text-lg sm:text-xl text-gray-300 max-w-lg">
                         Specializing in end-to-end <strong>FTTx and Network Infrastructure</strong> solutions to empower your business in the digital age.
                     </p>
                     <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -414,12 +431,12 @@
                         </blockquote>
                     </div>
                     <!-- Image and details block -->
-                    <div class="mt-10 lg:mt-0 lg:col-span-1">
+                    <div class="mt-8 sm:mt-10 lg:mt-0 lg:col-span-1">
                         <div class="bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
                             <!-- Dynamic Image Placeholder: Team/Collaboration -->
                             <img src="images/Gemini_Generaffffff.jpg" 
                                  alt="Engineers collaborating on a systems integration project" 
-                                 class="w-full h-32 object-cover rounded-lg mb-4" 
+                                 class="w-full h-24 sm:h-32 object-cover rounded-lg mb-4" 
                                  onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e3a8a/ffffff?text=Placeholder+Image'">
                             
                             <div class="flex items-center space-x-3">
@@ -455,7 +472,7 @@
                 <div class="mb-8 sm:mb-12">
                     <img src="images/unnamed.jpg" 
                          alt="Banner showing various technological elements: server, printer, security camera" 
-                         class="w-full h-40 object-cover rounded-xl shadow-md" 
+                         class="w-full h-32 sm:h-40 object-cover rounded-xl shadow-md" 
                          onerror="this.onerror=null;this.src='https://placehold.co/1200x200/3b82f6/ffffff?text=Placeholder+Image'">
                 </div>
 
