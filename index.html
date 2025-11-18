@@ -791,6 +791,36 @@
         // Initialize Lucide Icons (to render the icons correctly)
         lucide.createIcons();
 
+        // Double-tap to redirect for logo carousel on mobile
+        if (window.innerWidth <= 768) {
+            const logoLinks = document.querySelectorAll('.logo-carousel-item');
+            const tapStates = new Map();
+
+            logoLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    const now = Date.now();
+                    const lastTap = tapStates.get(href);
+
+                    if (lastTap && (now - lastTap) < 500) {
+                        // Double tap detected - allow navigation
+                        tapStates.delete(href);
+                        return true;
+                    } else {
+                        // First tap - prevent navigation
+                        e.preventDefault();
+                        tapStates.set(href, now);
+                        
+                        // Visual feedback
+                        this.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+                    }
+                });
+            });
+        }
+
         // Optional: Smooth scrolling for all internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
