@@ -148,6 +148,73 @@
             * { transition: none !important; animation: none !important; }
         }
 
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            /* Reduce section overlaps on mobile */
+            .about-bg, .services-bg, .contact-bg, .clients-bg {
+                margin-top: -2rem !important;
+                padding-top: 4rem !important;
+            }
+            
+            /* Tighter spacing on mobile */
+            section {
+                padding-top: 3rem !important;
+                padding-bottom: 3rem !important;
+            }
+            
+            /* Better text scaling */
+            .hero-heading {
+                font-size: clamp(1.75rem, 8vw, 2.5rem) !important;
+                line-height: 1.2 !important;
+            }
+            
+            h2 {
+                font-size: 1.75rem !important;
+            }
+            
+            h3 {
+                font-size: 1.25rem !important;
+            }
+            
+            /* Improve touch targets */
+            a, button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            /* Optimize carousel for mobile */
+            .logo-carousel {
+                gap: 1.5rem !important;
+                padding: 1rem 0 !important;
+            }
+            
+            .logo-carousel-item {
+                flex: 0 0 clamp(100px, 25vw, 140px) !important;
+                min-height: clamp(100px, 25vw, 140px) !important;
+                padding: 0.75rem !important;
+            }
+            
+            /* Better grid on mobile */
+            .additional-clients-grid {
+                gap: 0.75rem !important;
+            }
+            
+            .additional-clients-grid > div {
+                padding: 0.75rem !important;
+                font-size: 0.875rem !important;
+            }
+            
+            /* Hide decorative elements on very small screens */
+            .dots-pattern {
+                opacity: 0.2 !important;
+            }
+            
+            section::before,
+            section::after {
+                height: 50px !important;
+            }
+        }
+
         /* Section dividers and decorative elements */
         section {
             position: relative;
@@ -314,20 +381,20 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="home" class="relative overflow-hidden py-16 md:py-20 lg:py-24 fyrm-tech-blue">
+        <section id="home" class="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24 fyrm-tech-blue">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="lg:w-3/5">
-                    <h1 class="hero-heading text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight text-white">
+                    <h1 class="hero-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white">
                         Revolutionary <span class="fyrm-tech-accent">IT Infrastructure</span> Solutions
                     </h1>
                     <p class="mt-6 text-xl text-gray-300 max-w-lg">
                         Specializing in end-to-end <strong>FTTx and Network Infrastructure</strong> solutions to empower your business in the digital age.
                     </p>
-                    <div class="mt-10 flex space-x-4">
-                        <a href="#services" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-md">
+                    <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                        <a href="#services" class="px-6 sm:px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-md text-center">
                             Explore Our Solutions
                         </a>
-                        <a href="#contact" class="px-8 py-3 bg-gray-700 text-gray-200 font-semibold rounded-xl hover:bg-gray-600 transition-colors duration-200 shadow-md">
+                        <a href="#contact" class="px-6 sm:px-8 py-3 bg-gray-700 text-gray-200 font-semibold rounded-xl hover:bg-gray-600 transition-colors duration-200 shadow-md text-center">
                             Get a Quote
                         </a>
                     </div>
@@ -348,16 +415,16 @@
             <div class="dots-pattern"></div>
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
-                <div class="text-center mb-12">
-                    <h2 class="text-base font-semibold fyrm-tech-accent tracking-wide uppercase">Who We Are</h2>
-                    <p class="mt-2 text-3xl font-extrabold text-white sm:text-4xl">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase">Who We Are</h2>
+                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
                         Committed to Excellence in Communications
                     </p>
                 </div>
 
                 <div class="lg:grid lg:grid-cols-3 lg:gap-12">
-                    <div class="lg:col-span-2 space-y-6">
-                        <p class="text-xl text-gray-300 leading-relaxed">
+                    <div class="lg:col-span-2 space-y-4 sm:space-y-6">
+                        <p class="text-lg sm:text-xl text-gray-300 leading-relaxed">
                             FYRMTECH is a highly qualified group of <strong>computer and communication engineers</strong> with <strong>over 15 years of cumulative experience</strong> in communication technologies. We are dedicated to delivering stable, scalable, and secure systems integration.
                         </p>
                         <p class="text-lg text-gray-400">
@@ -398,22 +465,22 @@
             <div class="dots-pattern"></div>
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
-                <div class="text-center mb-12">
-                    <h2 class="text-base font-semibold fyrm-tech-accent tracking-wide uppercase">What We Offer</h2>
-                    <p class="mt-2 text-3xl font-extrabold text-white sm:text-4xl">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase">What We Offer</h2>
+                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
                         Comprehensive IT & Communication Solutions
                     </p>
                 </div>
 
                 <!-- Dynamic Image Placeholder: Solutions Banner -->
-                <div class="mb-12">
+                <div class="mb-8 sm:mb-12">
                     <img src="images/unnamed.jpg" 
                          alt="Banner showing various technological elements: server, printer, security camera" 
                          class="w-full h-40 object-cover rounded-xl shadow-md" 
                          onerror="this.onerror=null;this.src='https://placehold.co/1200x200/3b82f6/ffffff?text=Placeholder+Image'">
                 </div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
                     <!-- Service Card 1 -->
                     <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
                         <i data-lucide="server-cog" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
@@ -453,17 +520,17 @@
             <div class="dots-pattern"></div>
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
-                <div class="text-center mb-12">
-                    <h2 class="text-base font-semibold fyrm-tech-accent tracking-wide uppercase">Our Valued Partners</h2>
-                    <p class="mt-2 text-3xl font-extrabold text-white sm:text-4xl">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase">Our Valued Partners</h2>
+                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
                         Trusted by Industry Leaders
                     </p>
                 </div>
 
                 <!-- 9 Main Client Logos (Carousel with 3 visible items) -->
-                <div class="mb-6">
-                    <h3 class="text-2xl md:text-3xl font-bold text-white">Main Clients</h3>
-                    <p class="text-gray-400 text-sm md:text-base mt-1">Trusted industry partners</p>
+                <div class="mb-4 sm:mb-6">
+                    <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-white">Main Clients</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm md:text-base mt-1">Trusted industry partners</p>
                 </div>
                 <div class="carousel-wrapper">
                     <div class="logo-carousel" id="logoCarousel">
@@ -499,7 +566,7 @@
                 </div>
                 
                 <!-- Additional Clients (Written List) -->
-                <h3 class="text-2xl font-bold text-white mb-6 border-b border-gray-700 pb-3 mt-10">Additional Clients</h3>
+                <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 border-b border-gray-700 pb-2 sm:pb-3 mt-8 sm:mt-10">Additional Clients</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 additional-clients-grid">
                         <!-- Business-style client cards (English names, no icons) -->
                         <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
@@ -580,16 +647,16 @@
         <section id="contact" class="py-16 md:py-24 bg-slate-950 contact-bg">
             <div class="dots-pattern"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
-                <div class="text-center mb-12">
-                    <h2 class="text-base font-semibold fyrm-tech-accent tracking-wide uppercase">Get In Touch</h2>
-                    <p class="mt-2 text-3xl font-extrabold text-white sm:text-4xl">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase">Get In Touch</h2>
+                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
                         Start Your Project Today
                     </p>
                 </div>
 
                 <div class="lg:grid lg:grid-cols-3 lg:gap-12">
                     <!-- Contact Details -->
-                    <div class="lg:col-span-1 space-y-8 p-6 bg-gray-900 rounded-xl shadow-md">
+                    <div class="lg:col-span-1 space-y-6 sm:space-y-8 p-4 sm:p-6 bg-gray-900 rounded-xl shadow-md">
                         <div class="flex items-start space-x-4">
                             <i data-lucide="mail" class="fyrm-tech-accent h-6 w-6 flex-shrink-0 mt-1"></i>
                             <div>
@@ -617,8 +684,8 @@
                     </div>
 
                     <!-- Contact Form -->
-                    <div class="lg:col-span-2 mt-12 lg:mt-0 p-6 bg-gray-900 rounded-xl shadow-md">
-                        <h3 class="text-2xl font-bold text-white mb-6">Send Us a Message</h3>
+                    <div class="lg:col-span-2 mt-8 sm:mt-12 lg:mt-0 p-4 sm:p-6 bg-gray-900 rounded-xl shadow-md">
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Send Us a Message</h3>
 
                         <!-- 
                             *** IMPORTANT: NO BACKEND CONTACT FORM SETUP ***
