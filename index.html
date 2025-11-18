@@ -150,10 +150,10 @@
 
         /* Mobile optimizations */
         @media (max-width: 768px) {
-            /* Maintain desktop flow - keep overlaps on mobile */
+            /* Remove overlaps - restore large gaps on mobile */
             .about-bg, .services-bg, .contact-bg, .clients-bg {
-                margin-top: -4rem;
-                padding-top: 6rem;
+                margin-top: 0;
+                padding-top: 2rem;
             }
             
             /* Reduce decorative overlay intensity on mobile for better readability */
