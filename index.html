@@ -162,28 +162,28 @@
             /* Remove overlaps - restore large gaps on mobile */
             .about-bg, .services-bg, .contact-bg, .clients-bg {
                 margin-top: 0;
-                padding-top: 2rem;
-                background-size: auto 100% !important;
-                background-position: center top !important;
-                background-attachment: fixed !important;
-            }
-            
-            /* Specific mobile background optimizations per section */
-            .clients-bg {
+                padding-top: 4rem !important;
+                padding-bottom: 4rem !important;
                 background-size: cover !important;
-                padding-bottom: 6rem !important;
+                background-position: center center !important;
+                background-attachment: scroll !important;
             }
             
-            .about-bg {
-                background-size: 150% auto !important;
+            /* Make sections more spacious on mobile */
+            section {
+                padding-top: 3rem !important;
+                padding-bottom: 3rem !important;
             }
             
-            .services-bg {
-                background-size: 150% auto !important;
+            /* Hero section bigger on mobile */
+            #home {
+                min-height: 100vh !important;
+                padding-top: 4rem !important;
+                padding-bottom: 4rem !important;
             }
             
-            .contact-bg {
-                background-size: cover !important;
+            .hero-mobile-img {
+                height: clamp(16rem, 40vh, 32rem) !important;
             }
             
             /* Reduce decorative overlay intensity on mobile for better readability */
