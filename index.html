@@ -70,13 +70,9 @@
     .additional-clients-grid > div { padding: 1rem; min-height: 3.5rem; display: flex; flex-direction: column; justify-content: center; }
     .additional-clients-grid .text-white { font-size: 1rem; }
 
-        /* Clients section background */
+        /* Clients section background - optimized for smooth scrolling */
         .clients-bg {
-            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('images/bckgrd.jpg') center/cover no-repeat;
-            background-attachment: scroll;
-            background-position: center;
-            background-size: cover;
-            /* Avoid fixed backgrounds which cause repainting and jank on some devices */
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('images/bckgrd.jpg') center/cover no-repeat scroll;
         }
 
         /* Respect user prefers-reduced-motion */

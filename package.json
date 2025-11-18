@@ -1,0 +1,13 @@
+{
+  "name": "fyrm",
+  "version": "1.0.0",
+  "description": "FYRMTECH static site",
+  "scripts": {
+    "optimize-images": "node scripts/optimize-images.js images/bckgrd.jpg"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "sharp": "^0.32.0"
+  }
+}
