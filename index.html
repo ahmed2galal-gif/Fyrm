@@ -150,6 +150,12 @@
 
         /* Mobile optimizations */
         @media (max-width: 768px) {
+            /* Maintain desktop flow - keep overlaps on mobile */
+            .about-bg, .services-bg, .contact-bg, .clients-bg {
+                margin-top: -4rem;
+                padding-top: 6rem;
+            }
+            
             /* Reduce decorative overlay intensity on mobile for better readability */
             section::before,
             section::after {
@@ -208,6 +214,29 @@
             footer {
                 padding-top: 1.5rem;
                 padding-bottom: 1.5rem;
+            }
+            
+            /* Ensure proper container padding on mobile */
+            .max-w-7xl {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            /* Fix service card grid on mobile */
+            .grid {
+                gap: 1rem;
+            }
+            
+            /* Optimize hero image on mobile */
+            .hero-desktop-img,
+            .hero-mobile-img {
+                opacity: 0.3;
+            }
+            
+            /* Better card spacing */
+            .bg-gray-900,
+            .bg-gray-800 {
+                margin-bottom: 1rem;
             }
         }
 
