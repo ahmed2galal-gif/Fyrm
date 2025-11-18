@@ -20,6 +20,10 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* Custom font and base styles */
+        html {
+            scroll-padding-top: 80px; /* Offset for fixed header */
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0d1117; /* Dark background matching the profile tone */
@@ -150,6 +154,11 @@
 
         /* Mobile optimizations */
         @media (max-width: 768px) {
+            /* Increase scroll offset on mobile for fixed header */
+            html {
+                scroll-padding-top: 100px;
+            }
+            
             /* Remove overlaps - restore large gaps on mobile */
             .about-bg, .services-bg, .contact-bg, .clients-bg {
                 margin-top: 0;
