@@ -163,8 +163,27 @@
             .about-bg, .services-bg, .contact-bg, .clients-bg {
                 margin-top: 0;
                 padding-top: 2rem;
+                background-size: auto 100% !important;
+                background-position: center top !important;
+                background-attachment: fixed !important;
+            }
+            
+            /* Specific mobile background optimizations per section */
+            .clients-bg {
                 background-size: cover !important;
-                background-position: center center !important;
+                padding-bottom: 6rem !important;
+            }
+            
+            .about-bg {
+                background-size: 150% auto !important;
+            }
+            
+            .services-bg {
+                background-size: 150% auto !important;
+            }
+            
+            .contact-bg {
+                background-size: cover !important;
             }
             
             /* Reduce decorative overlay intensity on mobile for better readability */
