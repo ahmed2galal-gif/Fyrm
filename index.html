@@ -77,6 +77,16 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: scroll;
+            min-height: 100vh;
+        }
+
+        /* On mobile, use fixed attachment to ensure full coverage */
+        @media (max-width: 768px) {
+            .clients-bg {
+                background-attachment: fixed;
+                background-size: cover;
+                min-height: auto;
+            }
         }
 
         /* Respect user prefers-reduced-motion */
