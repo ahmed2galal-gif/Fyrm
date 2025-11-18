@@ -50,11 +50,12 @@
         }
         .logo-placeholder:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
 
-        /* Make all images scale with layout and zoom */
-        img { max-width: 100%; height: auto; display: block; }
+        /* Make all images scale with layout and zoom (optimized for smooth scrolling) */
+        img { max-width: 100%; height: auto; display: block; -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0); }
+        /* Lazy-load logos to reduce initial paint costs */
 
         /* Hero styles for fluid layout and zoom friendliness */
         #home { min-height: 60vh; }
@@ -71,7 +72,11 @@
 
         /* Clients section background */
         .clients-bg {
-            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('images/bckgrd.jpg') center/cover no-repeat fixed;
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('images/bckgrd.jpg') center/cover no-repeat;
+            background-attachment: scroll;
+            background-position: center;
+            background-size: cover;
+            /* Avoid fixed backgrounds which cause repainting and jank on some devices */
         }
 
         /* Respect user prefers-reduced-motion */
@@ -99,7 +104,7 @@
             padding: clamp(1rem, 2vw, 1.5rem) 0;
         }
 
-        /* Logo items - larger and responsive */
+        /* Logo items - larger, responsive and optimized for smooth animations */
         .logo-carousel-item {
             flex: 0 0 clamp(120px, 20vw, 200px);
             display: flex;
@@ -108,10 +113,11 @@
             background: transparent;
             border-radius: 0.5rem;
             padding: clamp(1rem, 2vw, 1.5rem);
-            transition: all 0.3s ease;
+            transition: transform 220ms ease;
             cursor: pointer;
             min-height: clamp(140px, 25vw, 200px);
             text-decoration: none;
+            will-change: transform;
         }
 
         .logo-carousel-item:hover {
@@ -126,16 +132,11 @@
             object-fit: contain;
             filter: grayscale(100%);
             opacity: 0.65;
-            transition: filter 0.3s ease, opacity 0.3s ease;
-        }
-
-        .logo-carousel-item:hover img {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-
-        .logo-carousel-item:hover {
-            transform: translateY(-4px);
+            transition: filter 220ms ease, opacity 220ms ease;
+            will-change: filter, opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         .logo-carousel-item:hover img {
@@ -202,10 +203,10 @@
                         Specializing in end-to-end <strong>FTTx and Network Infrastructure</strong> solutions to empower your business in the digital age.
                     </p>
                     <div class="mt-10 flex space-x-4">
-                        <a href="#services" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition duration-300 shadow-xl">
+                        <a href="#services" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-md">
                             Explore Our Solutions
                         </a>
-                        <a href="#contact" class="px-8 py-3 bg-gray-700 text-gray-200 font-semibold rounded-xl hover:bg-gray-600 transition duration-300 shadow-xl">
+                        <a href="#contact" class="px-8 py-3 bg-gray-700 text-gray-200 font-semibold rounded-xl hover:bg-gray-600 transition-colors duration-200 shadow-md">
                             Get a Quote
                         </a>
                     </div>
@@ -245,7 +246,7 @@
                     </div>
                     <!-- Image and details block -->
                     <div class="mt-10 lg:mt-0 lg:col-span-1">
-                        <div class="bg-gray-800 p-6 rounded-xl shadow-2xl space-y-4">
+                        <div class="bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
                             <!-- Dynamic Image Placeholder: Team/Collaboration -->
                             <img src="images/Gemini_Generaffffff.jpg" 
                                  alt="Engineers collaborating on a systems integration project" 
@@ -283,37 +284,37 @@
                 <div class="mb-12">
                     <img src="images/unnamed.jpg" 
                          alt="Banner showing various technological elements: server, printer, security camera" 
-                         class="w-full h-40 object-cover rounded-xl shadow-xl" 
+                         class="w-full h-40 object-cover rounded-xl shadow-md" 
                          onerror="this.onerror=null;this.src='https://placehold.co/1200x200/3b82f6/ffffff?text=Placeholder+Image'">
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Service Card 1 -->
-                    <div class="bg-gray-900 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-700">
+                    <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
                         <i data-lucide="server-cog" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
                         <h3 class="text-xl font-bold text-white mb-2">Network Infrastructure</h3>
                         <p class="text-gray-400">End-to-end FTTx, Networks, and Data Communication Distribution, ensuring flexible and cost-effective design pre-sales services.</p>
                     </div>
                     <!-- Service Card 2 -->
-                    <div class="bg-gray-900 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-700">
+                    <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
                         <i data-lucide="scan-barcode" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
                         <h3 class="text-xl font-bold text-white mb-2">Security & Access Control</h3>
                         <p class="text-gray-400">Integrated Access Control Systems, CCTV Systems, and Document/Data Safes for robust physical and digital security.</p>
                     </div>
                     <!-- Service Card 3 -->
-                    <div class="bg-gray-900 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-700">
+                    <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
                         <i data-lucide="printer" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
                         <h3 class="text-xl font-bold text-white mb-2">Office & Data Equipment</h3>
                         <p class="text-gray-400">Supply of ID Card Printers, Plotters, Binding & Laminating Systems, and High-Security Shredding Machines.</p>
                     </div>
                     <!-- Service Card 4 -->
-                    <div class="bg-gray-900 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-700">
+                    <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
                         <i data-lucide="laptop" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
                         <h3 class="text-xl font-bold text-white mb-2">Computing & Accessories</h3>
                         <p class="text-gray-400">Supply of Laptops, Computer Components & Accessories, and office equipment like Paper Trimmers & Guillotine Machines.</p>
                     </div>
                     <!-- Service Card 5 (Combined remaining points) -->
-                    <div class="bg-gray-900 p-6 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-700">
+                    <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
                         <i data-lucide="receipt" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
                         <h3 class="text-xl font-bold text-white mb-2">Product Supply & Logistics</h3>
                         <p class="text-gray-400">Comprehensive Product Supply services across our entire portfolio, ensuring timely delivery and installation.</p>
@@ -341,31 +342,31 @@
                     <div class="logo-carousel" id="logoCarousel">
                         <!-- Logo items with grayscale on default, color on hover -->
                         <a href="https://www.orange.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img src="images/orange.png" alt="Orange" onerror="this.onerror=null;this.src='https://placehold.co/200x80/FF7900/ffffff?text=Orange'">
+                            <img loading="lazy" src="images/orange.png" alt="Orange" onerror="this.onerror=null;this.src='https://placehold.co/200x80/FF7900/ffffff?text=Orange'">
                         </a>
                         <a href="https://www.alfaegy.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img src="images/alfa.png" alt="Alfa Egypt" onerror="this.onerror=null;this.src='https://placehold.co/200x80/D2232A/ffffff?text=Alfa+Egypt'">
+                            <img loading="lazy" src="images/alfa.png" alt="Alfa Egypt" onerror="this.onerror=null;this.src='https://placehold.co/200x80/D2232A/ffffff?text=Alfa+Egypt'">
                         </a>
                         <a href="https://www.alfuttaim.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img src="images/Futim-Group.png" alt="Al-Futtaim Group" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim'">
+                            <img loading="lazy" src="images/Futim-Group.png" alt="Al-Futtaim Group" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim'">
                         </a>
                         <a href="https://www.pfizer.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img src="images/pfizer.png" alt="Pfizer" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0093D0/ffffff?text=Pfizer'">
+                            <img loading="lazy" src="images/pfizer.png" alt="Pfizer" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0093D0/ffffff?text=Pfizer'">
                         </a>
                         <a href="https://herostore.com.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img src="images/Hero_corporate_logo_RGB.png" alt="Hero Corporate" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B74DE/ffffff?text=Hero'">
+                            <img loading="lazy" src="images/Hero_corporate_logo_RGB.png" alt="Hero Corporate" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B74DE/ffffff?text=Hero'">
                         </a>
                         <a href="https://www.alfuttaim.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img src="images/futtaim.png" alt="Al-Futtaim ID" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim+ID'">
+                            <img loading="lazy" src="images/futtaim.png" alt="Al-Futtaim ID" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim+ID'">
                         </a>
                         <a href="https://www.vodafone.com.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img src="images/Vodafone_Logo_1.png" alt="Vodafone" onerror="this.onerror=null;this.src='https://placehold.co/200x80/E60000/ffffff?text=Vodafone'">
+                            <img loading="lazy" src="images/Vodafone_Logo_1.png" alt="Vodafone" onerror="this.onerror=null;this.src='https://placehold.co/200x80/E60000/ffffff?text=Vodafone'">
                         </a>
                         <a href="https://moi.gov.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img src="images/4orta.png" alt="Ministry of Internal Affairs" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0C5A32/ffffff?text=Ministry'">
+                            <img loading="lazy" src="images/4orta.png" alt="Ministry of Internal Affairs" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0C5A32/ffffff?text=Ministry'">
                         </a>
                         <a href="https://www.hc-si.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img src="images/hc.png" alt="HC Securities and Investment" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B3D91/ffffff?text=HC+Securities'">
+                            <img loading="lazy" src="images/hc.png" alt="HC Securities and Investment" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B3D91/ffffff?text=HC+Securities'">
                         </a>
                     </div>
                 </div>
@@ -374,72 +375,72 @@
                 <h3 class="text-2xl font-bold text-white mb-8 border-b border-gray-700 pb-3 mt-12">Additional Clients</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 additional-clients-grid">
                         <!-- Business-style client cards (English names, no icons) -->
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Sama Telecommunications Company</div>
                             <div class="text-sm text-gray-400">Enterprise Client</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Arabian Cement Company</div>
                             <div class="text-sm text-gray-400">Industrial Client</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">St. Fatima School</div>
                             <div class="text-sm text-gray-400">Education</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Nile Trading & Engineering</div>
                             <div class="text-sm text-gray-400">Commercial & Engineering</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">ENPPI (Engineering for Petroleum & Process Industries)</div>
                             <div class="text-sm text-gray-400">Energy & Petrochemical</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Shell Egypt</div>
                             <div class="text-sm text-gray-400">Energy & Petroleum</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">HC Securities & Investment</div>
                             <div class="text-sm text-gray-400">Financial Services</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Suez Canal Container Terminal (SCCT)</div>
                             <div class="text-sm text-gray-400">Logistics & Terminals</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Al Hossen Import & Export</div>
                             <div class="text-sm text-gray-400">Import / Export</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Alpha Misr for Trading</div>
                             <div class="text-sm text-gray-400">Trading</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Johnson & Johnson</div>
                             <div class="text-sm text-gray-400">Healthcare & Consumer Goods</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Fantasia Hotels Company</div>
                             <div class="text-sm text-gray-400">Hospitality</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Ain Shams University — Faculty of Pharmacy</div>
                             <div class="text-sm text-gray-400">Education</div>
                         </div>
 
-                        <div class="p-4 bg-gray-800 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-1">
+                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
                             <div class="text-white font-semibold">Crédit Agricole Bank</div>
                             <div class="text-sm text-gray-400">Banking & Finance</div>
                         </div>
@@ -460,7 +461,7 @@
 
                 <div class="lg:grid lg:grid-cols-3 lg:gap-12">
                     <!-- Contact Details -->
-                    <div class="lg:col-span-1 space-y-8 p-6 bg-gray-900 rounded-xl shadow-2xl">
+                    <div class="lg:col-span-1 space-y-8 p-6 bg-gray-900 rounded-xl shadow-md">
                         <div class="flex items-start space-x-4">
                             <i data-lucide="mail" class="fyrm-tech-accent h-6 w-6 flex-shrink-0 mt-1"></i>
                             <div>
@@ -488,7 +489,7 @@
                     </div>
 
                     <!-- Contact Form -->
-                    <div class="lg:col-span-2 mt-12 lg:mt-0 p-6 bg-gray-900 rounded-xl shadow-2xl">
+                    <div class="lg:col-span-2 mt-12 lg:mt-0 p-6 bg-gray-900 rounded-xl shadow-md">
                         <h3 class="text-2xl font-bold text-white mb-6">Send Us a Message</h3>
 
                         <!-- 
