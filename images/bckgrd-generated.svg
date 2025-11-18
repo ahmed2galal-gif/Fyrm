@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0f1724"/>
+      <stop offset="50%" stop-color="#0b2440"/>
+      <stop offset="100%" stop-color="#02131f"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" x2="1">
+      <stop offset="0%" stop-color="rgba(30,144,255,0.04)"/>
+      <stop offset="100%" stop-color="rgba(16,185,129,0.03)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base gradient -->
+  <rect width="100%" height="100%" fill="url(#g1)" />
+
+  <!-- Subtle diagonal overlay shapes -->
+  <g opacity="0.05">
+    <rect x="-200" y="-100" width="1600" height="600" fill="url(#g2)" transform="rotate(-12 400 200)" />
+    <rect x="400" y="300" width="1600" height="600" fill="url(#g2)" transform="rotate(-12 1200 600)" />
+  </g>
+
+  <!-- Subtle flowing lines -->
+  <g stroke-width="1.4" opacity="0.35" stroke-linecap="round">
+    <path d="M-50 900 C200 700, 700 600, 1300 700 S2100 920 2350 800" stroke="#0a5f96" fill="none"/>
+    <path d="M-100 760 C150 620, 650 540, 1250 640 S2050 860 2300 740" stroke="#084c7a" fill="none"/>
+  </g>
+
+  <!-- Subtle faint grid for tech feel -->
+  <pattern id="grid" width="120" height="120" patternUnits="userSpaceOnUse">
+    <path d="M 120 0 L 0 0 0 120" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  </pattern>
+  <rect width="100%" height="100%" fill="url(#grid)" opacity="0.5" />
+
+  <!-- Soft vignette to keep center readable -->
+  <radialGradient id="vign" cx="50%" cy="40%">
+    <stop offset="0%" stop-color="rgba(0,0,0,0)" />
+    <stop offset="100%" stop-color="rgba(0,0,0,0.55)" />
+  </radialGradient>
+  <rect width="100%" height="100%" fill="url(#vign)" />
+
+  <!-- Footer accent bar -->
+  <rect y="980" width="100%" height="100" fill="rgba(5,30,60,0.16)" />
+</svg>

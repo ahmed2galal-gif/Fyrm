@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "FYRMTECH static site",
   "scripts": {
-    "optimize-images": "node scripts/optimize-images.js images/bckgrd.jpg"
+    "optimize-images": "node scripts/optimize-images.js images/bckgrd.jpg",
+    "rasterize-bg": "node scripts/svg-to-raster.js images/bckgrd-generated.svg",
+    "rasterize-all": "node scripts/svg-to-raster.js images/bckgrd-generated.svg && node scripts/svg-to-raster.js images/about-bg.svg && node scripts/svg-to-raster.js images/services-bg.svg && node scripts/svg-to-raster.js images/contact-bg.svg"
   },
   "author": "",
   "license": "MIT",
