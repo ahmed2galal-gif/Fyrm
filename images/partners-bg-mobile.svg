@@ -1,0 +1,39 @@
+<svg width="800" height="1400" viewBox="0 0 800 1400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="partnerBaseMobile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <radialGradient id="mobileGlow" cx="0.5" cy="0.35" r="0.65">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.22"/>
+      <stop offset="75%" stop-color="#0f172a" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="mobileGrid" width="90" height="90" patternUnits="userSpaceOnUse">
+      <path d="M90 0H0V90" fill="none" stroke="#334155" stroke-width="0.5" stroke-opacity="0.15"/>
+    </pattern>
+    <pattern id="mobileDots" width="70" height="70" patternUnits="userSpaceOnUse">
+      <circle cx="35" cy="35" r="1.2" fill="#475569" fill-opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <rect width="800" height="1400" fill="url(#partnerBaseMobile)"/>
+  <rect width="800" height="1400" fill="url(#mobileGlow)"/>
+  <rect width="800" height="1400" fill="url(#mobileGrid)" opacity="0.45"/>
+  <rect width="800" height="1400" fill="url(#mobileDots)" opacity="0.35"/>
+  
+  <!-- Minimal mobile partnership connections -->
+  <g stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.18" fill="none">
+    <path d="M180 350 C350 300 550 330 680 290"/>
+    <path d="M150 780 C350 720 550 760 700 700"/>
+    <path d="M200 1150 C400 1090 600 1130 720 1070"/>
+  </g>
+  
+  <g fill="#3b82f6" fill-opacity="0.28" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.35">
+    <circle cx="180" cy="350" r="4"/>
+    <circle cx="680" cy="290" r="3"/>
+    <circle cx="350" cy="720" r="4"/>
+    <circle cx="700" cy="700" r="3"/>
+    <circle cx="400" cy="1090" r="4"/>
+  </g>
+</svg>

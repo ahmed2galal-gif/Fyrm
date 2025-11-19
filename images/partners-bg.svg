@@ -1,0 +1,45 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="partnerBase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <radialGradient id="partnerGlow1" cx="0.3" cy="0.4" r="0.5">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.25"/>
+      <stop offset="70%" stop-color="#0f172a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="partnerGlow2" cx="0.7" cy="0.6" r="0.6">
+      <stop offset="0%" stop-color="#1e40af" stop-opacity="0.2"/>
+      <stop offset="80%" stop-color="#0f172a" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="partnerGrid" width="100" height="100" patternUnits="userSpaceOnUse">
+      <path d="M100 0H0V100" fill="none" stroke="#334155" stroke-width="0.5" stroke-opacity="0.12"/>
+    </pattern>
+    <pattern id="partnerDots" width="80" height="80" patternUnits="userSpaceOnUse">
+      <circle cx="40" cy="40" r="1.5" fill="#475569" fill-opacity="0.2"/>
+      <circle cx="0" cy="0" r="1" fill="#475569" fill-opacity="0.15"/>
+    </pattern>
+  </defs>
+  
+  <rect width="1600" height="900" fill="url(#partnerBase)"/>
+  <rect width="1600" height="900" fill="url(#partnerGlow1)"/>
+  <rect width="1600" height="900" fill="url(#partnerGlow2)"/>
+  <rect width="1600" height="900" fill="url(#partnerGrid)" opacity="0.5"/>
+  <rect width="1600" height="900" fill="url(#partnerDots)" opacity="0.4"/>
+  
+  <!-- Minimal connection lines -->
+  <g stroke="#3b82f6" stroke-width="1" stroke-opacity="0.15" fill="none">
+    <path d="M250 250 Q500 400 750 300 T1200 350"/>
+    <path d="M350 650 Q650 550 950 700 T1350 650"/>
+  </g>
+  
+  <!-- Small partnership nodes -->
+  <g fill="#3b82f6" fill-opacity="0.25" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.3">
+    <circle cx="250" cy="250" r="4"/>
+    <circle cx="750" cy="300" r="3"/>
+    <circle cx="1200" cy="350" r="4"/>
+    <circle cx="350" cy="650" r="3"/>
+    <circle cx="950" cy="700" r="4"/>
+  </g>
+</svg>

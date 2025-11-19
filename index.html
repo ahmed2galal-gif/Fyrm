@@ -98,7 +98,7 @@
         }
 
         /* Section backgrounds (prefer raster WebP/JPG when available, fall back to SVG) */
-        .about-bg, .services-bg, .contact-bg {
+        .about-bg, .services-bg, .contact-bg, .partners-bg {
             background-position: center center;
             background-size: cover;
             background-repeat: no-repeat;
@@ -107,6 +107,11 @@
             padding-bottom: 2rem;
             margin-top: -4rem;
             padding-top: 6rem;
+        }
+
+        .partners-bg {
+            background-image: image-set(url('images/partners-bg-large.webp') type('image/webp') 1x, url('images/partners-bg-large.jpg') type('image/jpeg') 1x);
+            background-image: url('images/partners-bg.svg');
         }
 
         .about-bg {
@@ -162,9 +167,10 @@
             .services-bg { background-image: url('images/services-bg-mobile.svg') !important; }
             .contact-bg { background-image: url('images/contact-bg-mobile.svg') !important; }
             .clients-bg { background-image: url('images/clients-bg-mobile.svg') !important; }
+            .partners-bg { background-image: url('images/partners-bg-mobile.svg') !important; }
 
             /* Section containers */
-            .about-bg, .services-bg, .contact-bg, .clients-bg {
+            .about-bg, .services-bg, .contact-bg, .clients-bg, .partners-bg {
                 margin-top: 0;
                 padding-top: 3.5rem !important;
                 padding-bottom: 3.5rem !important;
@@ -313,14 +319,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: transparent;
-            border-radius: 0.5rem;
             padding: clamp(1rem, 2vw, 1.5rem);
-            transition: transform 220ms ease;
+            transition: all 250ms ease;
             cursor: pointer;
             min-height: clamp(140px, 25vw, 200px);
             text-decoration: none;
             will-change: transform;
+            position: relative;
         }
 
         .logo-carousel-item:hover {
@@ -333,9 +338,9 @@
             max-width: clamp(120px, 20vw, 180px);
             max-height: clamp(110px, 18vw, 150px);
             object-fit: contain;
-            filter: grayscale(100%);
-            opacity: 0.65;
-            transition: filter 220ms ease, opacity 220ms ease;
+            filter: grayscale(100%) brightness(1.4);
+            opacity: 0.75;
+            transition: filter 250ms ease, opacity 250ms ease, transform 250ms ease;
             will-change: filter, opacity;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -343,8 +348,9 @@
         }
 
         .logo-carousel-item:hover img {
-            filter: grayscale(0%);
+            filter: grayscale(0%) brightness(1);
             opacity: 1;
+            transform: scale(1.03) translateZ(0);
         }
 
 
@@ -370,6 +376,7 @@
                     <a href="#about" class="text-gray-300 hover:text-white transition duration-200">About Us</a>
                     <a href="#services" class="text-gray-300 hover:text-white transition duration-200">Services</a>
                     <a href="#clients" class="text-gray-300 hover:text-white transition duration-200">Clients</a>
+                    <a href="#partners" class="text-gray-300 hover:text-white transition duration-200">Partners</a>
                     <a href="#contact" class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md">Contact</a>
                 </nav>
                 <!-- Mobile Menu Button (Hamburger) -->
@@ -389,6 +396,7 @@
                 <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">About Us</a>
                 <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Services</a>
                 <a href="#clients" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Clients</a>
+                <a href="#partners" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Partners</a>
                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700">Contact</a>
             </div>
         </nav>
@@ -536,7 +544,7 @@
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
                 <div class="text-center mb-8 sm:mb-12">
-                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label">Our Valued Partners</h2>
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label">Trusted Clients</h2>
                     <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
                         Trusted by Industry Leaders
                     </p>
@@ -655,6 +663,69 @@
                         </div>
                     </div>
 
+            </div>
+        </section>
+
+        <!-- Partners Section -->
+        <section id="partners" class="py-16 md:py-24 bg-slate-900 services-bg">
+            <div class="dots-pattern"></div>
+            <div class="section-divider"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label">Technology Partners</h2>
+                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
+                        Strategic Technology Partnerships
+                    </p>
+                    <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">
+                        We collaborate with industry-leading technology providers to deliver cutting-edge solutions and exceptional service to our clients.
+                    </p>
+                </div>
+
+                <!-- Partner Logos Carousel (same style as main clients) -->
+                <div class="carousel-wrapper">
+                    <div class="logo-carousel" id="partnerCarousel">
+                        <!-- Cisco -->
+                        <a href="https://www.cisco.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/Cisco_logo.svg" alt="Cisco" onerror="this.onerror=null;">
+                        </a>
+                        <!-- Microsoft -->
+                        <a href="https://www.microsoft.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/Microsoft_logo_(2012).svg" alt="Microsoft" onerror="this.onerror=null;">
+                        </a>
+                        <!-- Sophos -->
+                        <a href="https://www.sophos.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/Sophos_logo.svg" alt="Sophos" onerror="this.onerror=null;">
+                        </a>
+                        <!-- HPE Aruba -->
+                        <a href="https://www.arubanetworks.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/Aruba_Networks-Logo.wine.svg" alt="HPE Aruba" onerror="this.onerror=null;">
+                        </a>
+                        <!-- Forcepoint -->
+                        <a href="https://www.forcepoint.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/Forcepointx.svg" alt="Forcepoint" onerror="this.onerror=null;">
+                        </a>
+                        <!-- Fortinet -->
+                        <a href="https://www.fortinet.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/fortinet-white.svg" alt="Fortinet" onerror="this.onerror=null;">
+                        </a>
+                        <!-- Nexans -->
+                        <a href="https://www.nexans.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/NEX.PA_BIG.D.svg" alt="Nexans" onerror="this.onerror=null;">
+                        </a>
+                        <!-- Juniper -->
+                        <a href="https://www.juniper.net/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/JNPR_BIG.D.svg" alt="Juniper Networks" onerror="this.onerror=null;">
+                        </a>
+                        <!-- Splunk -->
+                        <a href="https://www.splunk.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/SPLK_BIG.svg" alt="Splunk" onerror="this.onerror=null;" style="filter: grayscale(100%) brightness(1.4) invert(1);">
+                        </a>
+                        <!-- IBM -->
+                        <a href="https://www.ibm.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/IBM_logo.svg" alt="IBM" onerror="this.onerror=null;">
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
