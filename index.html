@@ -760,6 +760,62 @@
             overflow-x: visible;
         }
 
+        /* WhatsApp floating button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-float svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        /* RTL adjustment for WhatsApp button */
+        [dir="rtl"] .whatsapp-float {
+            right: auto;
+            left: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            [dir="rtl"] .whatsapp-float {
+                right: auto;
+                left: 20px;
+            }
+
+            .whatsapp-float svg {
+                width: 26px;
+                height: 26px;
+            }
+        }
+
         /* Logo items - larger, responsive and optimized for smooth animations */
         .logo-carousel-item {
             flex: 0 0 calc(25% - 2rem);
@@ -1475,6 +1531,13 @@
             </div>
         </section>
     </main>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/201555111502" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Contact us on WhatsApp">
+        <svg viewBox="0 0 32 32" fill="currentColor">
+            <path d="M16.002 0C7.164 0 0 7.163 0 16c0 2.838.744 5.498 2.047 7.806L.092 31.902l8.261-2.142A15.922 15.922 0 0016.002 32C24.839 32 32 24.837 32 16S24.839 0 16.002 0zm9.381 22.852c-.384 1.084-2.264 2.102-3.127 2.218-.837.115-1.923.155-3.093-.194-.71-.213-1.622-.496-2.785-.972-4.868-2.107-8.046-7.001-8.288-7.325-.243-.324-1.987-2.643-1.987-5.042s1.258-3.578 1.704-4.065c.446-.487.973-.609 1.297-.609s.649.003.934.017c.299.015.701-.114 1.097 1.06.398 1.184 1.358 3.318 1.479 3.563.121.244.202.53.04.854-.162.324-.243.527-.486.812-.244.284-.513.635-.732.853-.244.243-.497.507-.214.994.284.487 1.262 2.08 2.707 3.37 1.859 1.656 3.426 2.17 3.912 2.414.486.244.769.203 1.053-.122.284-.324 1.219-1.425 1.544-1.913.324-.487.649-.405 1.094-.244.446.162 2.828 1.335 3.314 1.579.486.244.81.365.933.568.12.203.12 1.175-.265 2.259z"></path>
+        </svg>
+    </a>
 
     <!-- Footer -->
     <footer class="bg-gray-900 border-t border-gray-700">
