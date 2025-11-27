@@ -3,22 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FYRMTECH provides enterprise-grade FTTx, network infrastructure, security systems, and IT solutions. 15+ years serving industry leaders across Egypt.">
+    <meta name="keywords" content="FTTx, network infrastructure, fiber optic, CCTV, access control, IT solutions, Egypt">
+    <meta name="theme-color" content="#3b82f6">
     <title>FYRMTECH - FTTx & Network Infrastructure Solutions</title>
     <link rel="icon" href="images/fyrmtech-logo.png">
-    <!-- Load Tailwind CSS -->
-    <!-- Preconnect to Google Fonts for faster loading -->
+    <!-- DNS Prefetch and Preconnect for external resources -->
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <!-- Optimized font loading with font-display swap -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <!-- Improved favicon declaration -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/fyrmtech-logo.png">
-    <!-- Preload likely-critical background images (will be ignored if not generated) -->
-    <link rel="preload" as="image" href="images/bckgrd-generated-large.webp" type="image/webp">
-    <link rel="preload" as="image" href="images/about-bg-large.webp" type="image/webp">
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="images/hero.jpg" type="image/jpeg">
+    <link rel="preload" as="image" href="images/service-network-infrastructure.jpg" type="image/jpeg">
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons -->
+    <!-- Load Lucide Icons with defer -->
     <script src="https://unpkg.com/lucide@latest" defer></script>
     <style>
+        /* Performance optimizations */
+        * {
+            box-sizing: border-box;
+        }
+        
+        /* Use containment for better rendering performance */
+        section {
+            contain: layout style;
+        }
+        
+        /* Use GPU acceleration for animations */
+        .carousel-dot,
+        .service-feature-item,
+        .logo-carousel-item,
+        .group {
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        
+        /* Remove will-change after animation completes to free resources */
+        .carousel-dot:not(:hover):not(.active),
+        .service-feature-item:not(:hover),
+        .logo-carousel-item:not(:hover) {
+            will-change: auto;
+        }
+        
+        /* Optimize animations */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
         /* Custom font and base styles */
         html {
             scroll-padding-top: 80px; /* Offset for fixed header */
@@ -648,7 +692,7 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo/Brand Name -->
                     <a href="#home" class="flex items-center space-x-4" aria-label="FYRMTECH - Home">
-                        <img src="images/fyrmtech-logo.png" alt="FYRMTECH Logo" class="h-10 w-auto max-h-10" width="40" height="40">
+                        <img src="images/fyrmtech-logo.png" alt="FYRMTECH Logo" class="h-10 w-auto max-h-10" width="40" height="40" loading="eager" decoding="async">
                         <span class="sr-only">FYRMTECH Home</span>
                         <span class="text-2xl font-extrabold fyrm-tech-accent">
                             FYRM<span class="text-white">TECH</span>
@@ -715,6 +759,8 @@
                      class="hero-desktop-img opacity-40"
                      width="1920"
                      height="1080"
+                     fetchpriority="high"
+                     decoding="async"
                      onerror="this.onerror=null;this.src='https://placehold.co/1600x900/1f2a37/ffffff?text=Placeholder+Image'">
             </div>
         </section>
@@ -749,7 +795,10 @@
                             <!-- Dynamic Image Placeholder: Team/Collaboration -->
                             <img src="images/Gemini_Generaffffff.jpg" 
                                  alt="Engineers collaborating on a systems integration project" 
-                                 class="w-full h-24 sm:h-32 object-cover rounded-lg mb-4" 
+                                 class="w-full h-24 sm:h-32 object-cover rounded-lg mb-4"
+                                 loading="lazy"
+                                 decoding="async"
+                                 width="600" height="300"
                                  onerror="this.onerror=null;this.src='https://placehold.co/600x300/1e3a8a/ffffff?text=Placeholder+Image'">
                             
                             <div class="flex items-center space-x-3">
@@ -792,7 +841,9 @@
                             <img src="images/service-network-infrastructure.jpg" 
                                  alt="Network Infrastructure Solutions" 
                                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                                 width="800" height="600">
+                                 width="800" height="600"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
                         </div>
                         <div class="relative p-6 md:p-8">
@@ -812,7 +863,7 @@
                                 <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20">Network Design</span>
                                 <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20">Data Distribution</span>
                             </div>
-                            <button onclick="openServiceModal('network')" class="mt-6 inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group/btn">
+                            <button onclick="openServiceModal('network')" aria-label="Read more about Network Infrastructure services" class="mt-6 inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group/btn">
                                 <span>Read More</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
                             </button>
@@ -826,7 +877,9 @@
                             <img src="images/service-security-access.jpg" 
                                  alt="Security & Access Control Systems" 
                                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                                 width="800" height="600">
+                                 width="800" height="600"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
                         </div>
                         <div class="relative p-6 md:p-8">
@@ -846,7 +899,7 @@
                                 <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20">CCTV Systems</span>
                                 <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20">Data Safes</span>
                             </div>
-                            <button onclick="openServiceModal('security')" class="mt-6 inline-flex items-center space-x-2 text-red-400 hover:text-red-300 font-semibold transition-colors group/btn">
+                            <button onclick="openServiceModal('security')" aria-label="Read more about Security & Access Control services" class="mt-6 inline-flex items-center space-x-2 text-red-400 hover:text-red-300 font-semibold transition-colors group/btn">
                                 <span>Read More</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
                             </button>
@@ -860,7 +913,9 @@
                             <img src="images/service-office-equipment.jpg" 
                                  alt="Office & Data Equipment" 
                                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                                 width="800" height="600">
+                                 width="800" height="600"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
                         </div>
                         <div class="relative p-6 md:p-8">
@@ -880,7 +935,7 @@
                                 <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20">Plotters</span>
                                 <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20">Shredders</span>
                             </div>
-                            <button onclick="openServiceModal('office')" class="mt-6 inline-flex items-center space-x-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors group/btn">
+                            <button onclick="openServiceModal('office')" aria-label="Read more about Office & Data Equipment services" class="mt-6 inline-flex items-center space-x-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors group/btn">
                                 <span>Read More</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
                             </button>
@@ -894,7 +949,9 @@
                             <img src="images/service-computing.jpg" 
                                  alt="Computing & Accessories" 
                                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                                 width="800" height="600">
+                                 width="800" height="600"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
                         </div>
                         <div class="relative p-6 md:p-8">
@@ -914,7 +971,7 @@
                                 <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">Components</span>
                                 <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">Accessories</span>
                             </div>
-                            <button onclick="openServiceModal('computing')" class="mt-6 inline-flex items-center space-x-2 text-purple-400 hover:text-purple-300 font-semibold transition-colors group/btn">
+                            <button onclick="openServiceModal('computing')" aria-label="Read more about Computing & Accessories services" class="mt-6 inline-flex items-center space-x-2 text-purple-400 hover:text-purple-300 font-semibold transition-colors group/btn">
                                 <span>Read More</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
                             </button>
@@ -930,7 +987,9 @@
                             <img src="images/service-product-supply.jpg" 
                                  alt="Product Supply & Logistics" 
                                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                                 width="800" height="600">
+                                 width="800" height="600"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent lg:bg-gradient-to-r"></div>
                         </div>
                         <div class="relative p-6 md:p-8 lg:p-10 flex flex-col justify-center order-1 lg:order-2">
@@ -949,7 +1008,7 @@
                                 <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Full Support</span>
                                 <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Quality Assured</span>
                             </div>
-                            <button onclick="openServiceModal('supply')" class="mt-6 inline-flex items-center space-x-2 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors group/btn">
+                            <button onclick="openServiceModal('supply')" aria-label="Read more about Product Supply & Logistics services" class="mt-6 inline-flex items-center space-x-2 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors group/btn">
                                 <span>Read More</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
                             </button>
@@ -1310,6 +1369,13 @@
             const carousel = document.getElementById('logoCarousel');
             const dotsContainer = document.getElementById('carouselDots');
             const items = carousel.querySelectorAll('.logo-carousel-item');
+            
+            // Safety check
+            if (!carousel || !dotsContainer || items.length === 0) {
+                console.warn('Carousel elements not found or no items present');
+                return;
+            }
+            
             let currentIndex = 0;
             let autoScrollInterval;
 
@@ -1380,6 +1446,8 @@
 
             // Go to specific page with smooth elegant animation
             function goToPage(pageIndex) {
+                if (!items || items.length === 0) return;
+                
                 const visibleItems = getVisibleItems();
                 const totalPages = getTotalPages();
                 
@@ -1406,12 +1474,15 @@
                 }
                 
                 const targetItem = items[currentIndex];
+                if (!targetItem) return;
                 
                 // Add smooth transition effect with enhanced timing
                 items.forEach((item, index) => {
-                    item.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                    item.style.opacity = '0.5';
-                    item.style.transform = 'scale(0.96)';
+                    if (item) {
+                        item.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                        item.style.opacity = '0.5';
+                        item.style.transform = 'scale(0.96)';
+                    }
                 });
                 
                 // Use native smooth scrolling for seamless transition
@@ -1474,7 +1545,7 @@
             carousel.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
             carousel.addEventListener('mouseleave', () => startAutoScroll());
 
-            // Recreate dots on window resize
+            // Recreate dots on window resize with debouncing for better performance
             let resizeTimer;
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimer);
@@ -1482,8 +1553,21 @@
                     createDots();
                     updateDots();
                 }, 250);
-            });
+            }, { passive: true });
         });
+
+        // Debounce function for performance
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
 
         // Double-tap to redirect for logo carousel on mobile
         document.addEventListener('DOMContentLoaded', function() {
@@ -1520,9 +1604,22 @@
         // Optional: Smooth scrolling for all internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                // Skip if it's just "#" or if the target doesn't exist
+                if (href === '#' || !document.querySelector(href)) return;
+                
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+                const target = document.querySelector(href);
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+                
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
             });
         });
@@ -1739,75 +1836,92 @@
             
             const service = serviceDetails[serviceType];
             
-            // Set title and icon
-            modalTitle.textContent = service.title;
-            modalIcon.className = `p-4 rounded-xl ${service.iconBg} border ${service.iconBorder}`;
-            modalIcon.innerHTML = `<i data-lucide="${service.icon}" class="h-8 w-8 ${service.iconColor}"></i>`;
-            
-            // Build content
-            let contentHTML = `
-                <p class="text-lg text-gray-300 leading-relaxed mb-8">${service.description}</p>
-                <h3 class="text-2xl font-bold text-white mb-6">Key Features & Capabilities</h3>
-                <div class="space-y-4">
-            `;
-            
-            service.features.forEach(feature => {
-                contentHTML += `
-                    <div class="service-feature-item">
-                        <div class="flex-shrink-0 mr-4">
-                            <div class="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                                <i data-lucide="${feature.icon}" class="h-6 w-6 text-blue-400"></i>
+            // Use requestAnimationFrame for smooth rendering
+            requestAnimationFrame(() => {
+                // Set title and icon
+                modalTitle.textContent = service.title;
+                modalIcon.className = `p-4 rounded-xl ${service.iconBg} border ${service.iconBorder}`;
+                modalIcon.innerHTML = `<i data-lucide="${service.icon}" class="h-8 w-8 ${service.iconColor}"></i>`;
+                
+                // Build content using DocumentFragment for better performance
+                const fragment = document.createDocumentFragment();
+                const container = document.createElement('div');
+                
+                let contentHTML = `
+                    <p class="text-lg text-gray-300 leading-relaxed mb-8">${service.description}</p>
+                    <h3 class="text-2xl font-bold text-white mb-6">Key Features & Capabilities</h3>
+                    <div class="space-y-4">
+                `;
+                
+                service.features.forEach(feature => {
+                    contentHTML += `
+                        <div class="service-feature-item">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                                    <i data-lucide="${feature.icon}" class="h-6 w-6 text-blue-400"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">${feature.title}</h4>
+                                <p class="text-gray-400">${feature.description}</p>
                             </div>
                         </div>
-                        <div>
-                            <h4 class="text-lg font-semibold text-white mb-2">${feature.title}</h4>
-                            <p class="text-gray-400">${feature.description}</p>
-                        </div>
+                    `;
+                });
+                
+                contentHTML += `
+                    </div>
+                    <div class="mt-10 p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-500/20">
+                        <h4 class="text-xl font-bold text-white mb-3">Ready to Get Started?</h4>
+                        <p class="text-gray-300 mb-4">Contact us today to discuss your specific requirements and receive a customized solution proposal.</p>
+                        <a href="#contact" onclick="closeServiceModal()" class="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300">
+                            <span>Contact Us</span>
+                            <i data-lucide="arrow-right" class="h-4 w-4"></i>
+                        </a>
                     </div>
                 `;
+                
+                container.innerHTML = contentHTML;
+                fragment.appendChild(container);
+                modalContent.innerHTML = '';
+                modalContent.appendChild(fragment);
+                
+                // Reinitialize Lucide icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+                
+                // Show modal
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
-            
-            contentHTML += `
-                </div>
-                <div class="mt-10 p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-500/20">
-                    <h4 class="text-xl font-bold text-white mb-3">Ready to Get Started?</h4>
-                    <p class="text-gray-300 mb-4">Contact us today to discuss your specific requirements and receive a customized solution proposal.</p>
-                    <a href="#contact" onclick="closeServiceModal()" class="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300">
-                        <span>Contact Us</span>
-                        <i data-lucide="arrow-right" class="h-4 w-4"></i>
-                    </a>
-                </div>
-            `;
-            
-            modalContent.innerHTML = contentHTML;
-            
-            // Reinitialize Lucide icons
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-            
-            // Show modal
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
         function closeServiceModal() {
             const modal = document.getElementById('serviceModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         }
 
         // Close modal on background click
-        document.getElementById('serviceModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeServiceModal();
-            }
-        });
+        const serviceModal = document.getElementById('serviceModal');
+        if (serviceModal) {
+            serviceModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeServiceModal();
+                }
+            });
+        }
 
         // Close modal on Escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeServiceModal();
+            if (e.key === 'Escape' || e.key === 'Esc') {
+                const modal = document.getElementById('serviceModal');
+                if (modal && modal.classList.contains('active')) {
+                    closeServiceModal();
+                }
             }
         });
 
