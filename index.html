@@ -325,6 +325,7 @@
 
         .logo-carousel-item {
             scroll-snap-align: start;
+            flex-shrink: 0;
         }
 
         /* Carousel dots navigation - Professional business style */
@@ -335,6 +336,12 @@
             justify-content: center;
             align-items: center;
             padding: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-dots {
+                display: none;
+            }
         }
 
         .carousel-dot {
@@ -436,13 +443,19 @@
 
         @media (max-width: 768px) {
             .logo-carousel-item {
-                flex: 0 0 clamp(160px, 45vw, 200px);
+                flex: 0 0 clamp(140px, 40vw, 180px);
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 400px) {
             .logo-carousel-item {
-                flex: 0 0 calc(50% - 1rem);
+                flex: 0 0 calc(50% - 0.75rem);
+                min-width: calc(50% - 0.75rem);
+                max-width: calc(50% - 0.75rem);
+            }
+            
+            .logo-carousel {
+                gap: 1.5rem;
             }
         }
 
@@ -991,22 +1004,14 @@
                 const itemWidth = items[0].offsetWidth;
                 const gap = parseFloat(getComputedStyle(carousel).gap) || 0;
                 const visible = Math.floor(carouselWidth / (itemWidth + gap));
-                // On mobile, show 3-4 items per page to significantly reduce dots
-                if (window.innerWidth <= 768) {
-                    return Math.max(visible, 3);
-                }
-                return visible;
+                // Ensure at least 1 item is visible
+                return Math.max(visible, 1);
             }
 
-            // Calculate total pages - limit max dots on mobile
+            // Calculate total pages
             function getTotalPages() {
                 const visibleItems = getVisibleItems();
-                const totalPages = Math.ceil(items.length / visibleItems);
-                // On mobile, limit to max 5 dots
-                if (window.innerWidth <= 768) {
-                    return Math.min(totalPages, 5);
-                }
-                return totalPages;
+                return Math.ceil(items.length / visibleItems);
             }
 
             // Create dots based on pages
