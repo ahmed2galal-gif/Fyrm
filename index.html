@@ -305,6 +305,13 @@
             overflow: hidden;
         }
 
+        @media (max-width: 768px) {
+            .carousel-wrapper {
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+        }
+
         .logo-carousel {
             display: flex;
             gap: clamp(1.5rem, 4vw, 2.5rem);
@@ -341,6 +348,9 @@
         @media (max-width: 768px) {
             .carousel-dots {
                 display: none;
+                margin-top: 0;
+                padding: 0;
+                height: 0;
             }
         }
 
@@ -1003,15 +1013,32 @@
                 const carouselWidth = carousel.offsetWidth;
                 const itemWidth = items[0].offsetWidth;
                 const gap = parseFloat(getComputedStyle(carousel).gap) || 0;
-                const visible = Math.floor(carouselWidth / (itemWidth + gap));
-                // Ensure at least 1 item is visible
-                return Math.max(visible, 1);
+                let visible = Math.floor(carouselWidth / (itemWidth + gap));
+                // Ensure at least 1 item is visible and cap at reasonable max
+                visible = Math.max(visible, 1);
+                visible = Math.min(visible, items.length);
+                return visible;
             }
 
-            // Calculate total pages
+            // Calculate total pages - avoid extra dot for partial pages
             function getTotalPages() {
                 const visibleItems = getVisibleItems();
-                return Math.ceil(items.length / visibleItems);
+                const totalItems = items.length;
+                
+                // Calculate pages but limit to reasonable maximum
+                let pagesNeeded = Math.ceil(totalItems / visibleItems);
+                
+                // Hard cap: if we have 22 items on desktop, max 7 pages
+                if (window.innerWidth > 768 && totalItems === 22 && pagesNeeded > 7) {
+                    pagesNeeded = 7;
+                }
+                
+                // On narrow mobile devices (showing 2 items), force exactly 11 pages for 22 items
+                if (window.innerWidth <= 400 && totalItems === 22) {
+                    pagesNeeded = 11; // Force 11 pages (22 items / 2 per page)
+                }
+                
+                return Math.max(pagesNeeded, 1);
             }
 
             // Create dots based on pages
@@ -1032,7 +1059,14 @@
             // Update active dot
             function updateDots() {
                 const dots = dotsContainer.querySelectorAll('.carousel-dot');
-                const currentPage = Math.floor(currentIndex / getVisibleItems());
+                let currentPage;
+                
+                // On narrow mobile, calculate page based on 2 items per page
+                if (window.innerWidth <= 400 && items.length === 22) {
+                    currentPage = Math.floor(currentIndex / 2);
+                } else {
+                    currentPage = Math.floor(currentIndex / getVisibleItems());
+                }
                 
                 dots.forEach((dot, index) => {
                     dot.classList.toggle('active', index === currentPage);
@@ -1042,10 +1076,28 @@
             // Go to specific page with smooth elegant animation
             function goToPage(pageIndex) {
                 const visibleItems = getVisibleItems();
-                currentIndex = pageIndex * visibleItems;
+                const totalPages = getTotalPages();
                 
-                if (currentIndex >= items.length) {
-                    currentIndex = 0;
+                // Clamp pageIndex to valid range
+                pageIndex = Math.max(0, Math.min(pageIndex, totalPages - 1));
+                
+                // On narrow mobile (22 items showing 2 at a time), use exact calculation
+                if (window.innerWidth <= 400 && items.length === 22) {
+                    // Each page shows exactly 2 items: page 0 = items 0-1, page 10 = items 20-21
+                    currentIndex = pageIndex * 2;
+                    // Ensure we don't exceed array bounds (max index is 21 for 22 items)
+                    currentIndex = Math.min(currentIndex, items.length - 1);
+                } else {
+                    // Calculate the scroll position normally
+                    currentIndex = pageIndex * visibleItems;
+                    
+                    // For desktop/wider mobile, align last page to show remaining items
+                    if (pageIndex >= totalPages - 1) {
+                        currentIndex = Math.max(0, items.length - visibleItems);
+                    }
+                    
+                    // Ensure valid bounds for non-narrow mobile
+                    currentIndex = Math.max(0, Math.min(currentIndex, items.length - 1));
                 }
                 
                 const targetItem = items[currentIndex];
@@ -1080,7 +1132,15 @@
             // Auto scroll to next page
             function autoScroll() {
                 const totalPages = getTotalPages();
-                const currentPage = Math.floor(currentIndex / getVisibleItems());
+                let currentPage;
+                
+                // On narrow mobile, calculate page based on 2 items per page
+                if (window.innerWidth <= 400 && items.length === 22) {
+                    currentPage = Math.floor(currentIndex / 2);
+                } else {
+                    currentPage = Math.floor(currentIndex / getVisibleItems());
+                }
+                
                 const nextPage = (currentPage + 1) % totalPages;
                 goToPage(nextPage);
             }
