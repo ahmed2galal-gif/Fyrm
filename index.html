@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,8 @@
     <link rel="preconnect" href="https://unpkg.com">
     <!-- Optimized font loading with font-display swap -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Arabic Font (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&display=swap" rel="stylesheet">
     <!-- Improved favicon declaration -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/fyrmtech-logo.png">
     <!-- Preload critical images -->
@@ -30,6 +32,116 @@
         /* Performance optimizations */
         * {
             box-sizing: border-box;
+        }
+        
+        /* RTL Support */
+        [dir="rtl"] {
+            font-family: 'Cairo', 'Inter', sans-serif;
+            word-spacing: 0.1em;
+            letter-spacing: 0.01em;
+        }
+        
+        [dir="rtl"] h1,
+        [dir="rtl"] h2,
+        [dir="rtl"] h3,
+        [dir="rtl"] h4,
+        [dir="rtl"] h5 {
+            word-spacing: 0.15em;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Fix navigation spacing in RTL */
+        [dir="rtl"] nav a {
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        
+        [dir="rtl"] nav.hidden.md\:flex {
+            gap: 2rem;
+        }
+        
+        /* Add spacing between service icons and titles - override Tailwind */
+        [dir="rtl"] .space-x-3 > * + * {
+            margin-left: 0 !important;
+            margin-right: 1rem !important;
+        }
+        
+        [dir="ltr"] .space-x-3 > * + * {
+            margin-right: 0 !important;
+            margin-left: 0.75rem !important;
+        }
+        
+        /* Fix modal header icon-title spacing */
+        [dir="rtl"] .space-x-4 > * + * {
+            margin-left: 0 !important;
+            margin-right: 1.5rem !important;
+        }
+        
+        [dir="ltr"] .space-x-4 > * + * {
+            margin-right: 0 !important;
+            margin-left: 1rem !important;
+        }
+        
+        [dir="rtl"] .carousel-dot {
+            margin-left: 0.5rem;
+            margin-right: 0;
+        }
+        
+        [dir="ltr"] .carousel-dot {
+            margin-right: 0.5rem;
+            margin-left: 0;
+        }
+        
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 5rem;
+            right: 1rem;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        [dir="rtl"] .lang-switcher {
+            right: auto;
+            left: 1rem;
+        }
+        
+        .lang-switcher button {
+            background: linear-gradient(135deg, rgb(37, 99, 235), rgb(59, 130, 246));
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .lang-switcher button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4), 0 4px 6px -2px rgba(59, 130, 246, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .lang-switcher {
+                top: 4.5rem;
+                right: 0.5rem;
+            }
+            
+            [dir="rtl"] .lang-switcher {
+                right: auto;
+                left: 0.5rem;
+            }
+            
+            .lang-switcher button {
+                padding: 0.625rem 1rem;
+                font-size: 0.8125rem;
+            }
         }
         
         /* Use containment for better rendering performance */
@@ -409,11 +521,21 @@
             padding-right: 4rem;
             z-index: 10;
         }
+        
+        [dir="rtl"] .service-modal-header {
+            padding-right: 2rem;
+            padding-left: 4rem;
+        }
 
         @media (max-width: 768px) {
             .service-modal-header {
                 padding: 1.5rem;
                 padding-right: 3.5rem;
+            }
+            
+            [dir="rtl"] .service-modal-header {
+                padding-right: 1.5rem;
+                padding-left: 3.5rem;
             }
             
             .service-modal-header h2 {
@@ -437,6 +559,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        
+        [dir="rtl"] .service-modal-close {
+            right: auto;
+            left: 1.5rem;
         }
 
         .service-modal-close:hover {
@@ -472,12 +599,28 @@
             border-radius: 0.75rem;
             border: 1px solid rgba(59, 130, 246, 0.1);
             transition: all 0.3s;
+            gap: 1rem;
         }
 
         .service-feature-item:hover {
             background: rgba(59, 130, 246, 0.1);
             border-color: rgba(59, 130, 246, 0.3);
             transform: translateX(8px);
+        }
+        
+        [dir="rtl"] .service-feature-item:hover {
+            transform: translateX(-8px);
+        }
+        
+        /* Fix modal feature item spacing */
+        [dir="rtl"] .service-feature-item .flex-shrink-0 {
+            margin-right: 0 !important;
+            margin-left: 1rem !important;
+        }
+        
+        [dir="ltr"] .service-feature-item .flex-shrink-0 {
+            margin-left: 0 !important;
+            margin-right: 1rem !important;
         }
 
         /* Carousel container - responsive with navigation dots */
@@ -686,6 +829,14 @@
 </head>
 <body>
 
+    <!-- Language Switcher Button -->
+    <div class="lang-switcher">
+        <button id="langSwitch" onclick="toggleLanguage()" aria-label="Switch language">
+            <i data-lucide="languages" class="h-5 w-5"></i>
+            <span id="langText">العربية</span>
+        </button>
+    </div>
+
     <!-- Navigation Bar -->
     <header class="sticky top-0 z-50 bg-gray-900 shadow-lg bg-opacity-95 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -700,12 +851,12 @@
                     </a>
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-300 hover:text-white transition duration-200">Home</a>
-                    <a href="#about" class="text-gray-300 hover:text-white transition duration-200">About Us</a>
-                    <a href="#services" class="text-gray-300 hover:text-white transition duration-200">Services</a>
-                    <a href="#clients" class="text-gray-300 hover:text-white transition duration-200">Clients</a>
-                    <a href="#partners" class="text-gray-300 hover:text-white transition duration-200">Partners</a>
-                    <a href="#contact" class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md">Contact</a>
+                    <a href="#home" class="text-gray-300 hover:text-white transition duration-200" data-trans="home">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-white transition duration-200" data-trans="aboutUs">About Us</a>
+                    <a href="#services" class="text-gray-300 hover:text-white transition duration-200" data-trans="services">Services</a>
+                    <a href="#clients" class="text-gray-300 hover:text-white transition duration-200" data-trans="clients">Clients</a>
+                    <a href="#partners" class="text-gray-300 hover:text-white transition duration-200" data-trans="partners">Partners</a>
+                    <a href="#contact" class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md" data-trans="contact">Contact</a>
                 </nav>
                 <!-- Mobile Menu Button (Hamburger) -->
                 <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-gray-700" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open mobile menu">
@@ -720,12 +871,12 @@
         <!-- Mobile Menu (Hidden by default) -->
         <nav id="mobile-menu" class="hidden md:hidden bg-gray-800">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Home</a>
-                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">About Us</a>
-                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Services</a>
-                <a href="#clients" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Clients</a>
-                <a href="#partners" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Partners</a>
-                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700">Contact</a>
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700" data-trans="home">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700" data-trans="aboutUs">About Us</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700" data-trans="services">Services</a>
+                <a href="#clients" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700" data-trans="clients">Clients</a>
+                <a href="#partners" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700" data-trans="partners">Partners</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700" data-trans="contact">Contact</a>
             </div>
         </nav>
     </header>
@@ -735,17 +886,17 @@
         <section id="home" class="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24 fyrm-tech-blue">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="lg:w-3/5">
-                    <h1 class="hero-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white">
+                    <h1 class="hero-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white" data-trans="heroTitle">
                         Revolutionary <span class="fyrm-tech-accent">IT Infrastructure</span> Solutions
                     </h1>
-                    <p class="mt-4 sm:mt-6 text-lg sm:text-xl text-gray-300 max-w-lg">
+                    <p class="mt-4 sm:mt-6 text-lg sm:text-xl text-gray-300 max-w-lg" data-trans="heroSubtitle">
                         Specializing in end-to-end <strong>FTTx and Network Infrastructure</strong> solutions to empower your business in the digital age.
                     </p>
                     <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <a href="#services" class="px-6 sm:px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-md text-center">
+                        <a href="#services" class="px-6 sm:px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-md text-center" data-trans="exploreSolutions">
                             Explore Our Solutions
                         </a>
-                        <a href="#contact" class="px-6 sm:px-8 py-3 bg-gray-700 text-gray-200 font-semibold rounded-xl hover:bg-gray-600 transition-colors duration-200 shadow-md text-center">
+                        <a href="#contact" class="px-6 sm:px-8 py-3 bg-gray-700 text-gray-200 font-semibold rounded-xl hover:bg-gray-600 transition-colors duration-200 shadow-md text-center" data-trans="getQuote">
                             Get a Quote
                         </a>
                     </div>
@@ -771,22 +922,22 @@
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
                 <div class="text-center mb-8 sm:mb-12">
-                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label">Who We Are</h2>
-                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label" data-trans="whoWeAre">Who We Are</h2>
+                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl" data-trans="aboutTitle">
                         Committed to Excellence in Communications
                     </p>
                 </div>
 
                 <div class="lg:grid lg:grid-cols-3 lg:gap-12">
                     <div class="lg:col-span-2 space-y-4 sm:space-y-6">
-                        <p class="text-lg sm:text-xl text-gray-300 leading-relaxed">
+                        <p class="text-lg sm:text-xl text-gray-300 leading-relaxed" data-trans="aboutText1">
                             FYRMTECH is a highly qualified group of <strong>computer and communication engineers</strong> with <strong>over 15 years of cumulative experience</strong> in communication technologies. We are dedicated to delivering stable, scalable, and secure systems integration.
                         </p>
-                        <p class="text-lg text-gray-400">
+                        <p class="text-lg text-gray-400" data-trans="aboutText2">
                             We specialize in providing END-TO-END FTTx and Network Infrastructure solutions, including all related accessories. Our commitment is to leverage the latest technologies to solve the most complex business challenges, ensuring your operations thrive in the digital age.
                         </p>
                         <blockquote class="p-4 border-l-4 border-blue-500 bg-gray-800 rounded-r-lg">
-                            <p class="text-gray-300 italic">"Our mission is to empower businesses to thrive in the digital age by providing the most advanced IT infrastructure, equipment, and services. We believe in creating long-term partnerships with our clients."</p>
+                            <p class="text-gray-300 italic" data-trans="aboutQuote">"Our mission is to empower businesses to thrive in the digital age by providing the most advanced IT infrastructure, equipment, and services. We believe in creating long-term partnerships with our clients."</p>
                         </blockquote>
                     </div>
                     <!-- Image and details block -->
@@ -803,15 +954,15 @@
                             
                             <div class="flex items-center space-x-3">
                                 <i data-lucide="zap" class="fyrm-tech-accent h-6 w-6"></i>
-                                <span class="text-white font-semibold">Our Vision</span>
+                                <span class="text-white font-semibold" data-trans="ourVision">Our Vision</span>
                             </div>
-                            <p class="text-gray-400">To revolutionize the IT industry by delivering cutting-edge solutions that transform businesses and change lives.</p>
+                            <p class="text-gray-400" data-trans="visionText">To revolutionize the IT industry by delivering cutting-edge solutions that transform businesses and change lives.</p>
                             <div class="h-px bg-gray-700 my-4"></div>
                             <div class="flex items-center space-x-3">
                                 <i data-lucide="users" class="fyrm-tech-accent h-6 w-6"></i>
-                                <span class="text-white font-semibold">Our Experience</span>
+                                <span class="text-white font-semibold" data-trans="ourExperience">Our Experience</span>
                             </div>
-                            <p class="text-gray-400">Over 15 years in communications and network infrastructure.</p>
+                            <p class="text-gray-400" data-trans="experienceText">Over 15 years in communications and network infrastructure.</p>
                         </div>
                     </div>
                 </div>
@@ -824,11 +975,11 @@
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
                 <div class="text-center mb-12 md:mb-16">
-                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label mb-4">Premium Services</h2>
-                    <p class="mt-2 text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label mb-4" data-trans="premiumServices">Premium Services</h2>
+                    <p class="mt-2 text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight" data-trans="servicesTitle">
                         Enterprise-Grade IT Solutions
                     </p>
-                    <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">
+                    <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto" data-trans="servicesSubtitle">
                         Delivering cutting-edge technology infrastructure with 15+ years of expertise serving industry leaders
                     </p>
                 </div>
@@ -852,19 +1003,19 @@
                                     <div class="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors duration-300">
                                         <i data-lucide="network" class="h-6 w-6 text-blue-400"></i>
                                     </div>
-                                    <h3 class="text-2xl font-bold text-white">Network Infrastructure</h3>
+                                    <h3 class="text-2xl font-bold text-white" data-trans="networkInfra">Network Infrastructure</h3>
                                 </div>
                             </div>
-                            <p class="text-gray-400 leading-relaxed mb-4">
+                            <p class="text-gray-400 leading-relaxed mb-4" data-trans="networkDesc">
                                 End-to-end <strong class="text-white">FTTx, Networks, and Data Communication Distribution</strong>. Delivering flexible, scalable, and cost-effective network solutions with expert pre-sales design services tailored to your business needs.
                             </p>
                             <div class="flex flex-wrap gap-2 mt-4">
-                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20">FTTx Solutions</span>
-                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20">Network Design</span>
-                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20">Data Distribution</span>
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20" data-trans="networkTag1">FTTx Solutions</span>
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20" data-trans="networkTag2">Network Design</span>
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20" data-trans="networkTag3">Data Distribution</span>
                             </div>
                             <button onclick="openServiceModal('network')" aria-label="Read more about Network Infrastructure services" class="mt-6 inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group/btn">
-                                <span>Read More</span>
+                                <span data-trans="readMore">Read More</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
                             </button>
                         </div>
@@ -888,19 +1039,19 @@
                                     <div class="p-3 bg-red-500/10 rounded-xl border border-red-500/20 group-hover:bg-red-500/20 transition-colors duration-300">
                                         <i data-lucide="shield-check" class="h-6 w-6 text-red-400"></i>
                                     </div>
-                                    <h3 class="text-2xl font-bold text-white">Security & Access Control</h3>
+                                    <h3 class="text-2xl font-bold text-white" data-trans="securityAccess">Security & Access Control</h3>
                                 </div>
                             </div>
-                            <p class="text-gray-400 leading-relaxed mb-4">
+                            <p class="text-gray-400 leading-relaxed mb-4" data-trans="securityDesc">
                                 Comprehensive <strong class="text-white">Access Control Systems, CCTV Surveillance</strong>, and secure Document/Data Storage. Protecting your assets with enterprise-grade physical and digital security infrastructure.
                             </p>
                             <div class="flex flex-wrap gap-2 mt-4">
-                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20">Access Control</span>
-                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20">CCTV Systems</span>
-                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20">Data Safes</span>
+                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20" data-trans="securityTag1">Access Control</span>
+                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20" data-trans="securityTag2">CCTV Systems</span>
+                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20" data-trans="securityTag3">Data Safes</span>
                             </div>
                             <button onclick="openServiceModal('security')" aria-label="Read more about Security & Access Control services" class="mt-6 inline-flex items-center space-x-2 text-red-400 hover:text-red-300 font-semibold transition-colors group/btn">
-                                <span>Read More</span>
+                                <span data-trans="readMore">Read More</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
                             </button>
                         </div>
@@ -924,19 +1075,19 @@
                                     <div class="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-colors duration-300">
                                         <i data-lucide="printer" class="h-6 w-6 text-cyan-400"></i>
                                     </div>
-                                    <h3 class="text-2xl font-bold text-white">Office & Data Equipment</h3>
+                                    <h3 class="text-2xl font-bold text-white" data-trans="officeEquipment">Office & Data Equipment</h3>
                                 </div>
                             </div>
-                            <p class="text-gray-400 leading-relaxed mb-4">
+                            <p class="text-gray-400 leading-relaxed mb-4" data-trans="officeDesc">
                                 Premium <strong class="text-white">ID Card Printers, Plotters, Binding & Laminating Systems</strong>, and High-Security Shredding solutions. Equipping your office with professional-grade document processing technology.
                             </p>
                             <div class="flex flex-wrap gap-2 mt-4">
-                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20">ID Printers</span>
-                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20">Plotters</span>
-                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20">Shredders</span>
+                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20" data-trans="officeTag1">ID Printers</span>
+                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20" data-trans="officeTag2">Plotters</span>
+                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20" data-trans="officeTag3">Shredders</span>
                             </div>
                             <button onclick="openServiceModal('office')" aria-label="Read more about Office & Data Equipment services" class="mt-6 inline-flex items-center space-x-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors group/btn">
-                                <span>Read More</span>
+                                <span data-trans="readMore">Read More</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
                             </button>
                         </div>
@@ -960,19 +1111,19 @@
                                     <div class="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20 group-hover:bg-purple-500/20 transition-colors duration-300">
                                         <i data-lucide="laptop" class="h-6 w-6 text-purple-400"></i>
                                     </div>
-                                    <h3 class="text-2xl font-bold text-white">Computing & Accessories</h3>
+                                    <h3 class="text-2xl font-bold text-white" data-trans="computing">Computing & Accessories</h3>
                                 </div>
                             </div>
-                            <p class="text-gray-400 leading-relaxed mb-4">
+                            <p class="text-gray-400 leading-relaxed mb-4" data-trans="computingDesc">
                                 Enterprise <strong class="text-white">Laptops, Computer Components & Accessories</strong>, and office equipment including Paper Trimmers & Guillotine Machines. Complete computing solutions for modern workplaces.
                             </p>
                             <div class="flex flex-wrap gap-2 mt-4">
-                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">Laptops</span>
-                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">Components</span>
-                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">Accessories</span>
+                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20" data-trans="computingTag1">Laptops</span>
+                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20" data-trans="computingTag2">Components</span>
+                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20" data-trans="computingTag3">Accessories</span>
                             </div>
                             <button onclick="openServiceModal('computing')" aria-label="Read more about Computing & Accessories services" class="mt-6 inline-flex items-center space-x-2 text-purple-400 hover:text-purple-300 font-semibold transition-colors group/btn">
-                                <span>Read More</span>
+                                <span data-trans="readMore">Read More</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
                             </button>
                         </div>
@@ -997,19 +1148,19 @@
                                 <div class="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20 group-hover:bg-emerald-500/20 transition-colors duration-300">
                                     <i data-lucide="package" class="h-6 w-6 text-emerald-400"></i>
                                 </div>
-                                <h3 class="text-2xl md:text-3xl font-bold text-white">Product Supply & Logistics</h3>
+                                <h3 class="text-2xl md:text-3xl font-bold text-white" data-trans="productSupply">Product Supply & Logistics</h3>
                             </div>
-                            <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                            <p class="text-gray-400 text-lg leading-relaxed mb-6" data-trans="productSupplyDesc">
                                 Comprehensive <strong class="text-white">Product Supply and Delivery Services</strong> across our entire technology portfolio. From procurement to installation, we ensure timely delivery and seamless integration of all IT infrastructure and equipment.
                             </p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Fast Delivery</span>
-                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Installation</span>
-                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Full Support</span>
-                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Quality Assured</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20" data-trans="supplyTag1">Fast Delivery</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20" data-trans="supplyTag2">Installation</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20" data-trans="supplyTag3">Full Support</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20" data-trans="supplyTag4">Quality Assured</span>
                             </div>
                             <button onclick="openServiceModal('supply')" aria-label="Read more about Product Supply & Logistics services" class="mt-6 inline-flex items-center space-x-2 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors group/btn">
-                                <span>Read More</span>
+                                <span data-trans="readMore">Read More</span>
                                 <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
                             </button>
                         </div>
@@ -1018,9 +1169,9 @@
 
                 <!-- Call to Action -->
                 <div class="mt-12 md:mt-16 text-center">
-                    <p class="text-gray-400 text-lg mb-6">Ready to transform your IT infrastructure?</p>
+                    <p class="text-gray-400 text-lg mb-6" data-trans="readyToTransform">Ready to transform your IT infrastructure?</p>
                     <a href="#contact" class="inline-flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-blue-500/50 transform hover:scale-105">
-                        <span>Get Started Today</span>
+                        <span data-trans="getStartedToday">Get Started Today</span>
                         <i data-lucide="arrow-right" class="h-5 w-5"></i>
                     </a>
                 </div>
@@ -1051,16 +1202,16 @@
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
                 <div class="text-center mb-8 sm:mb-12">
-                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label">Trusted Clients</h2>
-                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label" data-trans="trustedClients">Trusted Clients</h2>
+                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl" data-trans="trustedByLeaders">
                         Trusted by Industry Leaders
                     </p>
                 </div>
 
                 <!-- 9 Main Client Logos (Carousel with navigation) -->
                 <div class="mb-4 sm:mb-6">
-                    <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-white">Our Valued Clients</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm md:text-base mt-1">Partnering with leading organizations across industries</p>
+                    <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-white" data-trans="ourValuedClients">Our Valued Clients</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm md:text-base mt-1" data-trans="partneringWithLeaders">Partnering with leading organizations across industries</p>
                 </div>
                 <div class="carousel-wrapper">
                     <div class="logo-carousel" id="logoCarousel">
@@ -1145,11 +1296,11 @@
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
                 <div class="text-center mb-8 sm:mb-12">
-                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label">Technology Partners</h2>
-                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label" data-trans="technologyPartners">Technology Partners</h2>
+                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl" data-trans="strategicPartnerships">
                         Strategic Technology Partnerships
                     </p>
-                    <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">
+                    <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto" data-trans="partnersSubtitle">
                         We collaborate with industry-leading technology providers to deliver cutting-edge solutions and exceptional service to our clients.
                     </p>
                 </div>
@@ -1210,13 +1361,13 @@
             
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
                 <div class="text-center mb-12 sm:mb-16">
-                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-widest uppercase section-label mb-3">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-widest uppercase section-label mb-3" data-trans="getInTouch">
                         Get In Touch
                     </h2>
-                    <p class="mt-2 text-3xl sm:text-4xl font-extrabold text-white md:text-5xl bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                    <p class="mt-2 text-3xl sm:text-4xl font-extrabold text-white md:text-5xl bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent" data-trans="startProjectToday">
                         Start Your Project Today
                     </p>
-                    <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
+                    <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto" data-trans="contactSubtitle">
                         Ready to transform your network infrastructure? Our team is here to help.
                     </p>
                 </div>
@@ -1228,7 +1379,7 @@
                             <div class="p-2 bg-blue-600/10 rounded-lg">
                                 <i data-lucide="mail" class="h-6 w-6 fyrm-tech-accent"></i>
                             </div>
-                            <h3 class="text-2xl sm:text-3xl font-bold text-white">Send Us a Message</h3>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white" data-trans="sendMessage">Send Us a Message</h3>
                         </div>
 
                         <!-- 
@@ -1275,7 +1426,7 @@
                             
                             <button type="submit" class="w-full flex justify-center items-center gap-2 py-4 px-6 border border-transparent rounded-xl shadow-lg text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-[1.02] hover:shadow-blue-500/50">
                                 <i data-lucide="send" class="h-5 w-5"></i>
-                                Send Message
+                                <span data-trans="sendMessageBtn">Send Message</span>
                             </button>
                         </form>
                     </div>
@@ -1283,8 +1434,8 @@
                     <!-- Contact Details - Second on mobile -->
                     <div class="lg:col-span-1 order-2 lg:order-1 space-y-5 p-6 sm:p-8 bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700/50 mt-8 sm:mt-12 lg:mt-0">
                         <div class="mb-6">
-                            <h3 class="text-xl font-bold text-white mb-2">Contact Information</h3>
-                            <p class="text-gray-400 text-sm">Reach out through any of these channels</p>
+                            <h3 class="text-xl font-bold text-white mb-2" data-trans="contactInformation">Contact Information</h3>
+                            <p class="text-gray-400 text-sm" data-trans="reachOutChannels">Reach out through any of these channels</p>
                         </div>
                         
                         <div class="flex items-start gap-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02]">
@@ -1292,8 +1443,8 @@
                                 <i data-lucide="mail" class="fyrm-tech-accent h-5 w-5 flex-shrink-0"></i>
                             </div>
                             <div class="flex-1">
-                                <h4 class="text-base font-semibold text-white mb-1">Email Us</h4>
-                                <p class="text-gray-400 text-sm mb-2">Direct message for inquiries</p>
+                                <h4 class="text-base font-semibold text-white mb-1" data-trans="emailUs">Email Us</h4>
+                                <p class="text-gray-400 text-sm mb-2" data-trans="emailDesc">Direct message for inquiries</p>
                                 <a href="mailto:Support@fyrmtech.com" class="fyrm-tech-accent hover:text-blue-400 text-sm font-medium transition-colors">Support@fyrmtech.com</a>
                             </div>
                         </div>
@@ -1303,8 +1454,8 @@
                                 <i data-lucide="phone" class="fyrm-tech-accent h-5 w-5 flex-shrink-0"></i>
                             </div>
                             <div class="flex-1">
-                                <h4 class="text-base font-semibold text-white mb-1">Call Us</h4>
-                                <p class="text-gray-400 text-sm mb-2">Business hours support</p>
+                                <h4 class="text-base font-semibold text-white mb-1" data-trans="callUs">Call Us</h4>
+                                <p class="text-gray-400 text-sm mb-2" data-trans="callDesc">Speak with our team</p>
                                 <a href="tel:+201555111502" class="fyrm-tech-accent hover:text-blue-400 text-sm font-medium transition-colors">+20 155 511 1502</a>
                             </div>
                         </div>
@@ -1333,7 +1484,7 @@
                     FYRM<span class="text-white">TECH</span>
                 </div>
                 <p class="text-sm text-gray-400">
-                    &copy; <span id="current-year"></span> FYRMTECH. All rights reserved. | Specializing in FTTx & Network Infrastructure.
+                    &copy; <span id="current-year"></span> FYRMTECH. <span data-trans="allRightsReserved">All rights reserved.</span> | Specializing in FTTx & Network Infrastructure.
                 </p>
             </div>
         </div>
@@ -1409,6 +1560,11 @@
                     pagesNeeded = 11; // Force 11 pages (22 items / 2 per page)
                 }
                 
+                // Medium mobile devices (showing 3 items), force exactly 8 pages for 22 items
+                if (window.innerWidth > 400 && window.innerWidth <= 768 && totalItems === 22) {
+                    pagesNeeded = 8; // Force 8 pages (22 items / 3 per page, last page has 1 item)
+                }
+                
                 return Math.max(pagesNeeded, 1);
             }
 
@@ -1435,7 +1591,12 @@
                 // On narrow mobile, calculate page based on 2 items per page
                 if (window.innerWidth <= 400 && items.length === 22) {
                     currentPage = Math.floor(currentIndex / 2);
-                } else {
+                } 
+                // Medium mobile, calculate page based on 3 items per page
+                else if (window.innerWidth > 400 && window.innerWidth <= 768 && items.length === 22) {
+                    currentPage = Math.floor(currentIndex / 3);
+                }
+                else {
                     currentPage = Math.floor(currentIndex / getVisibleItems());
                 }
                 
@@ -1460,7 +1621,15 @@
                     currentIndex = pageIndex * 2;
                     // Ensure we don't exceed array bounds (max index is 21 for 22 items)
                     currentIndex = Math.min(currentIndex, items.length - 1);
-                } else {
+                } 
+                // Medium mobile (22 items showing 3 at a time), use exact calculation
+                else if (window.innerWidth > 400 && window.innerWidth <= 768 && items.length === 22) {
+                    // Each page shows exactly 3 items: page 0 = items 0-2, page 7 = items 21
+                    currentIndex = pageIndex * 3;
+                    // Ensure we don't exceed array bounds (max index is 21 for 22 items)
+                    currentIndex = Math.min(currentIndex, items.length - 1);
+                }
+                else {
                     // Calculate the scroll position normally
                     currentIndex = pageIndex * visibleItems;
                     
@@ -1485,10 +1654,12 @@
                     }
                 });
                 
-                // Use native smooth scrolling for seamless transition
-                carousel.scrollTo({
-                    left: targetItem.offsetLeft - parseFloat(getComputedStyle(carousel).paddingLeft),
-                    behavior: 'smooth'
+                // Scroll to the target item using scrollIntoView with inline start
+                // This works correctly in both LTR and RTL modes
+                targetItem.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'start'
                 });
                 
                 // Restore items after scroll with staggered animation
@@ -1513,7 +1684,12 @@
                 // On narrow mobile, calculate page based on 2 items per page
                 if (window.innerWidth <= 400 && items.length === 22) {
                     currentPage = Math.floor(currentIndex / 2);
-                } else {
+                } 
+                // Medium mobile, calculate page based on 3 items per page
+                else if (window.innerWidth > 400 && window.innerWidth <= 768 && items.length === 22) {
+                    currentPage = Math.floor(currentIndex / 3);
+                }
+                else {
                     currentPage = Math.floor(currentIndex / getVisibleItems());
                 }
                 
@@ -1544,6 +1720,27 @@
             // Pause auto scroll on hover
             carousel.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
             carousel.addEventListener('mouseleave', () => startAutoScroll());
+            
+            // Pause auto scroll when carousel is not in viewport
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const carouselObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Carousel is visible, start auto-scroll
+                        startAutoScroll();
+                    } else {
+                        // Carousel is not visible, stop auto-scroll
+                        clearInterval(autoScrollInterval);
+                    }
+                });
+            }, observerOptions);
+            
+            carouselObserver.observe(carousel);
 
             // Recreate dots on window resize with debouncing for better performance
             let resizeTimer;
@@ -1625,7 +1822,7 @@
         });
 
         // Service Modal functionality
-        const serviceDetails = {
+        const serviceDetailsEN = {
             network: {
                 title: 'Network Infrastructure',
                 icon: 'network',
@@ -1828,13 +2025,222 @@
             }
         };
 
+        // Arabic Service Details
+        const serviceDetailsAR = {
+            network: {
+                title: 'البنية التحتية للشبكات',
+                icon: 'network',
+                iconBg: 'bg-blue-500/10',
+                iconBorder: 'border-blue-500/20',
+                iconColor: 'text-blue-400',
+                description: 'حلول شاملة للبنية التحتية للشبكات من البداية إلى النهاية مصممة للمؤسسات الحديثة. يقدم فريقنا المتخصص أنظمة شبكات قابلة للتوسع وموثوقة وآمنة مصممة خصيصًا لتلبية احتياجات عملك.',
+                features: [
+                    {
+                        title: 'حلول FTTx (الألياف البصرية)',
+                        description: 'نشر شبكة الألياف البصرية الكاملة بما في ذلك FTTH (المنزل) و FTTB (المبنى) و FTTO (المكتب). نوفر التصميم والتركيب والصيانة لشبكات الألياف بسرعات تصل إلى 100 جيجابت في الثانية.',
+                        icon: 'zap'
+                    },
+                    {
+                        title: 'أنظمة الكابلات المنظمة',
+                        description: 'حلول كابلات نحاسية من الفئة 6A و 7 و 8 مع إدارة كابلات مناسبة ولوحات توصيل وأنظمة رفوف. تركيبات معتمدة تلبي معايير TIA/EIA.',
+                        icon: 'cable'
+                    },
+                    {
+                        title: 'تصميم وتخطيط الشبكات',
+                        description: 'خدمات تصميم احترافية قبل البيع بما في ذلك تخطيط طوبولوجيا الشبكة وتحليل السعة وتحسين التكلفة. تضمن تصميماتنا أقصى عائد على الاستثمار وقابلية التوسع المستقبلية.',
+                        icon: 'layout'
+                    },
+                    {
+                        title: 'البنية التحتية لمراكز البيانات',
+                        description: 'حلول مراكز بيانات كاملة بما في ذلك رفوف الخوادم وأنظمة التبريد وتوزيع الطاقة (PDU) وإدارة الكابلات والمراقبة البيئية.',
+                        icon: 'server'
+                    },
+                    {
+                        title: 'حلول الشبكات اللاسلكية',
+                        description: 'نشر Wi-Fi على مستوى المؤسسات مع تحليل التغطية والإدارة المستندة إلى وحدة التحكم وقدرات التجوال السلس للبيئات عالية الكثافة.',
+                        icon: 'wifi'
+                    },
+                    {
+                        title: 'البنية التحتية لأمن الشبكات',
+                        description: 'جدران الحماية وبوابات VPN وأنظمة منع التسلل (IPS) والتحكم في الوصول إلى الشبكة (NAC) للحماية الشاملة للشبكة.',
+                        icon: 'shield'
+                    }
+                ]
+            },
+            security: {
+                title: 'الأمن والتحكم في الوصول',
+                icon: 'shield-check',
+                iconBg: 'bg-red-500/10',
+                iconBorder: 'border-red-500/20',
+                iconColor: 'text-red-400',
+                description: 'أنظمة أمنية على مستوى المؤسسات لحماية أصولك المادية والرقمية. ندمج أحدث التقنيات لإنشاء أنظمة بيئية أمنية شاملة.',
+                features: [
+                    {
+                        title: 'أنظمة التحكم في الوصول البيومترية',
+                        description: 'أنظمة متقدمة لبصمات الأصابع والتعرف على الوجه ومسح قزحية العين متكاملة مع الوقت والحضور. دعم لبيانات الاعتماد المحمولة وإدارة الزوار.',
+                        icon: 'fingerprint'
+                    },
+                    {
+                        title: 'أنظمة مراقبة CCTV',
+                        description: 'كاميرات HD/4K قائمة على IP مع تحليلات مدعومة بالذكاء الاصطناعي بما في ذلك التعرف على الوجه واكتشاف الحركة والتعرف على لوحة الترخيص. تخزين سحابي ومراقبة عبر الهاتف المحمول متضمنة.',
+                        icon: 'video'
+                    },
+                    {
+                        title: 'أنظمة كشف التسلل',
+                        description: 'أمان المحيط مع مستشعرات الحركة وكاشفات كسر الزجاج وجهات اتصال الأبواب/النوافذ. التكامل مع مراكز مراقبة الإنذار لحماية على مدار الساعة طوال أيام الأسبوع.',
+                        icon: 'bell'
+                    },
+                    {
+                        title: 'خزائن الوثائق والبيانات',
+                        description: 'خزائن أمان مقاومة للحريق للوثائق المادية والوسائط. حلول قبو للبيئات عالية الأمان مع أقفال بيومترية ومسارات تدقيق.',
+                        icon: 'lock'
+                    },
+                    {
+                        title: 'أنظمة إدارة مواقف السيارات',
+                        description: 'حواجز آلية وأنظمة التعرف على لوحة الترخيص (LPR) وحلول التذاكر للتحكم في الوصول إلى مواقف السيارات وإدارة الإيرادات.',
+                        icon: 'car'
+                    },
+                    {
+                        title: 'منصات الأمن المتكاملة',
+                        description: 'إدارة موحدة لجميع الأنظمة الأمنية من خلال واجهة واحدة. المراقبة في الوقت الفعلي وإعداد التقارير وبروتوكولات الاستجابة التلقائية.',
+                        icon: 'activity'
+                    }
+                ]
+            },
+            office: {
+                title: 'معدات المكاتب والبيانات',
+                icon: 'printer',
+                iconBg: 'bg-cyan-500/10',
+                iconBorder: 'border-cyan-500/20',
+                iconColor: 'text-cyan-400',
+                description: 'معدات مكتبية ذات مستوى احترافي لإدارة المستندات والطباعة ومعالجة البيانات. نوفر ونصون المعدات المتميزة من الشركات المصنعة الرائدة.',
+                features: [
+                    {
+                        title: 'أنظمة طباعة بطاقات الهوية',
+                        description: 'طابعات مباشرة على البطاقة وإعادة النقل لشارات الموظفين وبطاقات الوصول وبطاقات العضوية. تشمل الترميز للشرائط المغناطيسية و RFID والبطاقات الذكية.',
+                        icon: 'credit-card'
+                    },
+                    {
+                        title: 'راسمات كبيرة الحجم',
+                        description: 'راسمات احترافية للتطبيقات المعمارية والهندسية والتصميمية. أحجام من 24 بوصة إلى 64 بوصة عرضًا بسرعات تصل إلى 3 قدم مربع/دقيقة.',
+                        icon: 'maximize'
+                    },
+                    {
+                        title: 'أنظمة التجليد والتصفيح',
+                        description: 'آلات تجليد صناعية (لولبية، مشط، حرارية) وأنظمة تصفيح ساخنة/باردة. مثالية للعروض التقديمية والتقارير وحماية المستندات.',
+                        icon: 'book'
+                    },
+                    {
+                        title: 'آلات تمزيق عالية الأمان',
+                        description: 'آلات تمزيق متقاطعة ودقيقة تلبي معايير DIN P-5 و P-7. مناسبة للوثائق السرية وبطاقات الائتمان والوسائط الضوئية.',
+                        icon: 'trash'
+                    },
+                    {
+                        title: 'طابعات الإنتاج',
+                        description: 'طابعات ملونة وأحادية اللون عالية الحجم بسرعات تصل إلى 150 صفحة في الدقيقة. تشمل الميزات الطباعة المزدوجة والتدبيس وصنع الكتيبات.',
+                        icon: 'printer'
+                    },
+                    {
+                        title: 'ماسحات المستندات',
+                        description: 'ماسحات ضوئية عالية السرعة مع مغذيات مستندات تلقائية. قدرات OCR والمسح المزدوج والتكامل مع أنظمة إدارة المستندات.',
+                        icon: 'scan'
+                    }
+                ]
+            },
+            computing: {
+                title: 'الحوسبة والملحقات',
+                icon: 'laptop',
+                iconBg: 'bg-purple-500/10',
+                iconBorder: 'border-purple-500/20',
+                iconColor: 'text-purple-400',
+                description: 'حلول حوسبة كاملة للشركات من جميع الأحجام. نوفر أحدث التقنيات من العلامات التجارية الموثوقة مع ضمان ودعم كاملين.',
+                features: [
+                    {
+                        title: 'أجهزة كمبيوتر محمولة ومحطات عمل للأعمال',
+                        description: 'أجهزة كمبيوتر محمولة على مستوى المؤسسات بمعالجات Intel Core i5/i7/i9 و AMD Ryzen. تشمل نماذج أعمال من Dell و HP و Lenovo مع ضمانات لمدة 3 سنوات.',
+                        icon: 'laptop'
+                    },
+                    {
+                        title: 'أجهزة كمبيوتر مكتبية',
+                        description: 'أجهزة كمبيوتر مخصصة وذات علامات تجارية للمكتب والتصميم والتطوير. تخزين SSD وذاكرة RAM حتى 64 جيجابايت وخيارات رسومات منفصلة.',
+                        icon: 'monitor'
+                    },
+                    {
+                        title: 'حلول الخوادم',
+                        description: 'خوادم رف وبرج من Dell PowerEdge و HPE ProLiant. تشمل مصفوفات التخزين وحلول النسخ الاحتياطي ومنصات المحاكاة الافتراضية.',
+                        icon: 'server'
+                    },
+                    {
+                        title: 'مكونات الكمبيوتر',
+                        description: 'ذاكرة RAM وأقراص SSD و HDD وبطاقات الرسومات والمعالجات واللوحات الأم. مكونات ذات مستوى احترافي للترقيات والتجميعات المخصصة.',
+                        icon: 'cpu'
+                    },
+                    {
+                        title: 'الأجهزة الطرفية والملحقات',
+                        description: 'شاشات (حتى 8K) ولوحات المفاتيح والفئران وكاميرات الويب وسماعات الرأس ومحطات الإرساء. حلول مريحة لأماكن العمل الحديثة.',
+                        icon: 'mouse-pointer'
+                    },
+                    {
+                        title: 'قواطع الورق والمقصات',
+                        description: 'معدات قطع ورق احترافية من أحجام A4 إلى A0. مقصات ثقيلة مع ميزات السلامة وأدلة القطع الدقيقة.',
+                        icon: 'scissors'
+                    }
+                ]
+            },
+            supply: {
+                title: 'توريد المنتجات واللوجستيات',
+                icon: 'package',
+                iconBg: 'bg-emerald-500/10',
+                iconBorder: 'border-emerald-500/20',
+                iconColor: 'text-emerald-400',
+                description: 'إدارة سلسلة التوريد الشاملة لجميع منتجات ومعدات تكنولوجيا المعلومات. من المشتريات إلى التركيب، نتعامل مع كل جانب من جوانب توصيل المنتج.',
+                features: [
+                    {
+                        title: 'خدمات المشتريات',
+                        description: 'علاقات مباشرة مع الشركات المصنعة والموزعين الرئيسيين. أسعار تنافسية وخصومات كبيرة ومنتجات أصلية معتمدة.',
+                        icon: 'shopping-cart'
+                    },
+                    {
+                        title: 'إدارة المخزون',
+                        description: 'خدمات التخزين وإدارة المخزون. خيارات التسليم في الوقت المناسب ومخزون الشحنة للمؤسسات الكبيرة.',
+                        icon: 'package'
+                    },
+                    {
+                        title: 'التوصيل السريع',
+                        description: 'تسليم سريع داخل القاهرة في 24 ساعة. تغطية على الصعيد الوطني مع شركاء لوجستيين محترفين يضمنون نقل المنتج الآمن.',
+                        icon: 'truck'
+                    },
+                    {
+                        title: 'التركيب الاحترافي',
+                        description: 'فنيون معتمدون لتركيب وتكوين المعدات. يشمل الاختبار والتشغيل والتدريب للمستخدم.',
+                        icon: 'wrench'
+                    },
+                    {
+                        title: 'الضمان والدعم',
+                        description: 'خيارات ضمان ممتدة وعقود صيانة شاملة. خط ساخن للدعم الفني على مدار الساعة طوال أيام الأسبوع للأنظمة الحيوية.',
+                        icon: 'shield'
+                    },
+                    {
+                        title: 'إدارة الأصول',
+                        description: 'وضع علامات RFID وتتبع الأصول وإدارة دورة الحياة. تقارير مفصلة لمتطلبات التدقيق والامتثال.',
+                        icon: 'clipboard'
+                    }
+                ]
+            }
+        };
+
         function openServiceModal(serviceType) {
             const modal = document.getElementById('serviceModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalIcon = document.getElementById('modalIcon');
             const modalContent = document.getElementById('modalContent');
             
+            // Get service details based on current language
+            const serviceDetails = currentLang === 'ar' ? serviceDetailsAR : serviceDetailsEN;
             const service = serviceDetails[serviceType];
+            
+            // Get translations for current language
+            const t = translations[currentLang];
             
             // Use requestAnimationFrame for smooth rendering
             requestAnimationFrame(() => {
@@ -1849,7 +2255,7 @@
                 
                 let contentHTML = `
                     <p class="text-lg text-gray-300 leading-relaxed mb-8">${service.description}</p>
-                    <h3 class="text-2xl font-bold text-white mb-6">Key Features & Capabilities</h3>
+                    <h3 class="text-2xl font-bold text-white mb-6">${t.keyFeatures}</h3>
                     <div class="space-y-4">
                 `;
                 
@@ -1872,10 +2278,10 @@
                 contentHTML += `
                     </div>
                     <div class="mt-10 p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-500/20">
-                        <h4 class="text-xl font-bold text-white mb-3">Ready to Get Started?</h4>
-                        <p class="text-gray-300 mb-4">Contact us today to discuss your specific requirements and receive a customized solution proposal.</p>
+                        <h4 class="text-xl font-bold text-white mb-3">${t.readyToGetStarted}</h4>
+                        <p class="text-gray-300 mb-4">${t.contactUsToday}</p>
                         <a href="#contact" onclick="closeServiceModal()" class="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300">
-                            <span>Contact Us</span>
+                            <span>${t.contactUsBtn}</span>
                             <i data-lucide="arrow-right" class="h-4 w-4"></i>
                         </a>
                     </div>
@@ -1924,6 +2330,415 @@
                 }
             }
         });
+
+        // Language Translation System
+        const translations = {
+            en: {
+                // Navigation
+                home: "Home",
+                aboutUs: "About Us",
+                services: "Services",
+                clients: "Clients",
+                partners: "Partners",
+                contact: "Contact",
+                
+                // Hero Section
+                heroTitle: "Revolutionary <span class='fyrm-tech-accent'>IT Infrastructure</span> Solutions",
+                heroSubtitle: "Specializing in end-to-end <strong>FTTx and Network Infrastructure</strong> solutions to empower your business in the digital age.",
+                exploreSolutions: "Explore Our Solutions",
+                getQuote: "Get a Quote",
+                
+                // About Section
+                whoWeAre: "Who We Are",
+                aboutTitle: "Committed to Excellence in Communications",
+                aboutText1: "FYRMTECH is a highly qualified group of <strong>computer and communication engineers</strong> with <strong>over 15 years of cumulative experience</strong> in communication technologies. We are dedicated to delivering stable, scalable, and secure systems integration.",
+                aboutText2: "We specialize in providing END-TO-END FTTx and Network Infrastructure solutions, including all related accessories. Our commitment is to leverage the latest technologies to solve the most complex business challenges, ensuring your operations thrive in the digital age.",
+                aboutQuote: '"Our mission is to empower businesses to thrive in the digital age by providing the most advanced IT infrastructure, equipment, and services. We believe in creating long-term partnerships with our clients."',
+                ourVision: "Our Vision",
+                visionText: "To revolutionize the IT industry by delivering cutting-edge solutions that transform businesses and change lives.",
+                ourExperience: "Our Experience",
+                experienceText: "Over 15 years in communications and network infrastructure.",
+                
+                // Services Section
+                premiumServices: "Premium Services",
+                servicesTitle: "Enterprise-Grade IT Solutions",
+                servicesSubtitle: "Delivering cutting-edge technology infrastructure with 15+ years of expertise serving industry leaders",
+                
+                // Service Cards
+                networkInfra: "Network Infrastructure",
+                networkDesc: "End-to-end <strong class='text-white'>FTTx, Networks, and Data Communication Distribution</strong>. Delivering flexible, scalable, and cost-effective network solutions with expert pre-sales design services tailored to your business needs.",
+                networkTag1: "FTTx Solutions",
+                networkTag2: "Network Design",
+                networkTag3: "Data Distribution",
+                
+                securityAccess: "Security & Access Control",
+                securityDesc: "Comprehensive <strong class='text-white'>Access Control Systems, CCTV Surveillance</strong>, and secure Document/Data Storage. Protecting your assets with enterprise-grade physical and digital security infrastructure.",
+                securityTag1: "Access Control",
+                securityTag2: "CCTV Systems",
+                securityTag3: "Data Safes",
+                
+                officeEquipment: "Office & Data Equipment",
+                officeDesc: "Premium <strong class='text-white'>ID Card Printers, Plotters, Binding & Laminating Systems</strong>, and High-Security Shredding solutions. Equipping your office with professional-grade document processing technology.",
+                officeTag1: "ID Printers",
+                officeTag2: "Plotters",
+                officeTag3: "Shredders",
+                
+                computing: "Computing & Accessories",
+                computingDesc: "Enterprise <strong class='text-white'>Laptops, Computer Components & Accessories</strong>, and office equipment including Paper Trimmers & Guillotine Machines. Complete computing solutions for modern workplaces.",
+                computingTag1: "Laptops",
+                computingTag2: "Components",
+                computingTag3: "Accessories",
+                
+                productSupply: "Product Supply & Logistics",
+                productSupplyDesc: "Comprehensive <strong class='text-white'>Product Supply and Delivery Services</strong> across our entire technology portfolio. From procurement to installation, we ensure timely delivery and seamless integration of all IT infrastructure and equipment.",
+                supplyTag1: "Fast Delivery",
+                supplyTag2: "Installation",
+                supplyTag3: "Full Support",
+                supplyTag4: "Quality Assured",
+                
+                readMore: "Read More",
+                readyToTransform: "Ready to transform your IT infrastructure?",
+                getStartedToday: "Get Started Today",
+                
+                // Clients Section
+                trustedClients: "Trusted Clients",
+                trustedByLeaders: "Trusted by Industry Leaders",
+                ourValuedClients: "Our Valued Clients",
+                partneringWithLeaders: "Partnering with leading organizations across industries",
+                
+                // Partners Section
+                technologyPartners: "Technology Partners",
+                strategicPartnerships: "Strategic Technology Partnerships",
+                partnersSubtitle: "We collaborate with industry-leading technology providers to deliver cutting-edge solutions and exceptional service to our clients.",
+                
+                // Contact Section
+                getInTouch: "Get In Touch",
+                startProjectToday: "Start Your Project Today",
+                contactSubtitle: "Ready to transform your network infrastructure? Our team is here to help.",
+                sendMessage: "Send Us a Message",
+                fullName: "Full Name",
+                emailAddress: "Email Address",
+                subject: "Subject",
+                message: "Message",
+                sendMessageBtn: "Send Message",
+                contactInformation: "Contact Information",
+                reachOutChannels: "Reach out through any of these channels",
+                emailUs: "Email Us",
+                emailDesc: "Direct message for inquiries",
+                callUs: "Call Us",
+                callDesc: "Speak with our team",
+                visitUs: "Visit Us",
+                visitDesc: "Corporate headquarters",
+                workingHours: "Working Hours",
+                hoursDesc: "We're here to assist you",
+                
+                // Footer
+                aboutFyrmtech: "About FYRMTECH",
+                footerDesc: "Leading provider of FTTx and network infrastructure solutions with over 15 years of experience serving Egypt's top enterprises.",
+                quickLinks: "Quick Links",
+                followUs: "Follow Us",
+                allRightsReserved: "All rights reserved.",
+                
+                // Modal
+                keyFeatures: "Key Features & Capabilities",
+                readyToGetStarted: "Ready to Get Started?",
+                contactUsToday: "Contact us today to discuss your specific requirements and receive a customized solution proposal.",
+                contactUsBtn: "Contact Us"
+            },
+            ar: {
+                // Navigation  
+                home: "الرئيسية",
+                aboutUs: "من نحن",
+                services: "خدماتنا",
+                clients: "عملاؤنا",
+                partners: "شركاؤنا",
+                contact: "اتصل بنا",
+                
+                // Hero Section
+                heroTitle: "حلول <span class='fyrm-tech-accent'>البنية التحتية التقنية</span> الثورية",
+                heroSubtitle: "متخصصون في حلول <strong>FTTx والبنية التحتية للشبكات</strong> الشاملة لتمكين أعمالك في العصر الرقمي.",
+                exploreSolutions: "استكشف حلولنا",
+                getQuote: "احصل على عرض أسعار",
+                
+                // About Section
+                whoWeAre: "من نحن",
+                aboutTitle: "ملتزمون بالتميز في الاتصالات",
+                aboutText1: "فيرم تك هي مجموعة مؤهلة تأهيلاً عالياً من <strong>مهندسي الحاسب والاتصالات</strong> مع <strong>أكثر من 15 عامًا من الخبرة المتراكمة</strong> في تقنيات الاتصالات. نحن ملتزمون بتقديم حلول تكامل أنظمة مستقرة وقابلة للتوسع وآمنة.",
+                aboutText2: "نحن متخصصون في توفير حلول FTTx والبنية التحتية للشبكات الشاملة، بما في ذلك جميع الملحقات ذات الصلة. التزامنا هو الاستفادة من أحدث التقنيات لحل أكثر تحديات الأعمال تعقيدًا، مما يضمن ازدهار عملياتك في العصر الرقمي.",
+                aboutQuote: '"مهمتنا هي تمكين الشركات من الازدهار في العصر الرقمي من خلال توفير أحدث البنية التحتية التقنية والمعدات والخدمات. نحن نؤمن بإنشاء شراكات طويلة الأمد مع عملائنا."',
+                ourVision: "رؤيتنا",
+                visionText: "إحداث ثورة في صناعة تكنولوجيا المعلومات من خلال تقديم حلول متطورة تحول الأعمال وتغير الحياة.",
+                ourExperience: "خبرتنا",
+                experienceText: "أكثر من 15 عامًا في الاتصالات والبنية التحتية للشبكات.",
+                
+                // Services Section
+                premiumServices: "خدمات مميزة",
+                servicesTitle: "حلول تقنية معلومات على مستوى المؤسسات",
+                servicesSubtitle: "تقديم بنية تحتية تقنية متطورة مع أكثر من 15 عامًا من الخبرة في خدمة قادة الصناعة",
+                
+                // Service Cards
+                networkInfra: "البنية التحتية للشبكات",
+                networkDesc: "<strong class='text-white'>حلول FTTx والشبكات وتوزيع اتصالات البيانات</strong> الشاملة. تقديم حلول شبكات مرنة وقابلة للتوسع وفعالة من حيث التكلفة مع خدمات تصميم متخصصة قبل البيع مصممة خصيصًا لاحتياجات عملك.",
+                networkTag1: "حلول FTTx",
+                networkTag2: "تصميم الشبكات",
+                networkTag3: "توزيع البيانات",
+                
+                securityAccess: "الأمن والتحكم في الوصول",
+                securityDesc: "<strong class='text-white'>أنظمة التحكم في الوصول الشاملة ومراقبة CCTV</strong> وتخزين المستندات/البيانات الآمن. حماية أصولك بالبنية التحتية الأمنية المادية والرقمية على مستوى المؤسسات.",
+                securityTag1: "التحكم في الوصول",
+                securityTag2: "أنظمة CCTV",
+                securityTag3: "خزائن البيانات",
+                
+                officeEquipment: "معدات المكاتب والبيانات",
+                officeDesc: "<strong class='text-white'>طابعات بطاقات الهوية وراسمات وأنظمة التجليد والتصفيح</strong> المتميزة وحلول التقطيع عالية الأمان. تجهيز مكتبك بتقنية معالجة المستندات ذات المستوى المهني.",
+                officeTag1: "طابعات الهوية",
+                officeTag2: "الراسمات",
+                officeTag3: "آلات التقطيع",
+                
+                computing: "الحوسبة والملحقات",
+                computingDesc: "<strong class='text-white'>أجهزة الكمبيوتر المحمولة ومكونات الكمبيوتر والملحقات</strong> للمؤسسات ومعدات المكاتب بما في ذلك قواطع الورق وآلات المقص. حلول حوسبة كاملة لأماكن العمل الحديثة.",
+                computingTag1: "أجهزة محمولة",
+                computingTag2: "المكونات",
+                computingTag3: "الملحقات",
+                
+                productSupply: "توريد المنتجات واللوجستيات",
+                productSupplyDesc: "<strong class='text-white'>خدمات توريد وتسليم المنتجات</strong> الشاملة عبر محفظتنا التقنية بأكملها. من المشتريات إلى التركيب، نضمن التسليم في الوقت المناسب والتكامل السلس لجميع البنية التحتية التقنية والمعدات.",
+                supplyTag1: "التسليم السريع",
+                supplyTag2: "التركيب",
+                supplyTag3: "الدعم الكامل",
+                supplyTag4: "الجودة المضمونة",
+                
+                readMore: "اقرأ المزيد",
+                readyToTransform: "هل أنت مستعد لتحويل بنيتك التحتية التقنية؟",
+                getStartedToday: "ابدأ اليوم",
+                
+                // Clients Section
+                trustedClients: "عملاء موثوقون",
+                trustedByLeaders: "موثوق به من قبل قادة الصناعة",
+                ourValuedClients: "عملاؤنا المميزون",
+                partneringWithLeaders: "شراكة مع المنظمات الرائدة في مختلف الصناعات",
+                
+                // Partners Section
+                technologyPartners: "شركاء التكنولوجيا",
+                strategicPartnerships: "شراكات تكنولوجية استراتيجية",
+                partnersSubtitle: "نتعاون مع مزودي التكنولوجيا الرائدين في الصناعة لتقديم حلول متطورة وخدمة استثنائية لعملائنا.",
+                
+                // Contact Section
+                getInTouch: "تواصل معنا",
+                startProjectToday: "ابدأ مشروعك اليوم",
+                contactSubtitle: "هل أنت مستعد لتحويل بنيتك التحتية للشبكات؟ فريقنا هنا للمساعدة.",
+                sendMessage: "أرسل لنا رسالة",
+                fullName: "الاسم الكامل",
+                emailAddress: "عنوان البريد الإلكتروني",
+                subject: "الموضوع",
+                message: "الرسالة",
+                sendMessageBtn: "إرسال الرسالة",
+                contactInformation: "معلومات الاتصال",
+                reachOutChannels: "تواصل معنا من خلال أي من هذه القنوات",
+                emailUs: "راسلنا عبر البريد الإلكتروني",
+                emailDesc: "رسالة مباشرة للاستفسارات",
+                callUs: "اتصل بنا",
+                callDesc: "تحدث مع فريقنا",
+                visitUs: "قم بزيارتنا",
+                visitDesc: "المقر الرئيسي للشركة",
+                workingHours: "ساعات العمل",
+                hoursDesc: "نحن هنا لمساعدتك",
+                
+                // Footer
+                aboutFyrmtech: "عن فيرم تك",
+                footerDesc: "المزود الرائد لحلول FTTx والبنية التحتية للشبكات مع أكثر من 15 عامًا من الخبرة في خدمة كبرى الشركات المصرية.",
+                quickLinks: "روابط سريعة",
+                followUs: "تابعنا",
+                allRightsReserved: "جميع الحقوق محفوظة.",
+                
+                // Modal
+                keyFeatures: "الميزات والإمكانيات الرئيسية",
+                readyToGetStarted: "هل أنت مستعد للبدء؟",
+                contactUsToday: "اتصل بنا اليوم لمناقشة متطلباتك المحددة والحصول على عرض حل مخصص.",
+                contactUsBtn: "اتصل بنا"
+            }
+        };
+
+        // Current language (default: English)
+        let currentLang = localStorage.getItem('language') || 'en';
+
+        // Apply saved language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (currentLang === 'ar') {
+                applyArabicLanguage();
+            }
+        });
+
+        // Toggle language function
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            localStorage.setItem('language', currentLang);
+            
+            if (currentLang === 'ar') {
+                applyArabicLanguage();
+            } else {
+                applyEnglishLanguage();
+            }
+        }
+
+        function applyArabicLanguage() {
+            // Change HTML attributes
+            document.documentElement.setAttribute('lang', 'ar');
+            document.documentElement.setAttribute('dir', 'rtl');
+            
+            // Update language button
+            document.getElementById('langText').textContent = 'English';
+            
+            // Update meta tags
+            document.querySelector('meta[name="description"]').setAttribute('content', 'فيرم تك تقدم حلول FTTx والبنية التحتية للشبكات وأنظمة الأمان وحلول تكنولوجيا المعلومات على مستوى المؤسسات. أكثر من 15 عامًا في خدمة قادة الصناعة في مصر.');
+            document.title = 'فيرم تك - حلول FTTx والبنية التحتية للشبكات';
+            
+            // Apply translations
+            applyTranslations('ar');
+        }
+
+        function applyEnglishLanguage() {
+            // Change HTML attributes
+            document.documentElement.setAttribute('lang', 'en');
+            document.documentElement.setAttribute('dir', 'ltr');
+            
+            // Update language button
+            document.getElementById('langText').textContent = 'العربية';
+            
+            // Update meta tags
+            document.querySelector('meta[name="description"]').setAttribute('content', 'FYRMTECH provides enterprise-grade FTTx, network infrastructure, security systems, and IT solutions. 15+ years serving industry leaders across Egypt.');
+            document.title = 'FYRMTECH - FTTx & Network Infrastructure Solutions';
+            
+            // Apply translations
+            applyTranslations('en');
+        }
+
+        function applyTranslations(lang) {
+            const t = translations[lang];
+            
+            // Helper function to safely set content
+            function setContent(selector, content, isHTML = false) {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(el => {
+                    if (el) {
+                        if (isHTML) {
+                            el.innerHTML = content;
+                        } else {
+                            el.textContent = content;
+                        }
+                    }
+                });
+            }
+            
+            // Navigation
+            setContent('[data-trans="home"]', t.home);
+            setContent('[data-trans="aboutUs"]', t.aboutUs);
+            setContent('[data-trans="services"]', t.services);
+            setContent('[data-trans="clients"]', t.clients);
+            setContent('[data-trans="partners"]', t.partners);
+            setContent('[data-trans="contact"]', t.contact);
+            
+            // Hero
+            setContent('[data-trans="heroTitle"]', t.heroTitle, true);
+            setContent('[data-trans="heroSubtitle"]', t.heroSubtitle, true);
+            setContent('[data-trans="exploreSolutions"]', t.exploreSolutions);
+            setContent('[data-trans="getQuote"]', t.getQuote);
+            
+            // About
+            setContent('[data-trans="whoWeAre"]', t.whoWeAre);
+            setContent('[data-trans="aboutTitle"]', t.aboutTitle);
+            setContent('[data-trans="aboutText1"]', t.aboutText1, true);
+            setContent('[data-trans="aboutText2"]', t.aboutText2, true);
+            setContent('[data-trans="aboutQuote"]', t.aboutQuote);
+            setContent('[data-trans="ourVision"]', t.ourVision);
+            setContent('[data-trans="visionText"]', t.visionText);
+            setContent('[data-trans="ourExperience"]', t.ourExperience);
+            setContent('[data-trans="experienceText"]', t.experienceText);
+            
+            // Services
+            setContent('[data-trans="premiumServices"]', t.premiumServices);
+            setContent('[data-trans="servicesTitle"]', t.servicesTitle);
+            setContent('[data-trans="servicesSubtitle"]', t.servicesSubtitle);
+            
+            // Service Cards
+            setContent('[data-trans="networkInfra"]', t.networkInfra);
+            setContent('[data-trans="networkDesc"]', t.networkDesc, true);
+            setContent('[data-trans="securityAccess"]', t.securityAccess);
+            setContent('[data-trans="securityDesc"]', t.securityDesc, true);
+            setContent('[data-trans="officeEquipment"]', t.officeEquipment);
+            setContent('[data-trans="officeDesc"]', t.officeDesc, true);
+            setContent('[data-trans="computing"]', t.computing);
+            setContent('[data-trans="computingDesc"]', t.computingDesc, true);
+            setContent('[data-trans="productSupply"]', t.productSupply);
+            setContent('[data-trans="productSupplyDesc"]', t.productSupplyDesc, true);
+            
+            setContent('[data-trans="readMore"]', t.readMore);
+            setContent('[data-trans="readyToTransform"]', t.readyToTransform);
+            setContent('[data-trans="getStartedToday"]', t.getStartedToday);
+            
+            // Clients
+            setContent('[data-trans="trustedClients"]', t.trustedClients);
+            setContent('[data-trans="trustedByLeaders"]', t.trustedByLeaders);
+            setContent('[data-trans="ourValuedClients"]', t.ourValuedClients);
+            setContent('[data-trans="partneringWithLeaders"]', t.partneringWithLeaders);
+            
+            // Partners
+            setContent('[data-trans="technologyPartners"]', t.technologyPartners);
+            setContent('[data-trans="strategicPartnerships"]', t.strategicPartnerships);
+            setContent('[data-trans="partnersSubtitle"]', t.partnersSubtitle);
+            
+            // Contact
+            setContent('[data-trans="getInTouch"]', t.getInTouch);
+            setContent('[data-trans="startProjectToday"]', t.startProjectToday);
+            setContent('[data-trans="contactSubtitle"]', t.contactSubtitle);
+            setContent('[data-trans="sendMessage"]', t.sendMessage);
+            setContent('[data-trans="contactInformation"]', t.contactInformation);
+            setContent('[data-trans="reachOutChannels"]', t.reachOutChannels);
+            setContent('[data-trans="emailUs"]', t.emailUs);
+            setContent('[data-trans="emailDesc"]', t.emailDesc);
+            setContent('[data-trans="callUs"]', t.callUs);
+            setContent('[data-trans="callDesc"]', t.callDesc);
+            setContent('[data-trans="visitUs"]', t.visitUs);
+            setContent('[data-trans="visitDesc"]', t.visitDesc);
+            setContent('[data-trans="workingHours"]', t.workingHours);
+            setContent('[data-trans="hoursDesc"]', t.hoursDesc);
+            setContent('[data-trans="sendMessageBtn"]', t.sendMessageBtn);
+            
+            // Form placeholders and labels
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const subjectInput = document.getElementById('subject');
+            const messageInput = document.getElementById('message');
+            
+            if (nameInput) {
+                nameInput.placeholder = lang === 'ar' ? 'أحمد محمد' : 'John Doe';
+                document.querySelector('label[for="name"]').innerHTML = t.fullName + ' *';
+            }
+            if (emailInput) {
+                emailInput.placeholder = lang === 'ar' ? 'ahmed@example.com' : 'john.doe@example.com';
+                document.querySelector('label[for="email"]').innerHTML = t.emailAddress + ' *';
+            }
+            if (subjectInput) {
+                subjectInput.placeholder = lang === 'ar' ? 'استفسار عن حلول FTTx' : 'Inquiry about FTTx Solutions';
+                document.querySelector('label[for="subject"]').innerHTML = t.subject + ' *';
+            }
+            if (messageInput) {
+                messageInput.placeholder = lang === 'ar' ? 'أخبرنا عن احتياجات مشروعك ومتطلباته...' : 'Tell us about your project needs and requirements...';
+                document.querySelector('label[for="message"]').innerHTML = t.message + ' *';
+            }
+            
+            // Footer
+            setContent('[data-trans="aboutFyrmtech"]', t.aboutFyrmtech);
+            setContent('[data-trans="footerDesc"]', t.footerDesc);
+            setContent('[data-trans="quickLinks"]', t.quickLinks);
+            setContent('[data-trans="followUs"]', t.followUs);
+            setContent('[data-trans="allRightsReserved"]', t.allRightsReserved);
+            
+            // Reinitialize Lucide icons after content change
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
 
 
     </script>
