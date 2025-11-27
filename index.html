@@ -627,56 +627,180 @@
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="py-16 md:py-24 bg-slate-900 services-bg">
+        <section id="services" class="py-16 md:py-24 bg-slate-900 services-bg relative overflow-hidden">
             <div class="dots-pattern"></div>
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
-                <div class="text-center mb-8 sm:mb-12">
-                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label">What We Offer</h2>
-                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
-                        Comprehensive IT & Communication Solutions
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label mb-4">Premium Services</h2>
+                    <p class="mt-2 text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                        Enterprise-Grade IT Solutions
+                    </p>
+                    <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">
+                        Delivering cutting-edge technology infrastructure with 15+ years of expertise serving industry leaders
                     </p>
                 </div>
 
-                <!-- Dynamic Image Placeholder: Solutions Banner -->
-                <div class="mb-8 sm:mb-12">
-                    <img src="images/unnamed.jpg" 
-                         alt="Banner showing various technological elements: server, printer, security camera" 
-                         class="w-full h-32 sm:h-40 object-cover rounded-xl shadow-md" 
-                         onerror="this.onerror=null;this.src='https://placehold.co/1200x200/3b82f6/ffffff?text=Placeholder+Image'">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+                    <!-- Service Card 1 - Network Infrastructure -->
+                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-blue-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-1">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="images/service-network-infrastructure.jpg" 
+                                 alt="Network Infrastructure Solutions" 
+                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                                 width="800" height="600">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+                        </div>
+                        <div class="relative p-6 md:p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors duration-300">
+                                        <i data-lucide="network" class="h-6 w-6 text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-white">Network Infrastructure</h3>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 leading-relaxed mb-4">
+                                End-to-end <strong class="text-white">FTTx, Networks, and Data Communication Distribution</strong>. Delivering flexible, scalable, and cost-effective network solutions with expert pre-sales design services tailored to your business needs.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20">FTTx Solutions</span>
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20">Network Design</span>
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20">Data Distribution</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 2 - Security & Access Control -->
+                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-red-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-red-500/20 hover:-translate-y-1">
+                        <div class="absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="images/service-security-access.jpg" 
+                                 alt="Security & Access Control Systems" 
+                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                                 width="800" height="600">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+                        </div>
+                        <div class="relative p-6 md:p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="p-3 bg-red-500/10 rounded-xl border border-red-500/20 group-hover:bg-red-500/20 transition-colors duration-300">
+                                        <i data-lucide="shield-check" class="h-6 w-6 text-red-400"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-white">Security & Access Control</h3>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 leading-relaxed mb-4">
+                                Comprehensive <strong class="text-white">Access Control Systems, CCTV Surveillance</strong>, and secure Document/Data Storage. Protecting your assets with enterprise-grade physical and digital security infrastructure.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20">Access Control</span>
+                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20">CCTV Systems</span>
+                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20">Data Safes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 3 - Office & Data Equipment -->
+                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-cyan-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/20 hover:-translate-y-1">
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="images/service-office-equipment.jpg" 
+                                 alt="Office & Data Equipment" 
+                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                                 width="800" height="600">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+                        </div>
+                        <div class="relative p-6 md:p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-colors duration-300">
+                                        <i data-lucide="printer" class="h-6 w-6 text-cyan-400"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-white">Office & Data Equipment</h3>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 leading-relaxed mb-4">
+                                Premium <strong class="text-white">ID Card Printers, Plotters, Binding & Laminating Systems</strong>, and High-Security Shredding solutions. Equipping your office with professional-grade document processing technology.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20">ID Printers</span>
+                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20">Plotters</span>
+                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20">Shredders</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 4 - Computing & Accessories -->
+                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="images/service-computing.jpg" 
+                                 alt="Computing & Accessories" 
+                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                                 width="800" height="600">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+                        </div>
+                        <div class="relative p-6 md:p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20 group-hover:bg-purple-500/20 transition-colors duration-300">
+                                        <i data-lucide="laptop" class="h-6 w-6 text-purple-400"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-white">Computing & Accessories</h3>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 leading-relaxed mb-4">
+                                Enterprise <strong class="text-white">Laptops, Computer Components & Accessories</strong>, and office equipment including Paper Trimmers & Guillotine Machines. Complete computing solutions for modern workplaces.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">Laptops</span>
+                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">Components</span>
+                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">Accessories</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-                    <!-- Service Card 1 -->
-                    <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
-                        <i data-lucide="server-cog" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Network Infrastructure</h3>
-                        <p class="text-gray-400">End-to-end FTTx, Networks, and Data Communication Distribution, ensuring flexible and cost-effective design pre-sales services.</p>
+                <!-- Service Card 5 - Product Supply (Full Width) -->
+                <div class="mt-6 md:mt-8 group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-emerald-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-1">
+                    <div class="absolute inset-0 bg-gradient-to-br from-emerald-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="grid lg:grid-cols-2 gap-0">
+                        <div class="relative h-64 lg:h-auto overflow-hidden order-2 lg:order-1">
+                            <img src="images/service-product-supply.jpg" 
+                                 alt="Product Supply & Logistics" 
+                                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                                 width="800" height="600">
+                            <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent lg:bg-gradient-to-r"></div>
+                        </div>
+                        <div class="relative p-6 md:p-8 lg:p-10 flex flex-col justify-center order-1 lg:order-2">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <div class="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20 group-hover:bg-emerald-500/20 transition-colors duration-300">
+                                    <i data-lucide="package" class="h-6 w-6 text-emerald-400"></i>
+                                </div>
+                                <h3 class="text-2xl md:text-3xl font-bold text-white">Product Supply & Logistics</h3>
+                            </div>
+                            <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                                Comprehensive <strong class="text-white">Product Supply and Delivery Services</strong> across our entire technology portfolio. From procurement to installation, we ensure timely delivery and seamless integration of all IT infrastructure and equipment.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Fast Delivery</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Installation</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Full Support</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Quality Assured</span>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Service Card 2 -->
-                    <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
-                        <i data-lucide="scan-barcode" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Security & Access Control</h3>
-                        <p class="text-gray-400">Integrated Access Control Systems, CCTV Systems, and Document/Data Safes for robust physical and digital security.</p>
-                    </div>
-                    <!-- Service Card 3 -->
-                    <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
-                        <i data-lucide="printer" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Office & Data Equipment</h3>
-                        <p class="text-gray-400">Supply of ID Card Printers, Plotters, Binding & Laminating Systems, and High-Security Shredding Machines.</p>
-                    </div>
-                    <!-- Service Card 4 -->
-                    <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
-                        <i data-lucide="laptop" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Computing & Accessories</h3>
-                        <p class="text-gray-400">Supply of Laptops, Computer Components & Accessories, and office equipment like Paper Trimmers & Guillotine Machines.</p>
-                    </div>
-                    <!-- Service Card 5 (Combined remaining points) -->
-                    <div class="bg-gray-900 p-6 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 border border-gray-700">
-                        <i data-lucide="receipt" class="fyrm-tech-accent h-8 w-8 mb-4"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Product Supply & Logistics</h3>
-                        <p class="text-gray-400">Comprehensive Product Supply services across our entire portfolio, ensuring timely delivery and installation.</p>
-                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="mt-12 md:mt-16 text-center">
+                    <p class="text-gray-400 text-lg mb-6">Ready to transform your IT infrastructure?</p>
+                    <a href="#contact" class="inline-flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-blue-500/50 transform hover:scale-105">
+                        <span>Get Started Today</span>
+                        <i data-lucide="arrow-right" class="h-5 w-5"></i>
+                    </a>
                 </div>
             </div>
         </section>
