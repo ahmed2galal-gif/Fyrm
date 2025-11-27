@@ -293,6 +293,149 @@
             z-index: 0;
         }
 
+        /* Service Modal Styles */
+        .service-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            animation: fadeIn 0.3s ease-out;
+            overflow-y: auto;
+        }
+
+        .service-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .service-modal-content {
+            background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(30, 41, 59) 100%);
+            border-radius: 1.5rem;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        /* Custom Scrollbar for Modal */
+        .service-modal-content::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .service-modal-content::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .service-modal-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgb(59, 130, 246) 0%, rgb(37, 99, 235) 100%);
+            border-radius: 10px;
+            border: 2px solid rgba(15, 23, 42, 0.5);
+        }
+
+        .service-modal-content::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, rgb(96, 165, 250) 0%, rgb(59, 130, 246) 100%);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        /* Firefox Scrollbar */
+        .service-modal-content {
+            scrollbar-width: thin;
+            scrollbar-color: rgb(59, 130, 246) rgba(15, 23, 42, 0.5);
+        }
+
+        .service-modal-header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(30, 41, 59) 100%);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 2rem;
+            padding-right: 4rem;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .service-modal-header {
+                padding: 1.5rem;
+                padding-right: 3.5rem;
+            }
+            
+            .service-modal-header h2 {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+        }
+
+        .service-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: rgb(248, 113, 113);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-modal-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .service-modal-body {
+            padding: 2rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-feature-item {
+            display: flex;
+            align-items: start;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.3s;
+        }
+
+        .service-feature-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(8px);
+        }
+
         /* Carousel container - responsive with navigation dots */
         .carousel-wrapper {
             position: relative;
@@ -669,6 +812,10 @@
                                 <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20">Network Design</span>
                                 <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20">Data Distribution</span>
                             </div>
+                            <button onclick="openServiceModal('network')" class="mt-6 inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group/btn">
+                                <span>Read More</span>
+                                <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -699,6 +846,10 @@
                                 <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20">CCTV Systems</span>
                                 <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20">Data Safes</span>
                             </div>
+                            <button onclick="openServiceModal('security')" class="mt-6 inline-flex items-center space-x-2 text-red-400 hover:text-red-300 font-semibold transition-colors group/btn">
+                                <span>Read More</span>
+                                <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -729,6 +880,10 @@
                                 <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20">Plotters</span>
                                 <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20">Shredders</span>
                             </div>
+                            <button onclick="openServiceModal('office')" class="mt-6 inline-flex items-center space-x-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors group/btn">
+                                <span>Read More</span>
+                                <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -759,6 +914,10 @@
                                 <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">Components</span>
                                 <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20">Accessories</span>
                             </div>
+                            <button onclick="openServiceModal('computing')" class="mt-6 inline-flex items-center space-x-2 text-purple-400 hover:text-purple-300 font-semibold transition-colors group/btn">
+                                <span>Read More</span>
+                                <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -790,6 +949,10 @@
                                 <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Full Support</span>
                                 <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20">Quality Assured</span>
                             </div>
+                            <button onclick="openServiceModal('supply')" class="mt-6 inline-flex items-center space-x-2 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors group/btn">
+                                <span>Read More</span>
+                                <i data-lucide="arrow-right" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -804,6 +967,24 @@
                 </div>
             </div>
         </section>
+
+        <!-- Service Modals -->
+        <div id="serviceModal" class="service-modal">
+            <div class="service-modal-content">
+                <div class="service-modal-header">
+                    <button class="service-modal-close" onclick="closeServiceModal()">
+                        <i data-lucide="x" class="h-5 w-5"></i>
+                    </button>
+                    <div class="flex items-center space-x-4">
+                        <div id="modalIcon" class="p-4 rounded-xl"></div>
+                        <h2 id="modalTitle" class="text-3xl md:text-4xl font-bold text-white"></h2>
+                    </div>
+                </div>
+                <div class="service-modal-body">
+                    <div id="modalContent"></div>
+                </div>
+            </div>
+        </div>
 
         <!-- Clients Section -->
         <section id="clients" class="py-16 md:py-24 bg-slate-950 clients-bg">
@@ -1344,6 +1525,290 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Service Modal functionality
+        const serviceDetails = {
+            network: {
+                title: 'Network Infrastructure',
+                icon: 'network',
+                iconBg: 'bg-blue-500/10',
+                iconBorder: 'border-blue-500/20',
+                iconColor: 'text-blue-400',
+                description: 'Comprehensive end-to-end network infrastructure solutions designed for modern enterprises. Our expert team delivers scalable, reliable, and secure network systems tailored to your business needs.',
+                features: [
+                    {
+                        title: 'FTTx Solutions (Fiber to the X)',
+                        description: 'Complete fiber optic network deployment including FTTH (Home), FTTB (Building), and FTTO (Office). We provide design, installation, and maintenance of fiber networks with speeds up to 100Gbps.',
+                        icon: 'zap'
+                    },
+                    {
+                        title: 'Structured Cabling Systems',
+                        description: 'Category 6A, 7, and 8 copper cabling solutions with proper cable management, patch panels, and rack systems. Certified installations meeting TIA/EIA standards.',
+                        icon: 'cable'
+                    },
+                    {
+                        title: 'Network Design & Planning',
+                        description: 'Professional pre-sales design services including network topology planning, capacity analysis, and cost optimization. Our designs ensure maximum ROI and future scalability.',
+                        icon: 'layout'
+                    },
+                    {
+                        title: 'Data Center Infrastructure',
+                        description: 'Complete data center solutions including server racks, cooling systems, power distribution (PDU), cable management, and environmental monitoring.',
+                        icon: 'server'
+                    },
+                    {
+                        title: 'Wireless Network Solutions',
+                        description: 'Enterprise-grade Wi-Fi deployment with coverage analysis, controller-based management, and seamless roaming capabilities for high-density environments.',
+                        icon: 'wifi'
+                    },
+                    {
+                        title: 'Network Security Infrastructure',
+                        description: 'Firewalls, VPN gateways, intrusion prevention systems (IPS), and network access control (NAC) for comprehensive network protection.',
+                        icon: 'shield'
+                    }
+                ]
+            },
+            security: {
+                title: 'Security & Access Control',
+                icon: 'shield-check',
+                iconBg: 'bg-red-500/10',
+                iconBorder: 'border-red-500/20',
+                iconColor: 'text-red-400',
+                description: 'Enterprise-grade security systems protecting your physical and digital assets. We integrate cutting-edge technology to create comprehensive security ecosystems.',
+                features: [
+                    {
+                        title: 'Biometric Access Control Systems',
+                        description: 'Advanced fingerprint, facial recognition, and iris scanning systems integrated with time & attendance. Support for mobile credentials and visitor management.',
+                        icon: 'fingerprint'
+                    },
+                    {
+                        title: 'CCTV Surveillance Systems',
+                        description: 'IP-based HD/4K cameras with AI-powered analytics including facial recognition, motion detection, and license plate recognition. Cloud storage and mobile monitoring included.',
+                        icon: 'video'
+                    },
+                    {
+                        title: 'Intrusion Detection Systems',
+                        description: 'Perimeter security with motion sensors, glass break detectors, and door/window contacts. Integration with alarm monitoring centers for 24/7 protection.',
+                        icon: 'bell'
+                    },
+                    {
+                        title: 'Document & Data Safes',
+                        description: 'Fire-rated security safes for physical documents and media. Vault solutions for high-security environments with biometric locks and audit trails.',
+                        icon: 'lock'
+                    },
+                    {
+                        title: 'Parking Management Systems',
+                        description: 'Automated barriers, LPR (License Plate Recognition) systems, and ticketing solutions for parking access control and revenue management.',
+                        icon: 'car'
+                    },
+                    {
+                        title: 'Integrated Security Platforms',
+                        description: 'Unified management of all security systems through a single interface. Real-time monitoring, reporting, and automated response protocols.',
+                        icon: 'activity'
+                    }
+                ]
+            },
+            office: {
+                title: 'Office & Data Equipment',
+                icon: 'printer',
+                iconBg: 'bg-cyan-500/10',
+                iconBorder: 'border-cyan-500/20',
+                iconColor: 'text-cyan-400',
+                description: 'Professional-grade office equipment for document management, printing, and data processing. We supply and maintain premium equipment from leading manufacturers.',
+                features: [
+                    {
+                        title: 'ID Card Printing Systems',
+                        description: 'Direct-to-card and retransfer printers for employee badges, access cards, and membership cards. Include encoding for magnetic stripes, RFID, and smart cards.',
+                        icon: 'credit-card'
+                    },
+                    {
+                        title: 'Large Format Plotters',
+                        description: 'Professional plotters for architectural, engineering, and design applications. Sizes from 24" to 64" width with speeds up to 3 sq ft/min.',
+                        icon: 'maximize'
+                    },
+                    {
+                        title: 'Binding & Laminating Systems',
+                        description: 'Industrial-grade binding machines (coil, comb, thermal) and hot/cold laminating systems. Perfect for presentations, reports, and document protection.',
+                        icon: 'book'
+                    },
+                    {
+                        title: 'High-Security Shredders',
+                        description: 'Cross-cut and micro-cut shredders meeting DIN P-5 and P-7 standards. Suitable for confidential documents, credit cards, and optical media.',
+                        icon: 'trash'
+                    },
+                    {
+                        title: 'Production Printers',
+                        description: 'High-volume color and monochrome printers with speeds up to 150 ppm. Features include duplex printing, stapling, and booklet making.',
+                        icon: 'printer'
+                    },
+                    {
+                        title: 'Document Scanners',
+                        description: 'High-speed scanners with automatic document feeders. OCR capabilities, duplex scanning, and integration with document management systems.',
+                        icon: 'scan'
+                    }
+                ]
+            },
+            computing: {
+                title: 'Computing & Accessories',
+                icon: 'laptop',
+                iconBg: 'bg-purple-500/10',
+                iconBorder: 'border-purple-500/20',
+                iconColor: 'text-purple-400',
+                description: 'Complete computing solutions for businesses of all sizes. We provide the latest technology from trusted brands with full warranty and support.',
+                features: [
+                    {
+                        title: 'Business Laptops & Workstations',
+                        description: 'Enterprise-grade laptops with Intel Core i5/i7/i9 and AMD Ryzen processors. Includes business models from Dell, HP, Lenovo with 3-year warranties.',
+                        icon: 'laptop'
+                    },
+                    {
+                        title: 'Desktop Computers',
+                        description: 'Custom-built and branded desktops for office, design, and development work. SSD storage, up to 64GB RAM, and discrete graphics options.',
+                        icon: 'monitor'
+                    },
+                    {
+                        title: 'Server Solutions',
+                        description: 'Rack and tower servers from Dell PowerEdge, HPE ProLiant. Include storage arrays, backup solutions, and virtualization platforms.',
+                        icon: 'server'
+                    },
+                    {
+                        title: 'Computer Components',
+                        description: 'RAM, SSDs, HDDs, graphics cards, processors, and motherboards. Professional-grade components for upgrades and custom builds.',
+                        icon: 'cpu'
+                    },
+                    {
+                        title: 'Peripherals & Accessories',
+                        description: 'Monitors (up to 8K), keyboards, mice, webcams, headsets, and docking stations. Ergonomic solutions for modern workplaces.',
+                        icon: 'mouse-pointer'
+                    },
+                    {
+                        title: 'Paper Trimmers & Guillotines',
+                        description: 'Professional paper cutting equipment from A4 to A0 sizes. Heavy-duty guillotines with safety features and precision cutting guides.',
+                        icon: 'scissors'
+                    }
+                ]
+            },
+            supply: {
+                title: 'Product Supply & Logistics',
+                icon: 'package',
+                iconBg: 'bg-emerald-500/10',
+                iconBorder: 'border-emerald-500/20',
+                iconColor: 'text-emerald-400',
+                description: 'End-to-end supply chain management for all IT products and equipment. From procurement to installation, we handle every aspect of product delivery.',
+                features: [
+                    {
+                        title: 'Procurement Services',
+                        description: 'Direct relationships with major manufacturers and distributors. Competitive pricing, bulk discounts, and verified genuine products.',
+                        icon: 'shopping-cart'
+                    },
+                    {
+                        title: 'Inventory Management',
+                        description: 'Warehousing and stock management services. Just-in-time delivery options and consignment inventory for large organizations.',
+                        icon: 'package'
+                    },
+                    {
+                        title: 'Fast Delivery',
+                        description: 'Express delivery within Cairo in 24 hours. Nationwide coverage with professional logistics partners ensuring safe product transportation.',
+                        icon: 'truck'
+                    },
+                    {
+                        title: 'Professional Installation',
+                        description: 'Certified technicians for equipment installation and configuration. Includes testing, commissioning, and user training.',
+                        icon: 'wrench'
+                    },
+                    {
+                        title: 'Warranty & Support',
+                        description: 'Extended warranty options and comprehensive maintenance contracts. 24/7 technical support hotline for critical systems.',
+                        icon: 'shield'
+                    },
+                    {
+                        title: 'Asset Management',
+                        description: 'RFID tagging, asset tracking, and lifecycle management. Detailed reporting for audit and compliance requirements.',
+                        icon: 'clipboard'
+                    }
+                ]
+            }
+        };
+
+        function openServiceModal(serviceType) {
+            const modal = document.getElementById('serviceModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalIcon = document.getElementById('modalIcon');
+            const modalContent = document.getElementById('modalContent');
+            
+            const service = serviceDetails[serviceType];
+            
+            // Set title and icon
+            modalTitle.textContent = service.title;
+            modalIcon.className = `p-4 rounded-xl ${service.iconBg} border ${service.iconBorder}`;
+            modalIcon.innerHTML = `<i data-lucide="${service.icon}" class="h-8 w-8 ${service.iconColor}"></i>`;
+            
+            // Build content
+            let contentHTML = `
+                <p class="text-lg text-gray-300 leading-relaxed mb-8">${service.description}</p>
+                <h3 class="text-2xl font-bold text-white mb-6">Key Features & Capabilities</h3>
+                <div class="space-y-4">
+            `;
+            
+            service.features.forEach(feature => {
+                contentHTML += `
+                    <div class="service-feature-item">
+                        <div class="flex-shrink-0 mr-4">
+                            <div class="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                                <i data-lucide="${feature.icon}" class="h-6 w-6 text-blue-400"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-white mb-2">${feature.title}</h4>
+                            <p class="text-gray-400">${feature.description}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            contentHTML += `
+                </div>
+                <div class="mt-10 p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-500/20">
+                    <h4 class="text-xl font-bold text-white mb-3">Ready to Get Started?</h4>
+                    <p class="text-gray-300 mb-4">Contact us today to discuss your specific requirements and receive a customized solution proposal.</p>
+                    <a href="#contact" onclick="closeServiceModal()" class="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300">
+                        <span>Contact Us</span>
+                        <i data-lucide="arrow-right" class="h-4 w-4"></i>
+                    </a>
+                </div>
+            `;
+            
+            modalContent.innerHTML = contentHTML;
+            
+            // Reinitialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeServiceModal() {
+            const modal = document.getElementById('serviceModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on background click
+        document.getElementById('serviceModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeServiceModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeServiceModal();
+            }
         });
 
 
