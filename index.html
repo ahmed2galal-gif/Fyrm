@@ -293,39 +293,151 @@
             z-index: 0;
         }
 
-        /* Carousel container - responsive and clean */
+        /* Carousel container - responsive with navigation dots */
         .carousel-wrapper {
             position: relative;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: clamp(0.75rem, 2vw, 2rem) 0;
             padding: clamp(1rem, 3vw, 2rem);
+            overflow: hidden;
         }
 
         .logo-carousel {
             display: flex;
-            flex-wrap: wrap;
             gap: clamp(1.5rem, 4vw, 2.5rem);
-            justify-content: center;
             align-items: center;
             width: 100%;
             padding: clamp(1rem, 2vw, 1.5rem) 0;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-snap-type: x mandatory;
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .logo-carousel-item {
+            scroll-snap-align: start;
+        }
+
+        /* Carousel dots navigation - Professional business style */
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(100, 116, 139, 0.3);
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-dot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(37, 99, 235, 0.9));
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-dot:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.6);
+            transform: scale(1.15);
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+        }
+
+        .carousel-dot.active {
+            width: 32px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 1), rgba(37, 99, 235, 1));
+            border-color: rgba(59, 130, 246, 0.8);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4), 0 0 16px rgba(59, 130, 246, 0.2);
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% {
+                box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4), 0 0 16px rgba(59, 130, 246, 0.2);
+            }
+            50% {
+                box-shadow: 0 2px 12px rgba(59, 130, 246, 0.6), 0 0 24px rgba(59, 130, 246, 0.3);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-dot {
+                width: 6px !important;
+                height: 6px !important;
+                border-width: 1px !important;
+            }
+
+            .carousel-dot.active {
+                width: 20px !important;
+                border-radius: 10px !important;
+            }
+
+            .carousel-dots {
+                gap: 6px !important;
+                margin-top: 16px !important;
+            }
+        }
+
+        /* Partners carousel - keep original grid layout */
+        #partnerCarousel {
+            flex-wrap: wrap;
+            justify-content: center;
+            overflow-x: visible;
         }
 
         /* Logo items - larger, responsive and optimized for smooth animations */
         .logo-carousel-item {
-            flex: 0 0 clamp(120px, 20vw, 200px);
+            flex: 0 0 calc(25% - 2rem);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: clamp(1rem, 2vw, 1.5rem);
-            transition: all 250ms ease;
+            transition: all 250ms ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             min-height: clamp(140px, 25vw, 200px);
             text-decoration: none;
-            will-change: transform;
+            will-change: transform, opacity;
             position: relative;
+        }
+
+        @media (max-width: 1024px) {
+            .logo-carousel-item {
+                flex: 0 0 calc(33.333% - 2rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-carousel-item {
+                flex: 0 0 clamp(160px, 45vw, 200px);
+            }
         }
 
         .logo-carousel-item:hover {
@@ -338,8 +450,8 @@
             max-width: clamp(120px, 20vw, 180px);
             max-height: clamp(110px, 18vw, 150px);
             object-fit: contain;
-            filter: grayscale(100%) brightness(1.4);
-            opacity: 0.75;
+            filter: brightness(1);
+            opacity: 0.9;
             transition: filter 250ms ease, opacity 250ms ease, transform 250ms ease;
             will-change: filter, opacity;
             -webkit-backface-visibility: hidden;
@@ -348,7 +460,7 @@
         }
 
         .logo-carousel-item:hover img {
-            filter: grayscale(0%) brightness(1);
+            filter: brightness(1.05);
             opacity: 1;
             transform: scale(1.03) translateZ(0);
         }
@@ -552,7 +664,7 @@
                     </p>
                 </div>
 
-                <!-- 9 Main Client Logos (Carousel with 3 visible items) -->
+                <!-- 9 Main Client Logos (Carousel with navigation) -->
                 <div class="mb-4 sm:mb-6">
                     <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-white">Main Clients</h3>
                     <p class="text-gray-400 text-xs sm:text-sm md:text-base mt-1">Trusted industry partners</p>
@@ -587,83 +699,49 @@
                         <a href="https://www.hc-si.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
                             <img loading="lazy" src="images/hc.png" alt="HC Securities and Investment" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B3D91/ffffff?text=HC+Securities'">
                         </a>
+                        <!-- Additional Clients (now in carousel) -->
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/sama-telecom.png" alt="Sama Telecommunications Company" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/1E40AF/ffffff?text=Sama+Telecom'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/arabian-cement.png" alt="Arabian Cement Company" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/7C3AED/ffffff?text=Arabian+Cement'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/st-fatima.png" alt="St. Fatima School" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/059669/ffffff?text=St+Fatima'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/nile-trading.png" alt="Nile Trading & Engineering" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/DC2626/ffffff?text=Nile+Trading'">
+                        </a>
+                        <a href="https://www.enppi.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/enppi.png" alt="ENPPI" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/EA580C/ffffff?text=ENPPI'">
+                        </a>
+                        <a href="https://www.shell.com.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/shell-egypt.png" alt="Shell Egypt" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/EAB308/ffffff?text=Shell+Egypt'">
+                        </a>
+                        <a href="https://www.scct.com.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/scct.png" alt="Suez Canal Container Terminal" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/0891B2/ffffff?text=SCCT'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/al-hossen.png" alt="Al Hossen Import & Export" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/8B5CF6/ffffff?text=Al+Hossen'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/alpha-misr.png" alt="Alpha Misr for Trading" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/EC4899/ffffff?text=Alpha+Misr'">
+                        </a>
+                        <a href="https://www.jnj.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/johnson-johnson.png" alt="Johnson & Johnson" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/DC2626/ffffff?text=J%26J'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/fantasia-hotels.png" alt="Fantasia Hotels Company" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/0284C7/ffffff?text=Fantasia+Hotels'">
+                        </a>
+                        <a href="https://www.asu.edu.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/ain-shams-pharmacy.png" alt="Ain Shams University Faculty of Pharmacy" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/059669/ffffff?text=Ain+Shams'">
+                        </a>
+                        <a href="https://www.credit-agricole.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/credit-agricole.png" alt="Crédit Agricole Bank" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/10B981/ffffff?text=Credit+Agricole'">
+                        </a>
                     </div>
+                    <div class="carousel-dots" id="carouselDots"></div>
                 </div>
-                
-                <!-- Additional Clients (Written List) -->
-                <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 border-b border-gray-700 pb-2 sm:pb-3 mt-8 sm:mt-10">Additional Clients</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 additional-clients-grid">
-                        <!-- Business-style client cards (English names, no icons) -->
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Sama Telecommunications Company</div>
-                            <div class="text-sm text-gray-400">Enterprise Client</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Arabian Cement Company</div>
-                            <div class="text-sm text-gray-400">Industrial Client</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">St. Fatima School</div>
-                            <div class="text-sm text-gray-400">Education</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Nile Trading & Engineering</div>
-                            <div class="text-sm text-gray-400">Commercial & Engineering</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">ENPPI (Engineering for Petroleum & Process Industries)</div>
-                            <div class="text-sm text-gray-400">Energy & Petrochemical</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Shell Egypt</div>
-                            <div class="text-sm text-gray-400">Energy & Petroleum</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">HC Securities & Investment</div>
-                            <div class="text-sm text-gray-400">Financial Services</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Suez Canal Container Terminal (SCCT)</div>
-                            <div class="text-sm text-gray-400">Logistics & Terminals</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Al Hossen Import & Export</div>
-                            <div class="text-sm text-gray-400">Import / Export</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Alpha Misr for Trading</div>
-                            <div class="text-sm text-gray-400">Trading</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Johnson & Johnson</div>
-                            <div class="text-sm text-gray-400">Healthcare & Consumer Goods</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Fantasia Hotels Company</div>
-                            <div class="text-sm text-gray-400">Hospitality</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Ain Shams University — Faculty of Pharmacy</div>
-                            <div class="text-sm text-gray-400">Education</div>
-                        </div>
-
-                        <div class="p-4 bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1">
-                            <div class="text-white font-semibold">Crédit Agricole Bank</div>
-                            <div class="text-sm text-gray-400">Banking & Finance</div>
-                        </div>
-                    </div>
 
             </div>
         </section>
@@ -732,48 +810,33 @@
         </section>
 
         <!-- Contact Us Section -->
-        <section id="contact" class="py-16 md:py-24 bg-slate-950 contact-bg">
+        <section id="contact" class="py-20 md:py-28 bg-gradient-to-br from-slate-950 via-gray-900 to-slate-950 contact-bg relative overflow-hidden">
             <div class="dots-pattern"></div>
+            <!-- Animated gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 animate-pulse" style="animation-duration: 3s;"></div>
+            
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
-                <div class="text-center mb-8 sm:mb-12">
-                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-wide uppercase section-label">Get In Touch</h2>
-                    <p class="mt-2 text-2xl sm:text-3xl font-extrabold text-white md:text-4xl">
+                <div class="text-center mb-12 sm:mb-16">
+                    <h2 class="text-sm sm:text-base font-semibold fyrm-tech-accent tracking-widest uppercase section-label mb-3">
+                        Get In Touch
+                    </h2>
+                    <p class="mt-2 text-3xl sm:text-4xl font-extrabold text-white md:text-5xl bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                         Start Your Project Today
+                    </p>
+                    <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
+                        Ready to transform your network infrastructure? Our team is here to help.
                     </p>
                 </div>
 
-                <div class="lg:grid lg:grid-cols-3 lg:gap-12">
-                    <!-- Contact Details -->
-                    <div class="lg:col-span-1 space-y-6 sm:space-y-8 p-4 sm:p-6 bg-gray-900 rounded-xl shadow-md">
-                        <div class="flex items-start space-x-4">
-                            <i data-lucide="mail" class="fyrm-tech-accent h-6 w-6 flex-shrink-0 mt-1"></i>
-                            <div>
-                                <h4 class="text-lg font-semibold text-white">Email Us</h4>
-                                <p class="text-gray-400">Send us a direct message for support or sales inquiries.</p>
-                                <a href="mailto:Support@fyrmtech.com" class="fyrm-tech-accent hover:text-blue-400">Support@fyrmtech.com</a>
+                <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+                    <!-- Contact Form - First on mobile -->
+                    <div class="lg:col-span-2 order-1 lg:order-2 p-6 sm:p-8 bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-2 bg-blue-600/10 rounded-lg">
+                                <i data-lucide="mail" class="h-6 w-6 fyrm-tech-accent"></i>
                             </div>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white">Send Us a Message</h3>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <i data-lucide="phone" class="fyrm-tech-accent h-6 w-6 flex-shrink-0 mt-1"></i>
-                            <div>
-                                <h4 class="text-lg font-semibold text-white">Call Us</h4>
-                                <p class="text-gray-400">Speak to an engineer during business hours.</p>
-                                <a href="tel:+201555111502" class="fyrm-tech-accent hover:text-blue-400">+20 155 511 1502</a>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <i data-lucide="globe" class="fyrm-tech-accent h-6 w-6 flex-shrink-0 mt-1"></i>
-                            <div>
-                                <h4 class="text-lg font-semibold text-white">Website</h4>
-                                <p class="text-gray-400">Visit our official domain.</p>
-                                <a href="http://www.Fyrmtech.com" target="_blank" rel="noopener noreferrer" class="fyrm-tech-accent hover:text-blue-400">www.Fyrmtech.com</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Contact Form -->
-                    <div class="lg:col-span-2 mt-8 sm:mt-12 lg:mt-0 p-4 sm:p-6 bg-gray-900 rounded-xl shadow-md">
-                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Send Us a Message</h3>
 
                         <!-- 
                             *** IMPORTANT: NO BACKEND CONTACT FORM SETUP ***
@@ -801,26 +864,68 @@
                             <input type="hidden" name="_next" value="#contact?success=1">
 
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
-                                <input type="text" id="name" name="Name" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-blue-500 focus:border-blue-500 transition duration-150" placeholder="John Doe">
+                                <label for="name" class="block text-sm font-semibold text-gray-200 mb-2">Full Name *</label>
+                                <input type="text" id="name" name="Name" required class="w-full px-5 py-3.5 bg-gray-800/80 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-gray-500" placeholder="John Doe">
                             </div>
                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
-                                <input type="email" id="email" name="Email" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-blue-500 focus:border-blue-500 transition duration-150" placeholder="john.doe@example.com">
+                                <label for="email" class="block text-sm font-semibold text-gray-200 mb-2">Email Address *</label>
+                                <input type="email" id="email" name="Email" required class="w-full px-5 py-3.5 bg-gray-800/80 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-gray-500" placeholder="john.doe@example.com">
                             </div>
                             <div>
-                                <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
-                                <input type="text" id="subject" name="Subject" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-blue-500 focus:border-blue-500 transition duration-150" placeholder="Inquiry about FTTx Solutions">
+                                <label for="subject" class="block text-sm font-semibold text-gray-200 mb-2">Subject *</label>
+                                <input type="text" id="subject" name="Subject" required class="w-full px-5 py-3.5 bg-gray-800/80 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-gray-500" placeholder="Inquiry about FTTx Solutions">
                             </div>
                             <div>
-                                <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                                <textarea id="message" name="Message" rows="4" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-blue-500 focus:border-blue-500 transition duration-150" placeholder="Tell us about your project needs..."></textarea>
+                                <label for="message" class="block text-sm font-semibold text-gray-200 mb-2">Message *</label>
+                                <textarea id="message" name="Message" rows="5" required class="w-full px-5 py-3.5 bg-gray-800/80 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-gray-500 resize-none" placeholder="Tell us about your project needs and requirements..."></textarea>
                             </div>
                             
-                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200">
+                            <button type="submit" class="w-full flex justify-center items-center gap-2 py-4 px-6 border border-transparent rounded-xl shadow-lg text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-[1.02] hover:shadow-blue-500/50">
+                                <i data-lucide="send" class="h-5 w-5"></i>
                                 Send Message
                             </button>
                         </form>
+                    </div>
+
+                    <!-- Contact Details - Second on mobile -->
+                    <div class="lg:col-span-1 order-2 lg:order-1 space-y-5 p-6 sm:p-8 bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700/50 mt-8 sm:mt-12 lg:mt-0">
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Contact Information</h3>
+                            <p class="text-gray-400 text-sm">Reach out through any of these channels</p>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02]">
+                            <div class="p-3 bg-blue-600/10 rounded-lg">
+                                <i data-lucide="mail" class="fyrm-tech-accent h-5 w-5 flex-shrink-0"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-base font-semibold text-white mb-1">Email Us</h4>
+                                <p class="text-gray-400 text-sm mb-2">Direct message for inquiries</p>
+                                <a href="mailto:Support@fyrmtech.com" class="fyrm-tech-accent hover:text-blue-400 text-sm font-medium transition-colors">Support@fyrmtech.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02]">
+                            <div class="p-3 bg-blue-600/10 rounded-lg">
+                                <i data-lucide="phone" class="fyrm-tech-accent h-5 w-5 flex-shrink-0"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-base font-semibold text-white mb-1">Call Us</h4>
+                                <p class="text-gray-400 text-sm mb-2">Business hours support</p>
+                                <a href="tel:+201555111502" class="fyrm-tech-accent hover:text-blue-400 text-sm font-medium transition-colors">+20 155 511 1502</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02]">
+                            <div class="p-3 bg-blue-600/10 rounded-lg">
+                                <i data-lucide="globe" class="fyrm-tech-accent h-5 w-5 flex-shrink-0"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-base font-semibold text-white mb-1">Website</h4>
+                                <p class="text-gray-400 text-sm mb-2">Visit our domain</p>
+                                <a href="http://www.Fyrmtech.com" target="_blank" rel="noopener noreferrer" class="fyrm-tech-accent hover:text-blue-400 text-sm font-medium transition-colors">www.Fyrmtech.com</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -866,7 +971,145 @@
             lucide.createIcons();
         }
 
-        // Double-tap to redirect for logo carousel on mobile - wrapped in DOMContentLoaded
+        // Carousel with automatic scrolling and dot navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.getElementById('logoCarousel');
+            const dotsContainer = document.getElementById('carouselDots');
+            const items = carousel.querySelectorAll('.logo-carousel-item');
+            let currentIndex = 0;
+            let autoScrollInterval;
+
+            // Calculate number of visible items
+            function getVisibleItems() {
+                const carouselWidth = carousel.offsetWidth;
+                const itemWidth = items[0].offsetWidth;
+                const gap = parseFloat(getComputedStyle(carousel).gap) || 0;
+                const visible = Math.floor(carouselWidth / (itemWidth + gap));
+                // On mobile, show 3-4 items per page to significantly reduce dots
+                if (window.innerWidth <= 768) {
+                    return Math.max(visible, 3);
+                }
+                return visible;
+            }
+
+            // Calculate total pages - limit max dots on mobile
+            function getTotalPages() {
+                const visibleItems = getVisibleItems();
+                const totalPages = Math.ceil(items.length / visibleItems);
+                // On mobile, limit to max 5 dots
+                if (window.innerWidth <= 768) {
+                    return Math.min(totalPages, 5);
+                }
+                return totalPages;
+            }
+
+            // Create dots based on pages
+            function createDots() {
+                dotsContainer.innerHTML = '';
+                const totalPages = getTotalPages();
+                
+                for (let i = 0; i < totalPages; i++) {
+                    const dot = document.createElement('button');
+                    dot.classList.add('carousel-dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+                    dot.addEventListener('click', () => goToPage(i));
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            // Update active dot
+            function updateDots() {
+                const dots = dotsContainer.querySelectorAll('.carousel-dot');
+                const currentPage = Math.floor(currentIndex / getVisibleItems());
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentPage);
+                });
+            }
+
+            // Go to specific page with smooth elegant animation
+            function goToPage(pageIndex) {
+                const visibleItems = getVisibleItems();
+                currentIndex = pageIndex * visibleItems;
+                
+                if (currentIndex >= items.length) {
+                    currentIndex = 0;
+                }
+                
+                const targetItem = items[currentIndex];
+                
+                // Add smooth transition effect with enhanced timing
+                items.forEach((item, index) => {
+                    item.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    item.style.opacity = '0.5';
+                    item.style.transform = 'scale(0.96)';
+                });
+                
+                // Use native smooth scrolling for seamless transition
+                carousel.scrollTo({
+                    left: targetItem.offsetLeft - parseFloat(getComputedStyle(carousel).paddingLeft),
+                    behavior: 'smooth'
+                });
+                
+                // Restore items after scroll with staggered animation
+                setTimeout(() => {
+                    items.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, index * 15); // Subtle stagger effect
+                    });
+                }, 300);
+                
+                updateDots();
+                resetAutoScroll();
+            }
+
+            // Auto scroll to next page
+            function autoScroll() {
+                const totalPages = getTotalPages();
+                const currentPage = Math.floor(currentIndex / getVisibleItems());
+                const nextPage = (currentPage + 1) % totalPages;
+                goToPage(nextPage);
+            }
+
+            // Start auto scroll with professional timing
+            function startAutoScroll() {
+                autoScrollInterval = setInterval(autoScroll, 3000); // 3 seconds
+            }
+
+            // Reset auto scroll
+            function resetAutoScroll() {
+                clearInterval(autoScrollInterval);
+                startAutoScroll();
+            }
+
+            // Initialize
+            createDots();
+            startAutoScroll();
+
+            // Reinitialize Lucide icons after DOM updates
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Pause auto scroll on hover
+            carousel.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+            carousel.addEventListener('mouseleave', () => startAutoScroll());
+
+            // Recreate dots on window resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    createDots();
+                    updateDots();
+                }, 250);
+            });
+        });
+
+        // Double-tap to redirect for logo carousel on mobile
         document.addEventListener('DOMContentLoaded', function() {
             if (window.innerWidth <= 768) {
                 const logoLinks = document.querySelectorAll('.logo-carousel-item');
