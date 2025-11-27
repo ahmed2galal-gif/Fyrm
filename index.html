@@ -12,11 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <!-- Improved favicon declaration -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/fyrmtech-logo.png">
-    <!-- Preload critical hero image -->
-    <link rel="preload" as="image" href="images/hero.jpg" type="image/jpeg" fetchpriority="high">
+    <!-- Preload likely-critical background images (will be ignored if not generated) -->
+    <link rel="preload" as="image" href="images/bckgrd-generated-large.webp" type="image/webp">
+    <link rel="preload" as="image" href="images/about-bg-large.webp" type="image/webp">
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <style>
         /* Custom font and base styles */
         html {
@@ -363,7 +364,7 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo/Brand Name -->
                     <a href="#home" class="flex items-center space-x-4" aria-label="FYRMTECH - Home">
-                        <img src="images/fyrmtech-logo.png" alt="FYRMTECH Logo" class="h-10 w-auto max-h-10">
+                        <img src="images/fyrmtech-logo.png" alt="FYRMTECH Logo" class="h-10 w-auto max-h-10" width="40" height="40">
                         <span class="sr-only">FYRMTECH Home</span>
                         <span class="text-2xl font-extrabold fyrm-tech-accent">
                             FYRM<span class="text-white">TECH</span>
@@ -428,8 +429,8 @@
                 <img src="images/hero.jpg"
                      alt="Conceptual image showing high-speed fiber optic network and data streams" 
                      class="hero-desktop-img opacity-40"
-                     fetchpriority="high"
-                     decoding="async"
+                     width="1920"
+                     height="1080"
                      onerror="this.onerror=null;this.src='https://placehold.co/1600x900/1f2a37/ffffff?text=Placeholder+Image'">
             </div>
         </section>
@@ -560,31 +561,31 @@
                     <div class="logo-carousel" id="logoCarousel">
                         <!-- Logo items with grayscale on default, color on hover -->
                         <a href="https://www.orange.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/orange.png" alt="Orange" onerror="this.onerror=null;this.src='https://placehold.co/200x80/FF7900/ffffff?text=Orange'">
+                            <img loading="lazy" src="images/orange.png" alt="Orange" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/FF7900/ffffff?text=Orange'">
                         </a>
                         <a href="https://www.alfaegy.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/alfa.png" alt="Alfa Egypt" onerror="this.onerror=null;this.src='https://placehold.co/200x80/D2232A/ffffff?text=Alfa+Egypt'">
+                            <img loading="lazy" src="images/alfa.png" alt="Alfa Egypt" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/D2232A/ffffff?text=Alfa+Egypt'">
                         </a>
                         <a href="https://www.alfuttaim.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/Futim-Group.png" alt="Al-Futtaim Group" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim'">
+                            <img loading="lazy" src="images/Futim-Group.png" alt="Al-Futtaim Group" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim'">
                         </a>
                         <a href="https://www.pfizer.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/pfizer.png" alt="Pfizer" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0093D0/ffffff?text=Pfizer'">
+                            <img loading="lazy" src="images/pfizer.png" alt="Pfizer" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0093D0/ffffff?text=Pfizer'">
                         </a>
                         <a href="https://herostore.com.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/Hero_corporate_logo_RGB.png" alt="Hero Corporate" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B74DE/ffffff?text=Hero'">
+                            <img loading="lazy" src="images/Hero_corporate_logo_RGB.png" alt="Hero Corporate" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B74DE/ffffff?text=Hero'">
                         </a>
                         <a href="https://www.alfuttaim.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/futtaim.png" alt="Al-Futtaim ID" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim+ID'">
+                            <img loading="lazy" src="images/futtaim.png" alt="Al-Futtaim ID" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim+ID'">
                         </a>
                         <a href="https://www.vodafone.com.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/Vodafone_Logo_1.png" alt="Vodafone" onerror="this.onerror=null;this.src='https://placehold.co/200x80/E60000/ffffff?text=Vodafone'">
+                            <img loading="lazy" src="images/Vodafone_Logo_1.png" alt="Vodafone" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/E60000/ffffff?text=Vodafone'">
                         </a>
                         <a href="https://moi.gov.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/4orta.png" alt="Ministry of Internal Affairs" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0C5A32/ffffff?text=Ministry'">
+                            <img loading="lazy" src="images/4orta.png" alt="Ministry of Internal Affairs" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0C5A32/ffffff?text=Ministry'">
                         </a>
                         <a href="https://www.hc-si.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/hc.png" alt="HC Securities and Investment" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B3D91/ffffff?text=HC+Securities'">
+                            <img loading="lazy" src="images/hc.png" alt="HC Securities and Investment" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B3D91/ffffff?text=HC+Securities'">
                         </a>
                     </div>
                 </div>
@@ -687,43 +688,43 @@
                     <div class="logo-carousel" id="partnerCarousel">
                         <!-- Cisco -->
                         <a href="https://www.cisco.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/Cisco_logo.svg" alt="Cisco" onerror="this.onerror=null;">
+                            <img loading="lazy" src="images/Cisco_logo.svg" alt="Cisco" width="180" height="150" onerror="this.onerror=null;">
                         </a>
                         <!-- Microsoft -->
                         <a href="https://www.microsoft.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/Microsoft_logo_(2012).svg" alt="Microsoft" onerror="this.onerror=null;">
+                            <img loading="lazy" src="images/Microsoft_logo_(2012).svg" alt="Microsoft" width="180" height="150" onerror="this.onerror=null;">
                         </a>
                         <!-- Sophos -->
                         <a href="https://www.sophos.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/Sophos_logo.svg" alt="Sophos" onerror="this.onerror=null;">
+                            <img loading="lazy" src="images/Sophos_logo.svg" alt="Sophos" width="180" height="150" onerror="this.onerror=null;">
                         </a>
                         <!-- HPE Aruba -->
                         <a href="https://www.arubanetworks.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/Aruba_Networks-Logo.wine.svg" alt="HPE Aruba" onerror="this.onerror=null;">
+                            <img loading="lazy" src="images/Aruba_Networks-Logo.wine.svg" alt="HPE Aruba" width="180" height="150" onerror="this.onerror=null;">
                         </a>
                         <!-- Forcepoint -->
                         <a href="https://www.forcepoint.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/Forcepointx.svg" alt="Forcepoint" onerror="this.onerror=null;">
+                            <img loading="lazy" src="images/Forcepointx.svg" alt="Forcepoint" width="180" height="150" onerror="this.onerror=null;">
                         </a>
                         <!-- Fortinet -->
                         <a href="https://www.fortinet.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/fortinet-white.svg" alt="Fortinet" onerror="this.onerror=null;">
+                            <img loading="lazy" src="images/fortinet-white.svg" alt="Fortinet" width="180" height="150" onerror="this.onerror=null;">
                         </a>
                         <!-- Nexans -->
                         <a href="https://www.nexans.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/NEX.PA_BIG.D.svg" alt="Nexans" onerror="this.onerror=null;">
+                            <img loading="lazy" src="images/NEX.PA_BIG.D.svg" alt="Nexans" width="180" height="150" onerror="this.onerror=null;">
                         </a>
                         <!-- Juniper -->
                         <a href="https://www.juniper.net/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/JNPR_BIG.D.svg" alt="Juniper Networks" onerror="this.onerror=null;">
+                            <img loading="lazy" src="images/JNPR_BIG.D.svg" alt="Juniper Networks" width="180" height="150" onerror="this.onerror=null;">
                         </a>
                         <!-- Splunk -->
                         <a href="https://www.splunk.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/SPLK_BIG.svg" alt="Splunk" onerror="this.onerror=null;" style="filter: grayscale(100%) brightness(1.4) invert(1);">
+                            <img loading="lazy" src="images/SPLK_BIG.svg" alt="Splunk" width="180" height="150" onerror="this.onerror=null;" style="filter: grayscale(100%) brightness(1.4) invert(1);">
                         </a>
                         <!-- IBM -->
                         <a href="https://www.ibm.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
-                            <img loading="lazy" src="images/IBM_logo.svg" alt="IBM" onerror="this.onerror=null;">
+                            <img loading="lazy" src="images/IBM_logo.svg" alt="IBM" width="180" height="150" onerror="this.onerror=null;">
                         </a>
                     </div>
                 </div>
