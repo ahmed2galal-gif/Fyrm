@@ -655,6 +655,11 @@
             scroll-snap-type: x mandatory;
             transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        /* Force LTR direction for carousel to fix RTL scrolling issues */
+        .logo-carousel {
+            direction: ltr;
+        }
 
         .logo-carousel::-webkit-scrollbar {
             display: none;
@@ -1717,12 +1722,17 @@
                     }
                 });
                 
-                // Scroll to the target item using scrollIntoView with inline start
-                // This works correctly in both LTR and RTL modes
-                targetItem.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest',
-                    inline: 'start'
+                // Use a more reliable method: scroll by calculating exact pixel position
+                // This works in both LTR and RTL by using the actual offsetLeft
+                const paddingLeft = parseFloat(getComputedStyle(carousel).paddingLeft) || 0;
+                
+                // Get the absolute position and scroll directly to it
+                requestAnimationFrame(() => {
+                    const scrollPosition = targetItem.offsetLeft - paddingLeft;
+                    carousel.scrollTo({
+                        left: scrollPosition,
+                        behavior: 'smooth'
+                    });
                 });
                 
                 // Restore items after scroll with staggered animation
@@ -1773,6 +1783,10 @@
 
             // Initialize
             createDots();
+            
+            // Force carousel to LTR direction programmatically as well
+            carousel.style.direction = 'ltr';
+            
             startAutoScroll();
 
             // Reinitialize Lucide icons after DOM updates
