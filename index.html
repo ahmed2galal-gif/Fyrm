@@ -2641,11 +2641,14 @@
             // Pause carousel when not in viewport
             const carousel = document.getElementById('clientsCarousel');
             if (carousel) {
+                // Detect RTL for proper swipe direction
+                const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+                
                 const bsCarousel = new bootstrap.Carousel(carousel, {
                     interval: 3000,
                     wrap: true,
                     keyboard: true,
-                    touch: true
+                    touch: isRTL ? 'rtl' : true
                 });
 
                 // Pause when carousel is not visible
