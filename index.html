@@ -2648,8 +2648,41 @@
                     interval: 3000,
                     wrap: true,
                     keyboard: true,
-                    touch: isRTL ? 'rtl' : true
+                    touch: true
                 });
+
+                // Reverse swipe direction for RTL
+                if (isRTL) {
+                    let touchStartX = 0;
+                    let touchEndX = 0;
+                    
+                    carousel.addEventListener('touchstart', (e) => {
+                        touchStartX = e.changedTouches[0].screenX;
+                    }, { passive: true });
+                    
+                    carousel.addEventListener('touchend', (e) => {
+                        touchEndX = e.changedTouches[0].screenX;
+                        handleSwipe();
+                    }, { passive: true });
+                    
+                    function handleSwipe() {
+                        if (touchEndX < touchStartX - 50) {
+                            // Swipe left - go to previous (reversed for RTL)
+                            bsCarousel.prev();
+                        }
+                        if (touchEndX > touchStartX + 50) {
+                            // Swipe right - go to next (reversed for RTL)
+                            bsCarousel.next();
+                        }
+                    }
+                    
+                    // Prevent default Bootstrap touch behavior in RTL
+                    carousel.addEventListener('slide.bs.carousel', (e) => {
+                        if (e.from !== undefined) {
+                            e.preventDefault();
+                        }
+                    });
+                }
 
                 // Pause when carousel is not visible
                 const observer = new IntersectionObserver((entries) => {
