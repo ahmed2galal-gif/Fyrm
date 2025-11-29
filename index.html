@@ -2182,10 +2182,10 @@
                 <div class="mt-4 p-4 rounded-3" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);">
                     <h4 class="fs-5 fw-bold text-white mb-2">${t.readyToGetStarted}</h4>
                     <p class="text-gray-300 mb-3">${t.contactUsToday}</p>
-                    <a href="#contact" data-bs-dismiss="modal" class="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-2 rounded-3" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none;">
+                    <button onclick="navigateToContact()" class="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-2 rounded-3" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none;">
                         <span>${t.contactUsBtn}</span>
                         <i data-lucide="arrow-right" class="h-4 w-4"></i>
-                    </a>
+                    </button>
                 </div>
             `;
             
@@ -2212,6 +2212,26 @@
             if (bsModal) {
                 bsModal.hide();
             }
+        }
+
+        function navigateToContact() {
+            // Close the modal first
+            const modalElement = document.getElementById('serviceModal');
+            const bsModal = bootstrap.Modal.getInstance(modalElement);
+            if (bsModal) {
+                bsModal.hide();
+            }
+            
+            // Wait for modal to close, then scroll to contact section
+            setTimeout(() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                    contactSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }, 300);
         }
 
         // Language Translation System
@@ -2665,11 +2685,11 @@
                         const swipeThreshold = 50;
                         
                         if (touchStartX - touchEndX > swipeThreshold) {
-                            // Swipe left - go to next (reversed for RTL)
-                            bsCarousel.next();
-                        } else if (touchEndX - touchStartX > swipeThreshold) {
-                            // Swipe right - go to prev (reversed for RTL)
+                            // Swipe left in RTL - should go to previous slide
                             bsCarousel.prev();
+                        } else if (touchEndX - touchStartX > swipeThreshold) {
+                            // Swipe right in RTL - should go to next slide
+                            bsCarousel.next();
                         }
                     }, { passive: true });
                 }
