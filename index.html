@@ -496,6 +496,16 @@
         /* Bootstrap Offcanvas Custom Styling */
         .offcanvas {
             background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(31, 41, 55) 100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .offcanvas.hiding,
+        .offcanvas.hide {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .offcanvas-backdrop {
+            transition: opacity 0.6s ease-in-out !important;
         }
 
         .offcanvas-body .btn:hover {
@@ -930,22 +940,22 @@
         </div>
         <div class="offcanvas-body">
             <nav class="d-flex flex-column gap-2">
-                <a href="#home" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition" data-bs-dismiss="offcanvas" data-trans="home">
+                <a href="#home" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition offcanvas-nav-link" data-trans="home">
                     <i data-lucide="home" class="h-5 w-5 d-inline-block me-3"></i>Home
                 </a>
-                <a href="#about" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition" data-bs-dismiss="offcanvas" data-trans="aboutUs">
+                <a href="#about" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition offcanvas-nav-link" data-trans="aboutUs">
                     <i data-lucide="info" class="h-5 w-5 d-inline-block me-3"></i>About Us
                 </a>
-                <a href="#services" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition" data-bs-dismiss="offcanvas" data-trans="services">
+                <a href="#services" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition offcanvas-nav-link" data-trans="services">
                     <i data-lucide="briefcase" class="h-5 w-5 d-inline-block me-3"></i>Services
                 </a>
-                <a href="#clients" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition" data-bs-dismiss="offcanvas" data-trans="clients">
+                <a href="#clients" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition offcanvas-nav-link" data-trans="clients">
                     <i data-lucide="users" class="h-5 w-5 d-inline-block me-3"></i>Clients
                 </a>
-                <a href="#partners" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition" data-bs-dismiss="offcanvas" data-trans="partners">
+                <a href="#partners" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition offcanvas-nav-link" data-trans="partners">
                     <i data-lucide="handshake" class="h-5 w-5 d-inline-block me-3"></i>Partners
                 </a>
-                <a href="#contact" class="btn btn-lg btn-primary text-start text-white py-3 px-4 rounded-lg mt-3 shadow-md" data-bs-dismiss="offcanvas" data-trans="contact" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                <a href="#contact" class="btn btn-lg btn-primary text-start text-white py-3 px-4 rounded-lg mt-3 shadow-md offcanvas-nav-link" data-trans="contact" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
                     <i data-lucide="mail" class="h-5 w-5 d-inline-block me-3"></i>Contact
                 </a>
             </nav>
@@ -1293,167 +1303,189 @@
                         <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="3"></button>
                         <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="4"></button>
                         <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="5"></button>
+                        <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="6"></button>
+                        <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="7"></button>
                     </div>
                     <div class="carousel-inner">
                         <!-- Slide 1 -->
                         <div class="carousel-item active">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-3 gap-md-4 px-3">
+                                <div class="flex-shrink-0" style="width: 120px;">
                                     <a href="https://www.orange.eg/" target="_blank" class="client-logo-link" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Orange Egypt - Leading telecommunications provider">
                                         <img src="images/orange.png" alt="Orange" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="col-6 col-md-4 col-lg-3">
+                                <div class="flex-shrink-0" style="width: 120px;">
                                     <a href="https://www.alfaegy.com/" target="_blank" class="client-logo-link" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Alfa Egypt - Premium automotive solutions">
                                         <img src="images/alfa.png" alt="Alfa Egypt" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="col-6 col-md-4 col-lg-3">
+                                <div class="flex-shrink-0 d-none d-sm-block" style="width: 120px;">
                                     <a href="https://www.alfuttaim.com/" target="_blank" class="client-logo-link" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Al-Futtaim Group - Diversified business conglomerate">
                                         <img src="images/Futim-Group.png" alt="Al-Futtaim Group" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                                    <a href="https://www.pfizer.com/" target="_blank" class="client-logo-link">
-                                        <img src="images/pfizer.png" alt="Pfizer" class="img-fluid client-logo">
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <!-- Slide 2 -->
                         <div class="carousel-item">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3 d-lg-none">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-3 gap-md-4 px-3">
+                                <div class="flex-shrink-0 d-sm-none" style="width: 120px;">
+                                    <a href="https://www.alfuttaim.com/" target="_blank" class="client-logo-link" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Al-Futtaim Group - Diversified business conglomerate">
+                                        <img src="images/Futim-Group.png" alt="Al-Futtaim Group" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0" style="width: 120px;">
                                     <a href="https://www.pfizer.com/" target="_blank" class="client-logo-link">
                                         <img src="images/pfizer.png" alt="Pfizer" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="col-6 col-md-4 col-lg-3">
+                                <div class="flex-shrink-0" style="width: 120px;">
                                     <a href="https://herostore.com.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/Hero_corporate_logo_RGB.png" alt="Hero Corporate" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="col-6 col-md-4 col-lg-3">
+                                <div class="flex-shrink-0 d-none d-sm-block" style="width: 120px;">
                                     <a href="https://www.alfuttaim.com/" target="_blank" class="client-logo-link">
                                         <img src="images/futtaim.png" alt="Al-Futtaim ID" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.vodafone.com.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/Vodafone_Logo_1.png" alt="Vodafone" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                                    <a href="https://moi.gov.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/4orta.png" alt="Ministry" class="img-fluid client-logo">
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <!-- Slide 3 -->
                         <div class="carousel-item">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3 d-lg-none">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-3 gap-md-4 px-3">
+                                <div class="flex-shrink-0 d-sm-none" style="width: 120px;">
+                                    <a href="https://www.alfuttaim.com/" target="_blank" class="client-logo-link">
+                                        <img src="images/futtaim.png" alt="Al-Futtaim ID" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0" style="width: 120px;">
+                                    <a href="https://www.vodafone.com.eg/" target="_blank" class="client-logo-link">
+                                        <img src="images/Vodafone_Logo_1.png" alt="Vodafone" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0" style="width: 120px;">
                                     <a href="https://moi.gov.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/4orta.png" alt="Ministry" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="col-6 col-md-4 col-lg-3">
+                                <div class="flex-shrink-0 d-none d-sm-block" style="width: 120px;">
                                     <a href="https://www.hc-si.com/" target="_blank" class="client-logo-link">
                                         <img src="images/hc.png" alt="HC Securities" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/sama-telecom.png" alt="Sama Telecom" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/arabian-cement.png" alt="Arabian Cement" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/st-fatima.png" alt="St. Fatima" class="img-fluid client-logo">
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <!-- Slide 4 -->
                         <div class="carousel-item">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3 d-lg-none">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-3 gap-md-4 px-3">
+                                <div class="flex-shrink-0 d-sm-none" style="width: 120px;">
+                                    <a href="https://www.hc-si.com/" target="_blank" class="client-logo-link">
+                                        <img src="images/hc.png" alt="HC Securities" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0" style="width: 120px;">
+                                    <a href="#" class="client-logo-link">
+                                        <img src="images/sama-telecom.png" alt="Sama Telecom" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0" style="width: 120px;">
+                                    <a href="#" class="client-logo-link">
+                                        <img src="images/arabian-cement.png" alt="Arabian Cement" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0 d-none d-sm-block" style="width: 120px;">
                                     <a href="#" class="client-logo-link">
                                         <img src="images/st-fatima.png" alt="St. Fatima" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/nile-trading.png" alt="Nile Trading" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.enppi.com/" target="_blank" class="client-logo-link">
-                                        <img src="images/enppi.png" alt="ENPPI" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.shell.com.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/shell-egypt.png" alt="Shell Egypt" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                                    <a href="https://www.scct.com.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/scct.png" alt="SCCT" class="img-fluid client-logo">
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <!-- Slide 5 -->
                         <div class="carousel-item">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3 d-lg-none">
-                                    <a href="https://www.scct.com.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/scct.png" alt="SCCT" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-3 gap-md-4 px-3">
+                                <div class="flex-shrink-0 d-sm-none" style="width: 120px;">
                                     <a href="#" class="client-logo-link">
-                                        <img src="images/al-hossen.png" alt="Al Hossen" class="img-fluid client-logo">
+                                        <img src="images/st-fatima.png" alt="St. Fatima" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="col-6 col-md-4 col-lg-3">
+                                <div class="flex-shrink-0" style="width: 120px;">
                                     <a href="#" class="client-logo-link">
-                                        <img src="images/alpha-misr.png" alt="Alpha Misr" class="img-fluid client-logo">
+                                        <img src="images/nile-trading.png" alt="Nile Trading" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.jnj.com/" target="_blank" class="client-logo-link">
-                                        <img src="images/johnson-johnson.png" alt="Johnson & Johnson" class="img-fluid client-logo">
+                                <div class="flex-shrink-0" style="width: 120px;">
+                                    <a href="https://www.enppi.com/" target="_blank" class="client-logo-link">
+                                        <img src="images/enppi.png" alt="ENPPI" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/fantasia-hotels.png" alt="Fantasia Hotels" class="img-fluid client-logo">
+                                <div class="flex-shrink-0 d-none d-sm-block" style="width: 120px;">
+                                    <a href="https://www.shell.com.eg/" target="_blank" class="client-logo-link">
+                                        <img src="images/shell-egypt.png" alt="Shell Egypt" class="img-fluid client-logo">
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <!-- Slide 6 -->
                         <div class="carousel-item">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3 d-lg-none">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-3 gap-md-4 px-3">
+                                <div class="flex-shrink-0 d-sm-none" style="width: 120px;">
+                                    <a href="https://www.shell.com.eg/" target="_blank" class="client-logo-link">
+                                        <img src="images/shell-egypt.png" alt="Shell Egypt" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0" style="width: 120px;">
+                                    <a href="https://www.scct.com.eg/" target="_blank" class="client-logo-link">
+                                        <img src="images/scct.png" alt="SCCT" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0" style="width: 120px;">
+                                    <a href="#" class="client-logo-link">
+                                        <img src="images/al-hossen.png" alt="Al Hossen" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0 d-none d-sm-block" style="width: 120px;">
+                                    <a href="#" class="client-logo-link">
+                                        <img src="images/alpha-misr.png" alt="Alpha Misr" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 7 -->
+                        <div class="carousel-item">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-3 gap-md-4 px-3">
+                                <div class="flex-shrink-0 d-sm-none" style="width: 120px;">
+                                    <a href="#" class="client-logo-link">
+                                        <img src="images/alpha-misr.png" alt="Alpha Misr" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0" style="width: 120px;">
+                                    <a href="https://www.jnj.com/" target="_blank" class="client-logo-link">
+                                        <img src="images/johnson-johnson.png" alt="Johnson & Johnson" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0" style="width: 120px;">
                                     <a href="#" class="client-logo-link">
                                         <img src="images/fantasia-hotels.png" alt="Fantasia Hotels" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="col-6 col-md-4 col-lg-3">
+                                <div class="flex-shrink-0 d-none d-sm-block" style="width: 120px;">
                                     <a href="https://www.asu.edu.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/ain-shams-pharmacy.png" alt="Ain Shams" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="col-6 col-md-4 col-lg-3">
+                            </div>
+                        </div>
+                        <!-- Slide 8 -->
+                        <div class="carousel-item">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-3 gap-md-4 px-3">
+                                <div class="flex-shrink-0 d-sm-none" style="width: 120px;">
+                                    <a href="https://www.asu.edu.eg/" target="_blank" class="client-logo-link">
+                                        <img src="images/ain-shams-pharmacy.png" alt="Ain Shams" class="img-fluid client-logo">
+                                    </a>
+                                </div>
+                                <div class="flex-shrink-0" style="width: 120px;">
                                     <a href="https://www.credit-agricole.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/credit-agricole.png" alt="Crédit Agricole" class="img-fluid client-logo">
                                     </a>
@@ -1715,16 +1747,37 @@
                 e.preventDefault();
                 const target = document.querySelector(href);
                 
-                // Close mobile menu if open
+                // Check if this is an offcanvas navigation link
+                const isOffcanvasLink = this.classList.contains('offcanvas-nav-link');
+                
+                // Close Bootstrap Offcanvas smoothly if open
+                const offcanvasElement = document.getElementById('mobileOffcanvas');
+                if (offcanvasElement && isOffcanvasLink) {
+                    const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement) || new bootstrap.Offcanvas(offcanvasElement);
+                    
+                    // Close offcanvas (Bootstrap handles the slide animation)
+                    bsOffcanvas.hide();
+                    
+                    // Wait for offcanvas to fully close, then jump to section instantly
+                    offcanvasElement.addEventListener('hidden.bs.offcanvas', function() {
+                        target.scrollIntoView({
+                            behavior: 'auto',
+                            block: 'start'
+                        });
+                    }, { once: true });
+                } else {
+                    // For non-offcanvas links, use smooth scroll
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Close old mobile menu if exists
                 const mobileMenu = document.getElementById('mobile-menu');
                 if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                     mobileMenu.classList.add('hidden');
                 }
-                
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
             });
         });
 
