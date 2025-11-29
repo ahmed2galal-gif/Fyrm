@@ -8,26 +8,26 @@
     <meta name="theme-color" content="#3b82f6">
     <title>FYRMTECH - FTTx & Network Infrastructure Solutions</title>
     <link rel="icon" href="images/fyrmtech-logo.png">
-    
-    <!-- Fonts -->
+    <!-- DNS Prefetch and Preconnect for external resources -->
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <!-- Optimized font loading with font-display swap -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Arabic Font (Cairo) -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <!-- Improved favicon declaration -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/fyrmtech-logo.png">
     <!-- Preload critical images -->
     <link rel="preload" as="image" href="images/hero.jpg" type="image/jpeg">
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
+    <link rel="preload" as="image" href="images/service-network-infrastructure.jpg" type="image/jpeg">
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    
+    <!-- Load Lucide Icons with defer -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <style>
         /* Performance optimizations */
         * {
@@ -225,11 +225,6 @@
         .hero-heading { font-size: clamp(2rem, 5vw, 3.75rem); }
         .hero-mobile-img { height: clamp(10rem, 28vh, 24rem); width: 100%; object-fit: cover; }
         .hero-desktop-img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* Fix Arabic hero background to show full image */
-        [dir="rtl"] #home {
-            min-height: 100vh;
-        }
 
         /* Client card helper for consistent padding and responsive text */
     .client-card { padding: 1rem; }
@@ -454,52 +449,178 @@
             z-index: 0;
         }
 
-        /* Bootstrap Modal Custom Styling for FYRMTECH */
-        .modal-content {
-            background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(30, 41, 59) 100%);
-        }
-        
-        .modal-body::-webkit-scrollbar {
-            width: 8px;
+        /* Service Modal Styles */
+        .service-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            animation: fadeIn 0.3s ease-out;
+            overflow-y: auto;
         }
 
-        .modal-body::-webkit-scrollbar-track {
+        .service-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .service-modal-content {
+            background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(30, 41, 59) 100%);
+            border-radius: 1.5rem;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        /* Custom Scrollbar for Modal */
+        .service-modal-content::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .service-modal-content::-webkit-scrollbar-track {
             background: rgba(15, 23, 42, 0.5);
             border-radius: 10px;
+            margin: 1rem 0;
         }
 
-        .modal-body::-webkit-scrollbar-thumb {
+        .service-modal-content::-webkit-scrollbar-thumb {
             background: linear-gradient(180deg, rgb(59, 130, 246) 0%, rgb(37, 99, 235) 100%);
             border-radius: 10px;
+            border: 2px solid rgba(15, 23, 42, 0.5);
         }
 
-        .modal-body::-webkit-scrollbar-thumb:hover {
+        .service-modal-content::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(180deg, rgb(96, 165, 250) 0%, rgb(59, 130, 246) 100%);
+            border-color: rgba(59, 130, 246, 0.3);
         }
 
-        /* Bootstrap Floating Labels Custom Styling */
-        .form-floating > .form-control:focus ~ label,
-        .form-floating > .form-control:not(:placeholder-shown) ~ label {
-            color: #3b82f6 !important;
-            transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+        /* Firefox Scrollbar */
+        .service-modal-content {
+            scrollbar-width: thin;
+            scrollbar-color: rgb(59, 130, 246) rgba(15, 23, 42, 0.5);
         }
 
-        .form-floating > .form-control:focus {
-            border-color: transparent !important;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
+        .service-modal-header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(30, 41, 59) 100%);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 2rem;
+            padding-right: 4rem;
+            z-index: 10;
+        }
+        
+        [dir="rtl"] .service-modal-header {
+            padding-right: 2rem;
+            padding-left: 4rem;
         }
 
-        .form-floating > label {
-            color: #9ca3af;
+        @media (max-width: 768px) {
+            .service-modal-header {
+                padding: 1.5rem;
+                padding-right: 3.5rem;
+            }
+            
+            [dir="rtl"] .service-modal-header {
+                padding-right: 1.5rem;
+                padding-left: 3.5rem;
+            }
+            
+            .service-modal-header h2 {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
         }
 
-        /* Bootstrap Offcanvas Custom Styling */
-        .offcanvas {
-            background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(31, 41, 55) 100%);
+        .service-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: rgb(248, 113, 113);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        [dir="rtl"] .service-modal-close {
+            right: auto;
+            left: 1.5rem;
         }
 
-        .offcanvas-body .btn:hover {
-            background-color: rgba(31, 41, 55, 0.8) !important;
+        .service-modal-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .service-modal-body {
+            padding: 2rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-feature-item {
+            display: flex;
+            align-items: start;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.3s;
+            gap: 1rem;
+        }
+
+        .service-feature-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(8px);
+        }
+        
+        [dir="rtl"] .service-feature-item:hover {
+            transform: translateX(-8px);
+        }
+        
+        /* Fix modal feature item spacing */
+        [dir="rtl"] .service-feature-item .flex-shrink-0 {
+            margin-right: 0 !important;
+            margin-left: 1rem !important;
+        }
+        
+        [dir="ltr"] .service-feature-item .flex-shrink-0 {
+            margin-left: 0 !important;
+            margin-right: 1rem !important;
         }
 
         /* Carousel container - responsive with navigation dots */
@@ -700,117 +821,6 @@
             }
         }
 
-        /* Bootstrap Carousel Custom Styles */
-        .client-logo-link {
-            display: block;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            border: none;
-        }
-
-        .client-logo-link:hover {
-            transform: translateY(-5px);
-        }
-
-        .client-logo {
-            transition: all 0.3s ease;
-            max-height: 100px;
-            object-fit: contain;
-        }
-
-        .client-logo-link:hover .client-logo {
-            transform: scale(1.05);
-        }
-
-        /* Remove Bootstrap default borders that don't fit FYRMTECH style */
-        .carousel-item,
-        .carousel-inner,
-        .carousel {
-            border: none !important;
-        }
-
-        #clientsCarousel {
-            padding: 3rem 0;
-        }
-
-        #clientsCarousel .carousel-indicators {
-            margin-bottom: -2rem;
-        }
-
-        @media (max-width: 768px) {
-            #clientsCarousel .carousel-indicators {
-                display: none;
-            }
-        }
-
-        #clientsCarousel .carousel-indicators button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: rgba(59, 130, 246, 0.3);
-            border: none;
-            transition: all 0.3s ease;
-        }
-
-        #clientsCarousel .carousel-indicators button.active {
-            width: 40px;
-            border-radius: 8px;
-            background-color: rgb(59, 130, 246);
-            border: none;
-        }
-
-        #clientsCarousel .carousel-control-prev,
-        #clientsCarousel .carousel-control-next {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(59, 130, 246, 0.2);
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.8;
-            transition: all 0.3s ease;
-        }
-
-        #clientsCarousel .carousel-control-prev:hover,
-        #clientsCarousel .carousel-control-next:hover {
-            background-color: rgba(59, 130, 246, 0.4);
-            opacity: 1;
-        }
-
-        #clientsCarousel .carousel-control-prev {
-            left: -60px;
-        }
-
-        #clientsCarousel .carousel-control-next {
-            right: -60px;
-        }
-
-        @media (max-width: 768px) {
-            #clientsCarousel .carousel-control-prev,
-            #clientsCarousel .carousel-control-next {
-                display: none;
-            }
-        }
-
-        /* RTL Support for Bootstrap Carousel */
-        [dir="rtl"] #clientsCarousel .carousel-control-prev {
-            left: auto;
-            right: -60px;
-        }
-
-        [dir="rtl"] #clientsCarousel .carousel-control-next {
-            right: auto;
-            left: -60px;
-        }
-
-        @media (max-width: 768px) {
-            [dir="rtl"] #clientsCarousel .carousel-control-prev,
-            [dir="rtl"] #clientsCarousel .carousel-control-next {
-                display: none;
-            }
-        }
-
         /* Logo items - larger, responsive and optimized for smooth animations */
         .logo-carousel-item {
             flex: 0 0 calc(25% - 2rem);
@@ -888,18 +898,18 @@
         </button>
     </div>
 
-    <!-- Navigation Bar with Bootstrap Offcanvas -->
+    <!-- Navigation Bar -->
     <header class="sticky top-0 z-50 bg-gray-900 shadow-lg bg-opacity-95 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo/Brand Name -->
-                <a href="#home" class="flex items-center space-x-4" aria-label="FYRMTECH - Home">
-                    <img src="images/fyrmtech-logo.png" alt="FYRMTECH Logo" class="h-10 w-auto max-h-10" width="40" height="40" loading="eager" decoding="async">
-                    <span class="sr-only">FYRMTECH Home</span>
-                    <span class="text-2xl font-extrabold fyrm-tech-accent">
-                        FYRM<span class="text-white">TECH</span>
-                    </span>
-                </a>
+                    <a href="#home" class="flex items-center space-x-4" aria-label="FYRMTECH - Home">
+                        <img src="images/fyrmtech-logo.png" alt="FYRMTECH Logo" class="h-10 w-auto max-h-10" width="40" height="40" loading="eager" decoding="async">
+                        <span class="sr-only">FYRMTECH Home</span>
+                        <span class="text-2xl font-extrabold fyrm-tech-accent">
+                            FYRM<span class="text-white">TECH</span>
+                        </span>
+                    </a>
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8">
                     <a href="#home" class="text-gray-300 hover:text-white transition duration-200" data-trans="home">Home</a>
@@ -910,7 +920,7 @@
                     <a href="#contact" class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md" data-trans="contact">Contact</a>
                 </nav>
                 <!-- Mobile Menu Button (Hamburger) -->
-                <button class="md:hidden p-2 rounded-md hover:bg-gray-700" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileOffcanvas" aria-controls="mobileOffcanvas" aria-label="Open mobile menu">
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-gray-700" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open mobile menu">
                     <svg class="w-6 h-6 text-white" role="img" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <title>Menu</title>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -918,43 +928,23 @@
                 </button>
             </div>
         </div>
-    </header>
 
-    <!-- Bootstrap Offcanvas Mobile Menu -->
-    <div class="offcanvas offcanvas-end bg-gray-900 text-white" tabindex="-1" id="mobileOffcanvas" aria-labelledby="mobileOffcanvasLabel" style="border-left: 1px solid rgba(59, 130, 246, 0.2);">
-        <div class="offcanvas-header border-bottom border-gray-800 pb-3">
-            <h5 class="offcanvas-title text-2xl font-bold" id="mobileOffcanvasLabel">
-                <span class="fyrm-tech-accent">FYRM</span><span class="text-white">TECH</span>
-            </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <nav class="d-flex flex-column gap-2">
-                <a href="#home" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition" data-bs-dismiss="offcanvas" data-trans="home">
-                    <i data-lucide="home" class="h-5 w-5 d-inline-block me-3"></i>Home
-                </a>
-                <a href="#about" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition" data-bs-dismiss="offcanvas" data-trans="aboutUs">
-                    <i data-lucide="info" class="h-5 w-5 d-inline-block me-3"></i>About Us
-                </a>
-                <a href="#services" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition" data-bs-dismiss="offcanvas" data-trans="services">
-                    <i data-lucide="briefcase" class="h-5 w-5 d-inline-block me-3"></i>Services
-                </a>
-                <a href="#clients" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition" data-bs-dismiss="offcanvas" data-trans="clients">
-                    <i data-lucide="users" class="h-5 w-5 d-inline-block me-3"></i>Clients
-                </a>
-                <a href="#partners" class="btn btn-lg text-start text-gray-300 hover-text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition" data-bs-dismiss="offcanvas" data-trans="partners">
-                    <i data-lucide="handshake" class="h-5 w-5 d-inline-block me-3"></i>Partners
-                </a>
-                <a href="#contact" class="btn btn-lg btn-primary text-start text-white py-3 px-4 rounded-lg mt-3 shadow-md" data-bs-dismiss="offcanvas" data-trans="contact" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
-                    <i data-lucide="mail" class="h-5 w-5 d-inline-block me-3"></i>Contact
-                </a>
-            </nav>
-        </div>
-    </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <nav id="mobile-menu" class="hidden md:hidden bg-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700" data-trans="home">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700" data-trans="aboutUs">About Us</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700" data-trans="services">Services</a>
+                <a href="#clients" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700" data-trans="clients">Clients</a>
+                <a href="#partners" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700" data-trans="partners">Partners</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700" data-trans="contact">Contact</a>
+            </div>
+        </nav>
+    </header>
 
     <main>
         <!-- Hero Section -->
-        <section id="home" class="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24 bg-slate-950">
+        <section id="home" class="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24 fyrm-tech-blue">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="lg:w-3/5">
                     <h1 class="hero-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white" data-trans="heroTitle">
@@ -988,7 +978,7 @@
         </section>
 
         <!-- About Us Section -->
-        <section id="about" class="py-16 md:py-24 bg-gradient-to-b from-slate-950 to-slate-900 about-bg">
+        <section id="about" class="py-16 md:py-24 bg-slate-950 about-bg">
             <div class="dots-pattern"></div>
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
@@ -1041,7 +1031,7 @@
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="py-16 md:py-24 bg-gradient-to-b from-slate-900 to-slate-950 services-bg relative overflow-hidden">
+        <section id="services" class="py-16 md:py-24 bg-slate-900 services-bg relative overflow-hidden">
             <div class="dots-pattern"></div>
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
@@ -1057,7 +1047,7 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
                     <!-- Service Card 1 - Network Infrastructure -->
-                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-1">
+                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-blue-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-1">
                         <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="relative h-48 overflow-hidden">
                             <img src="images/service-network-infrastructure.jpg" 
@@ -1071,7 +1061,7 @@
                         <div class="relative p-6 md:p-8">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center space-x-3">
-                                    <div class="p-3 bg-blue-500/10 rounded-xl group-hover:bg-blue-500/20 transition-colors duration-300">
+                                    <div class="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors duration-300">
                                         <i data-lucide="network" class="h-6 w-6 text-blue-400"></i>
                                     </div>
                                     <h3 class="text-2xl font-bold text-white" data-trans="networkInfra">Network Infrastructure</h3>
@@ -1080,10 +1070,10 @@
                             <p class="text-gray-400 leading-relaxed mb-4" data-trans="networkDesc">
                                 End-to-end <strong class="text-white">FTTx, Networks, and Data Communication Distribution</strong>. Delivering flexible, scalable, and cost-effective network solutions with expert pre-sales design services tailored to your business needs.
                             </p>
-                            <div class="d-flex flex-wrap gap-2 mt-4">
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(59, 130, 246, 0.1); color: #60a5fa; font-size: 0.75rem; font-weight: 600;" data-trans="networkTag1">FTTx Solutions</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(59, 130, 246, 0.1); color: #60a5fa; font-size: 0.75rem; font-weight: 600;" data-trans="networkTag2">Network Design</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(59, 130, 246, 0.1); color: #60a5fa; font-size: 0.75rem; font-weight: 600;" data-trans="networkTag3">Data Distribution</span>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20" data-trans="networkTag1">FTTx Solutions</span>
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20" data-trans="networkTag2">Network Design</span>
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/20" data-trans="networkTag3">Data Distribution</span>
                             </div>
                             <button onclick="openServiceModal('network')" aria-label="Read more about Network Infrastructure services" class="mt-6 inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group/btn">
                                 <span data-trans="readMore">Read More</span>
@@ -1093,7 +1083,7 @@
                     </div>
 
                     <!-- Service Card 2 - Security & Access Control -->
-                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-red-500/20 hover:-translate-y-1">
+                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-red-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-red-500/20 hover:-translate-y-1">
                         <div class="absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="relative h-48 overflow-hidden">
                             <img src="images/service-security-access.jpg" 
@@ -1107,7 +1097,7 @@
                         <div class="relative p-6 md:p-8">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center space-x-3">
-                                    <div class="p-3 bg-red-500/10 rounded-xl group-hover:bg-red-500/20 transition-colors duration-300">
+                                    <div class="p-3 bg-red-500/10 rounded-xl border border-red-500/20 group-hover:bg-red-500/20 transition-colors duration-300">
                                         <i data-lucide="shield-check" class="h-6 w-6 text-red-400"></i>
                                     </div>
                                     <h3 class="text-2xl font-bold text-white" data-trans="securityAccess">Security & Access Control</h3>
@@ -1116,10 +1106,10 @@
                             <p class="text-gray-400 leading-relaxed mb-4" data-trans="securityDesc">
                                 Comprehensive <strong class="text-white">Access Control Systems, CCTV Surveillance</strong>, and secure Document/Data Storage. Protecting your assets with enterprise-grade physical and digital security infrastructure.
                             </p>
-                            <div class="d-flex flex-wrap gap-2 mt-4">
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(239, 68, 68, 0.1); color: #f87171; font-size: 0.75rem; font-weight: 600;" data-trans="securityTag1">Access Control</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(239, 68, 68, 0.1); color: #f87171; font-size: 0.75rem; font-weight: 600;" data-trans="securityTag2">CCTV Systems</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(239, 68, 68, 0.1); color: #f87171; font-size: 0.75rem; font-weight: 600;" data-trans="securityTag3">Data Safes</span>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20" data-trans="securityTag1">Access Control</span>
+                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20" data-trans="securityTag2">CCTV Systems</span>
+                                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-full border border-red-500/20" data-trans="securityTag3">Data Safes</span>
                             </div>
                             <button onclick="openServiceModal('security')" aria-label="Read more about Security & Access Control services" class="mt-6 inline-flex items-center space-x-2 text-red-400 hover:text-red-300 font-semibold transition-colors group/btn">
                                 <span data-trans="readMore">Read More</span>
@@ -1129,7 +1119,7 @@
                     </div>
 
                     <!-- Service Card 3 - Office & Data Equipment -->
-                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/20 hover:-translate-y-1">
+                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-cyan-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/20 hover:-translate-y-1">
                         <div class="absolute inset-0 bg-gradient-to-br from-cyan-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="relative h-48 overflow-hidden">
                             <img src="images/service-office-equipment.jpg" 
@@ -1143,7 +1133,7 @@
                         <div class="relative p-6 md:p-8">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center space-x-3">
-                                    <div class="p-3 bg-cyan-500/10 rounded-xl group-hover:bg-cyan-500/20 transition-colors duration-300">
+                                    <div class="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-colors duration-300">
                                         <i data-lucide="printer" class="h-6 w-6 text-cyan-400"></i>
                                     </div>
                                     <h3 class="text-2xl font-bold text-white" data-trans="officeEquipment">Office & Data Equipment</h3>
@@ -1152,10 +1142,10 @@
                             <p class="text-gray-400 leading-relaxed mb-4" data-trans="officeDesc">
                                 Premium <strong class="text-white">ID Card Printers, Plotters, Binding & Laminating Systems</strong>, and High-Security Shredding solutions. Equipping your office with professional-grade document processing technology.
                             </p>
-                            <div class="d-flex flex-wrap gap-2 mt-4">
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(6, 182, 212, 0.1); color: #22d3ee; font-size: 0.75rem; font-weight: 600;" data-trans="officeTag1">ID Printers</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(6, 182, 212, 0.1); color: #22d3ee; font-size: 0.75rem; font-weight: 600;" data-trans="officeTag2">Plotters</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(6, 182, 212, 0.1); color: #22d3ee; font-size: 0.75rem; font-weight: 600;" data-trans="officeTag3">Shredders</span>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20" data-trans="officeTag1">ID Printers</span>
+                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20" data-trans="officeTag2">Plotters</span>
+                                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/20" data-trans="officeTag3">Shredders</span>
                             </div>
                             <button onclick="openServiceModal('office')" aria-label="Read more about Office & Data Equipment services" class="mt-6 inline-flex items-center space-x-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors group/btn">
                                 <span data-trans="readMore">Read More</span>
@@ -1165,7 +1155,7 @@
                     </div>
 
                     <!-- Service Card 4 - Computing & Accessories -->
-                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1">
+                    <div class="group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1">
                         <div class="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="relative h-48 overflow-hidden">
                             <img src="images/service-computing.jpg" 
@@ -1179,7 +1169,7 @@
                         <div class="relative p-6 md:p-8">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center space-x-3">
-                                    <div class="p-3 bg-purple-500/10 rounded-xl group-hover:bg-purple-500/20 transition-colors duration-300">
+                                    <div class="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20 group-hover:bg-purple-500/20 transition-colors duration-300">
                                         <i data-lucide="laptop" class="h-6 w-6 text-purple-400"></i>
                                     </div>
                                     <h3 class="text-2xl font-bold text-white" data-trans="computing">Computing & Accessories</h3>
@@ -1188,10 +1178,10 @@
                             <p class="text-gray-400 leading-relaxed mb-4" data-trans="computingDesc">
                                 Enterprise <strong class="text-white">Laptops, Computer Components & Accessories</strong>, and office equipment including Paper Trimmers & Guillotine Machines. Complete computing solutions for modern workplaces.
                             </p>
-                            <div class="d-flex flex-wrap gap-2 mt-4">
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(168, 85, 247, 0.1); color: #c084fc; font-size: 0.75rem; font-weight: 600;" data-trans="computingTag1">Laptops</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(168, 85, 247, 0.1); color: #c084fc; font-size: 0.75rem; font-weight: 600;" data-trans="computingTag2">Components</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(168, 85, 247, 0.1); color: #c084fc; font-size: 0.75rem; font-weight: 600;" data-trans="computingTag3">Accessories</span>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20" data-trans="computingTag1">Laptops</span>
+                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20" data-trans="computingTag2">Components</span>
+                                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/20" data-trans="computingTag3">Accessories</span>
                             </div>
                             <button onclick="openServiceModal('computing')" aria-label="Read more about Computing & Accessories services" class="mt-6 inline-flex items-center space-x-2 text-purple-400 hover:text-purple-300 font-semibold transition-colors group/btn">
                                 <span data-trans="readMore">Read More</span>
@@ -1202,7 +1192,7 @@
                 </div>
 
                 <!-- Service Card 5 - Product Supply (Full Width) -->
-                <div class="mt-6 md:mt-8 group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-1">
+                <div class="mt-6 md:mt-8 group relative bg-gradient-to-br from-gray-900/95 to-gray-800/95 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-emerald-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-1">
                     <div class="absolute inset-0 bg-gradient-to-br from-emerald-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="grid lg:grid-cols-2 gap-0">
                         <div class="relative h-64 lg:h-auto overflow-hidden order-2 lg:order-1">
@@ -1216,7 +1206,7 @@
                         </div>
                         <div class="relative p-6 md:p-8 lg:p-10 flex flex-col justify-center order-1 lg:order-2">
                             <div class="flex items-center space-x-3 mb-4">
-                                <div class="p-3 bg-emerald-500/10 rounded-xl group-hover:bg-emerald-500/20 transition-colors duration-300">
+                                <div class="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20 group-hover:bg-emerald-500/20 transition-colors duration-300">
                                     <i data-lucide="package" class="h-6 w-6 text-emerald-400"></i>
                                 </div>
                                 <h3 class="text-2xl md:text-3xl font-bold text-white" data-trans="productSupply">Product Supply & Logistics</h3>
@@ -1224,11 +1214,11 @@
                             <p class="text-gray-400 text-lg leading-relaxed mb-6" data-trans="productSupplyDesc">
                                 Comprehensive <strong class="text-white">Product Supply and Delivery Services</strong> across our entire technology portfolio. From procurement to installation, we ensure timely delivery and seamless integration of all IT infrastructure and equipment.
                             </p>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(16, 185, 129, 0.1); color: #34d399; font-size: 0.75rem; font-weight: 600;" data-trans="supplyTag1">Fast Delivery</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(16, 185, 129, 0.1); color: #34d399; font-size: 0.75rem; font-weight: 600;" data-trans="supplyTag2">Installation</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(16, 185, 129, 0.1); color: #34d399; font-size: 0.75rem; font-weight: 600;" data-trans="supplyTag3">Full Support</span>
-                                <span class="badge rounded-pill px-3 py-2" style="background-color: rgba(16, 185, 129, 0.1); color: #34d399; font-size: 0.75rem; font-weight: 600;" data-trans="supplyTag4">Quality Assured</span>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20" data-trans="supplyTag1">Fast Delivery</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20" data-trans="supplyTag2">Installation</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20" data-trans="supplyTag3">Full Support</span>
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/20" data-trans="supplyTag4">Quality Assured</span>
                             </div>
                             <button onclick="openServiceModal('supply')" aria-label="Read more about Product Supply & Logistics services" class="mt-6 inline-flex items-center space-x-2 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors group/btn">
                                 <span data-trans="readMore">Read More</span>
@@ -1249,26 +1239,26 @@
             </div>
         </section>
 
-        <!-- Bootstrap Service Modal -->
-        <div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-                <div class="modal-content" style="background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(30, 41, 59) 100%); border: none; border-radius: 1.5rem;">
-                    <div class="modal-header border-0 pb-0" style="background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(30, 41, 59) 100%);">
-                        <div class="d-flex align-items-center gap-3 w-100">
-                            <div id="modalIcon" class="p-4 rounded-xl"></div>
-                            <h2 id="modalTitle" class="modal-title fs-3 fw-bold text-white mb-0"></h2>
-                        </div>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="opacity: 0.8;"></button>
+        <!-- Service Modals -->
+        <div id="serviceModal" class="service-modal">
+            <div class="service-modal-content">
+                <div class="service-modal-header">
+                    <button class="service-modal-close" onclick="closeServiceModal()">
+                        <i data-lucide="x" class="h-5 w-5"></i>
+                    </button>
+                    <div class="flex items-center space-x-4">
+                        <div id="modalIcon" class="p-4 rounded-xl"></div>
+                        <h2 id="modalTitle" class="text-3xl md:text-4xl font-bold text-white"></h2>
                     </div>
-                    <div class="modal-body px-4 py-4" id="modalContent" style="max-height: 70vh; overflow-y: auto;">
-                        <!-- Content will be dynamically inserted here -->
-                    </div>
+                </div>
+                <div class="service-modal-body">
+                    <div id="modalContent"></div>
                 </div>
             </div>
         </div>
 
         <!-- Clients Section -->
-        <section id="clients" class="py-16 md:py-24 bg-gradient-to-b from-slate-950 to-slate-900 clients-bg">
+        <section id="clients" class="py-16 md:py-24 bg-slate-950 clients-bg">
             <div class="dots-pattern"></div>
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
@@ -1284,198 +1274,85 @@
                     <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-white" data-trans="ourValuedClients">Our Valued Clients</h3>
                     <p class="text-gray-400 text-xs sm:text-sm md:text-base mt-1" data-trans="partneringWithLeaders">Partnering with leading organizations across industries</p>
                 </div>
-                <!-- Client Logos Bootstrap Carousel -->
-                <div id="clientsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="0" class="active"></button>
-                        <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="1"></button>
-                        <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="2"></button>
-                        <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="3"></button>
-                        <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="4"></button>
-                        <button type="button" data-bs-target="#clientsCarousel" data-bs-slide-to="5"></button>
+                <div class="carousel-wrapper">
+                    <div class="logo-carousel" id="logoCarousel">
+                        <!-- Logo items with grayscale on default, color on hover -->
+                        <a href="https://www.orange.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/orange.png" alt="Orange" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/FF7900/ffffff?text=Orange'">
+                        </a>
+                        <a href="https://www.alfaegy.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/alfa.png" alt="Alfa Egypt" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/D2232A/ffffff?text=Alfa+Egypt'">
+                        </a>
+                        <a href="https://www.alfuttaim.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/Futim-Group.png" alt="Al-Futtaim Group" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim'">
+                        </a>
+                        <a href="https://www.pfizer.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/pfizer.png" alt="Pfizer" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0093D0/ffffff?text=Pfizer'">
+                        </a>
+                        <a href="https://herostore.com.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/Hero_corporate_logo_RGB.png" alt="Hero Corporate" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B74DE/ffffff?text=Hero'">
+                        </a>
+                        <a href="https://www.alfuttaim.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/futtaim.png" alt="Al-Futtaim ID" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/ED1C24/ffffff?text=Al-Futtaim+ID'">
+                        </a>
+                        <a href="https://www.vodafone.com.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/Vodafone_Logo_1.png" alt="Vodafone" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/E60000/ffffff?text=Vodafone'">
+                        </a>
+                        <a href="https://moi.gov.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/4orta.png" alt="Ministry of Internal Affairs" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0C5A32/ffffff?text=Ministry'">
+                        </a>
+                        <a href="https://www.hc-si.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/hc.png" alt="HC Securities and Investment" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x80/0B3D91/ffffff?text=HC+Securities'">
+                        </a>
+                        <!-- Additional Clients (now in carousel) -->
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/sama-telecom.png" alt="Sama Telecommunications Company" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/1E40AF/ffffff?text=Sama+Telecom'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/arabian-cement.png" alt="Arabian Cement Company" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/7C3AED/ffffff?text=Arabian+Cement'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/st-fatima.png" alt="St. Fatima School" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/059669/ffffff?text=St+Fatima'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/nile-trading.png" alt="Nile Trading & Engineering" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/DC2626/ffffff?text=Nile+Trading'">
+                        </a>
+                        <a href="https://www.enppi.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/enppi.png" alt="ENPPI" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/EA580C/ffffff?text=ENPPI'">
+                        </a>
+                        <a href="https://www.shell.com.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/shell-egypt.png" alt="Shell Egypt" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/EAB308/ffffff?text=Shell+Egypt'">
+                        </a>
+                        <a href="https://www.scct.com.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/scct.png" alt="Suez Canal Container Terminal" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/0891B2/ffffff?text=SCCT'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/al-hossen.png" alt="Al Hossen Import & Export" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/8B5CF6/ffffff?text=Al+Hossen'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/alpha-misr.png" alt="Alpha Misr for Trading" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/EC4899/ffffff?text=Alpha+Misr'">
+                        </a>
+                        <a href="https://www.jnj.com/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/johnson-johnson.png" alt="Johnson & Johnson" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/DC2626/ffffff?text=J%26J'">
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/fantasia-hotels.png" alt="Fantasia Hotels Company" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/0284C7/ffffff?text=Fantasia+Hotels'">
+                        </a>
+                        <a href="https://www.asu.edu.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/ain-shams-pharmacy.png" alt="Ain Shams University Faculty of Pharmacy" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/059669/ffffff?text=Ain+Shams'">
+                        </a>
+                        <a href="https://www.credit-agricole.eg/" target="_blank" rel="noopener noreferrer" class="logo-carousel-item">
+                            <img loading="lazy" src="images/credit-agricole.png" alt="Crédit Agricole Bank" width="200" height="150" onerror="this.onerror=null;this.src='https://placehold.co/200x150/10B981/ffffff?text=Credit+Agricole'">
+                        </a>
                     </div>
-                    <div class="carousel-inner">
-                        <!-- Slide 1 -->
-                        <div class="carousel-item active">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.orange.eg/" target="_blank" class="client-logo-link" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Orange Egypt - Leading telecommunications provider">
-                                        <img src="images/orange.png" alt="Orange" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.alfaegy.com/" target="_blank" class="client-logo-link" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Alfa Egypt - Premium automotive solutions">
-                                        <img src="images/alfa.png" alt="Alfa Egypt" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.alfuttaim.com/" target="_blank" class="client-logo-link" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Al-Futtaim Group - Diversified business conglomerate">
-                                        <img src="images/Futim-Group.png" alt="Al-Futtaim Group" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                                    <a href="https://www.pfizer.com/" target="_blank" class="client-logo-link">
-                                        <img src="images/pfizer.png" alt="Pfizer" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 2 -->
-                        <div class="carousel-item">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3 d-lg-none">
-                                    <a href="https://www.pfizer.com/" target="_blank" class="client-logo-link">
-                                        <img src="images/pfizer.png" alt="Pfizer" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://herostore.com.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/Hero_corporate_logo_RGB.png" alt="Hero Corporate" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.alfuttaim.com/" target="_blank" class="client-logo-link">
-                                        <img src="images/futtaim.png" alt="Al-Futtaim ID" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.vodafone.com.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/Vodafone_Logo_1.png" alt="Vodafone" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                                    <a href="https://moi.gov.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/4orta.png" alt="Ministry" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 3 -->
-                        <div class="carousel-item">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3 d-lg-none">
-                                    <a href="https://moi.gov.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/4orta.png" alt="Ministry" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.hc-si.com/" target="_blank" class="client-logo-link">
-                                        <img src="images/hc.png" alt="HC Securities" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/sama-telecom.png" alt="Sama Telecom" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/arabian-cement.png" alt="Arabian Cement" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/st-fatima.png" alt="St. Fatima" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 4 -->
-                        <div class="carousel-item">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3 d-lg-none">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/st-fatima.png" alt="St. Fatima" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/nile-trading.png" alt="Nile Trading" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.enppi.com/" target="_blank" class="client-logo-link">
-                                        <img src="images/enppi.png" alt="ENPPI" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.shell.com.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/shell-egypt.png" alt="Shell Egypt" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                                    <a href="https://www.scct.com.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/scct.png" alt="SCCT" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 5 -->
-                        <div class="carousel-item">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3 d-lg-none">
-                                    <a href="https://www.scct.com.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/scct.png" alt="SCCT" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/al-hossen.png" alt="Al Hossen" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/alpha-misr.png" alt="Alpha Misr" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.jnj.com/" target="_blank" class="client-logo-link">
-                                        <img src="images/johnson-johnson.png" alt="Johnson & Johnson" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 d-none d-lg-block">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/fantasia-hotels.png" alt="Fantasia Hotels" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 6 -->
-                        <div class="carousel-item">
-                            <div class="row g-4 justify-content-center align-items-center px-3">
-                                <div class="col-6 col-md-4 col-lg-3 d-lg-none">
-                                    <a href="#" class="client-logo-link">
-                                        <img src="images/fantasia-hotels.png" alt="Fantasia Hotels" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.asu.edu.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/ain-shams-pharmacy.png" alt="Ain Shams" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <a href="https://www.credit-agricole.eg/" target="_blank" class="client-logo-link">
-                                        <img src="images/credit-agricole.png" alt="Crédit Agricole" class="img-fluid client-logo">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#clientsCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#clientsCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                    <div class="carousel-dots" id="carouselDots"></div>
                 </div>
 
             </div>
         </section>
 
         <!-- Partners Section -->
-        <section id="partners" class="py-16 md:py-24 bg-gradient-to-b from-slate-900 to-slate-950 services-bg">
+        <section id="partners" class="py-16 md:py-24 bg-slate-900 services-bg">
             <div class="dots-pattern"></div>
             <div class="section-divider"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position: relative; z-index: 2;">
@@ -1538,7 +1415,7 @@
         </section>
 
         <!-- Contact Us Section -->
-        <section id="contact" class="py-20 md:py-28 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 contact-bg relative overflow-hidden">
+        <section id="contact" class="py-20 md:py-28 bg-gradient-to-br from-slate-950 via-gray-900 to-slate-950 contact-bg relative overflow-hidden">
             <div class="dots-pattern"></div>
             <!-- Animated gradient overlay -->
             <div class="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 animate-pulse" style="animation-duration: 3s;"></div>
@@ -1558,7 +1435,7 @@
 
                 <div class="lg:grid lg:grid-cols-3 lg:gap-8">
                     <!-- Contact Form - First on mobile -->
-                    <div class="lg:col-span-2 order-1 lg:order-2 p-6 sm:p-8 bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl transition-all duration-300">
+                    <div class="lg:col-span-2 order-1 lg:order-2 p-6 sm:p-8 bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="p-2 bg-blue-600/10 rounded-lg">
                                 <i data-lucide="mail" class="h-6 w-6 fyrm-tech-accent"></i>
@@ -1580,7 +1457,7 @@
                             Replace "Support@fyrmtech.con" in the 'action' attribute below with the exact email 
                             address you want submissions to go to.
                         -->
-                        <form id="contact-form" action="https://formsubmit.co/Support@fyrmtech.com" method="POST">
+                        <form id="contact-form" action="https://formsubmit.co/Support@fyrmtech.com" method="POST" class="space-y-6">
                             
                             <!-- Honeypot field (spam prevention) -->
                             <input type="text" name="_honey" style="display:none;">
@@ -1591,27 +1468,24 @@
                             <!-- Redirect after successful submission (optional) -->
                             <input type="hidden" name="_next" value="#contact?success=1">
 
-                            <div class="form-floating mb-4">
-                                <input type="text" class="form-control bg-gray-800/80 text-white border-0 rounded-3" id="name" name="Name" placeholder="John Doe" required style="padding: 1.5rem 1rem; height: auto;">
-                                <label for="name" class="text-gray-400">Full Name *</label>
+                            <div>
+                                <label for="name" class="block text-sm font-semibold text-gray-200 mb-2">Full Name *</label>
+                                <input type="text" id="name" name="Name" required class="w-full px-5 py-3.5 bg-gray-800/80 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-gray-500" placeholder="John Doe">
                             </div>
-
-                            <div class="form-floating mb-4">
-                                <input type="email" class="form-control bg-gray-800/80 text-white border-0 rounded-3" id="email" name="Email" placeholder="john.doe@example.com" required style="padding: 1.5rem 1rem; height: auto;">
-                                <label for="email" class="text-gray-400">Email Address *</label>
+                            <div>
+                                <label for="email" class="block text-sm font-semibold text-gray-200 mb-2">Email Address *</label>
+                                <input type="email" id="email" name="Email" required class="w-full px-5 py-3.5 bg-gray-800/80 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-gray-500" placeholder="john.doe@example.com">
                             </div>
-
-                            <div class="form-floating mb-4">
-                                <input type="text" class="form-control bg-gray-800/80 text-white border-0 rounded-3" id="subject" name="Subject" placeholder="Inquiry about FTTx Solutions" required style="padding: 1.5rem 1rem; height: auto;">
-                                <label for="subject" class="text-gray-400">Subject *</label>
+                            <div>
+                                <label for="subject" class="block text-sm font-semibold text-gray-200 mb-2">Subject *</label>
+                                <input type="text" id="subject" name="Subject" required class="w-full px-5 py-3.5 bg-gray-800/80 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-gray-500" placeholder="Inquiry about FTTx Solutions">
                             </div>
-
-                            <div class="form-floating mb-4">
-                                <textarea class="form-control bg-gray-800/80 text-white border-0 rounded-3" id="message" name="Message" placeholder="Tell us about your project needs" required style="height: 150px; padding: 1.5rem 1rem;"></textarea>
-                                <label for="message" class="text-gray-400">Message *</label>
+                            <div>
+                                <label for="message" class="block text-sm font-semibold text-gray-200 mb-2">Message *</label>
+                                <textarea id="message" name="Message" rows="5" required class="w-full px-5 py-3.5 bg-gray-800/80 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-gray-500 resize-none" placeholder="Tell us about your project needs and requirements..."></textarea>
                             </div>
                             
-                            <button type="submit" class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2 py-3 px-4 rounded-3 shadow-lg fs-5 fw-semibold" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none;">
+                            <button type="submit" class="w-full flex justify-center items-center gap-2 py-4 px-6 border border-transparent rounded-xl shadow-lg text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-[1.02] hover:shadow-blue-500/50">
                                 <i data-lucide="send" class="h-5 w-5"></i>
                                 <span data-trans="sendMessageBtn">Send Message</span>
                             </button>
@@ -1619,13 +1493,13 @@
                     </div>
 
                     <!-- Contact Details - Second on mobile -->
-                    <div class="lg:col-span-1 order-2 lg:order-1 space-y-5 p-6 sm:p-8 bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl mt-8 sm:mt-12 lg:mt-0">
+                    <div class="lg:col-span-1 order-2 lg:order-1 space-y-5 p-6 sm:p-8 bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700/50 mt-8 sm:mt-12 lg:mt-0">
                         <div class="mb-6">
                             <h3 class="text-xl font-bold text-white mb-2" data-trans="contactInformation">Contact Information</h3>
                             <p class="text-gray-400 text-sm" data-trans="reachOutChannels">Reach out through any of these channels</p>
                         </div>
                         
-                        <div class="flex items-start gap-4 p-4 bg-gray-800/50 rounded-xl hover:bg-gray-800/70 transition-all duration-300 hover:transform hover:scale-[1.02]">
+                        <div class="flex items-start gap-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02]">
                             <div class="p-3 bg-blue-600/10 rounded-lg">
                                 <i data-lucide="mail" class="fyrm-tech-accent h-5 w-5 flex-shrink-0"></i>
                             </div>
@@ -1636,7 +1510,7 @@
                             </div>
                         </div>
                         
-                        <div class="flex items-start gap-4 p-4 bg-gray-800/50 rounded-xl hover:bg-gray-800/70 transition-all duration-300 hover:transform hover:scale-[1.02]">
+                        <div class="flex items-start gap-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02]">
                             <div class="p-3 bg-blue-600/10 rounded-lg">
                                 <i data-lucide="phone" class="fyrm-tech-accent h-5 w-5 flex-shrink-0"></i>
                             </div>
@@ -1647,7 +1521,7 @@
                             </div>
                         </div>
                         
-                        <div class="flex items-start gap-4 p-4 bg-gray-800/50 rounded-xl hover:bg-gray-800/70 transition-all duration-300 hover:transform hover:scale-[1.02]">
+                        <div class="flex items-start gap-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700/30 hover:border-blue-500/30 transition-all duration-300 hover:transform hover:scale-[1.02]">
                             <div class="p-3 bg-blue-600/10 rounded-lg">
                                 <i data-lucide="globe" class="fyrm-tech-accent h-5 w-5 flex-shrink-0"></i>
                             </div>
@@ -1689,21 +1563,317 @@
         // Set current year in footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
+        // Mobile Menu Toggle
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(item => {
+            item.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
         // Initialize Lucide Icons (to render the icons correctly)
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
 
-        /* OLD CAROUSEL CODE - Now using Bootstrap Carousel
         // Carousel with automatic scrolling and dot navigation
         document.addEventListener('DOMContentLoaded', function() {
             const carousel = document.getElementById('logoCarousel');
             const dotsContainer = document.getElementById('carouselDots');
             const items = carousel.querySelectorAll('.logo-carousel-item');
             
-            // ... (old carousel code commented out)
+            // Safety check
+            if (!carousel || !dotsContainer || items.length === 0) {
+                console.warn('Carousel elements not found or no items present');
+                return;
+            }
+            
+            let currentIndex = 0;
+            let autoScrollInterval;
+
+            // Calculate number of visible items
+            function getVisibleItems() {
+                const carouselWidth = carousel.offsetWidth;
+                const itemWidth = items[0].offsetWidth;
+                const gap = parseFloat(getComputedStyle(carousel).gap) || 0;
+                let visible = Math.floor(carouselWidth / (itemWidth + gap));
+                // Ensure at least 1 item is visible and cap at reasonable max
+                visible = Math.max(visible, 1);
+                visible = Math.min(visible, items.length);
+                return visible;
+            }
+
+            // Calculate total pages - avoid extra dot for partial pages
+            function getTotalPages() {
+                const visibleItems = getVisibleItems();
+                const totalItems = items.length;
+                
+                // Calculate pages but limit to reasonable maximum
+                let pagesNeeded = Math.ceil(totalItems / visibleItems);
+                
+                // Hard cap: if we have 22 items on desktop, max 7 pages
+                if (window.innerWidth > 768 && totalItems === 22 && pagesNeeded > 7) {
+                    pagesNeeded = 7;
+                }
+                
+                // On narrow mobile devices (showing 2 items), force exactly 11 pages for 22 items
+                if (window.innerWidth <= 400 && totalItems === 22) {
+                    pagesNeeded = 11; // Force 11 pages (22 items / 2 per page)
+                }
+                
+                // Medium mobile devices (showing 3 items), force exactly 8 pages for 22 items
+                if (window.innerWidth > 400 && window.innerWidth <= 768 && totalItems === 22) {
+                    pagesNeeded = 8; // Force 8 pages (22 items / 3 per page, last page has 1 item)
+                }
+                
+                return Math.max(pagesNeeded, 1);
+            }
+
+            // Create dots based on pages
+            function createDots() {
+                dotsContainer.innerHTML = '';
+                const totalPages = getTotalPages();
+                
+                for (let i = 0; i < totalPages; i++) {
+                    const dot = document.createElement('button');
+                    dot.classList.add('carousel-dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+                    dot.addEventListener('click', () => goToPage(i));
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            // Update active dot
+            function updateDots() {
+                const dots = dotsContainer.querySelectorAll('.carousel-dot');
+                let currentPage;
+                
+                // On narrow mobile, calculate page based on 2 items per page
+                if (window.innerWidth <= 400 && items.length === 22) {
+                    currentPage = Math.floor(currentIndex / 2);
+                } 
+                // Medium mobile, calculate page based on 3 items per page
+                else if (window.innerWidth > 400 && window.innerWidth <= 768 && items.length === 22) {
+                    currentPage = Math.floor(currentIndex / 3);
+                }
+                else {
+                    currentPage = Math.floor(currentIndex / getVisibleItems());
+                }
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentPage);
+                });
+            }
+
+            // Go to specific page with smooth elegant animation
+            function goToPage(pageIndex) {
+                if (!items || items.length === 0) return;
+                
+                const visibleItems = getVisibleItems();
+                const totalPages = getTotalPages();
+                
+                // Clamp pageIndex to valid range
+                pageIndex = Math.max(0, Math.min(pageIndex, totalPages - 1));
+                
+                // On narrow mobile (22 items showing 2 at a time), use exact calculation
+                if (window.innerWidth <= 400 && items.length === 22) {
+                    // Each page shows exactly 2 items: page 0 = items 0-1, page 10 = items 20-21
+                    currentIndex = pageIndex * 2;
+                    // Ensure we don't exceed array bounds (max index is 21 for 22 items)
+                    currentIndex = Math.min(currentIndex, items.length - 1);
+                } 
+                // Medium mobile (22 items showing 3 at a time), use exact calculation
+                else if (window.innerWidth > 400 && window.innerWidth <= 768 && items.length === 22) {
+                    // Each page shows exactly 3 items: page 0 = items 0-2, page 7 = items 21
+                    currentIndex = pageIndex * 3;
+                    // Ensure we don't exceed array bounds (max index is 21 for 22 items)
+                    currentIndex = Math.min(currentIndex, items.length - 1);
+                }
+                else {
+                    // Calculate the scroll position normally
+                    currentIndex = pageIndex * visibleItems;
+                    
+                    // For desktop/wider mobile, align last page to show remaining items
+                    if (pageIndex >= totalPages - 1) {
+                        currentIndex = Math.max(0, items.length - visibleItems);
+                    }
+                    
+                    // Ensure valid bounds for non-narrow mobile
+                    currentIndex = Math.max(0, Math.min(currentIndex, items.length - 1));
+                }
+                
+                const targetItem = items[currentIndex];
+                if (!targetItem) return;
+                
+                // Add smooth transition effect with enhanced timing
+                items.forEach((item, index) => {
+                    if (item) {
+                        item.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                        item.style.opacity = '0.5';
+                        item.style.transform = 'scale(0.96)';
+                    }
+                });
+                
+                // Use a more reliable method: scroll by calculating exact pixel position
+                // This works in both LTR and RTL by using the actual offsetLeft
+                const paddingLeft = parseFloat(getComputedStyle(carousel).paddingLeft) || 0;
+                
+                // Get the absolute position and scroll directly to it
+                requestAnimationFrame(() => {
+                    const scrollPosition = targetItem.offsetLeft - paddingLeft;
+                    carousel.scrollTo({
+                        left: scrollPosition,
+                        behavior: 'smooth'
+                    });
+                });
+                
+                // Restore items after scroll with staggered animation
+                setTimeout(() => {
+                    items.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, index * 15); // Subtle stagger effect
+                    });
+                }, 300);
+                
+                updateDots();
+                resetAutoScroll();
+            }
+
+            // Auto scroll to next page
+            function autoScroll() {
+                const totalPages = getTotalPages();
+                let currentPage;
+                
+                // On narrow mobile, calculate page based on 2 items per page
+                if (window.innerWidth <= 400 && items.length === 22) {
+                    currentPage = Math.floor(currentIndex / 2);
+                } 
+                // Medium mobile, calculate page based on 3 items per page
+                else if (window.innerWidth > 400 && window.innerWidth <= 768 && items.length === 22) {
+                    currentPage = Math.floor(currentIndex / 3);
+                }
+                else {
+                    currentPage = Math.floor(currentIndex / getVisibleItems());
+                }
+                
+                const nextPage = (currentPage + 1) % totalPages;
+                goToPage(nextPage);
+            }
+
+            // Start auto scroll with professional timing
+            function startAutoScroll() {
+                autoScrollInterval = setInterval(autoScroll, 3000); // 3 seconds
+            }
+
+            // Reset auto scroll
+            function resetAutoScroll() {
+                clearInterval(autoScrollInterval);
+                startAutoScroll();
+            }
+
+            // Initialize
+            createDots();
+            
+            // Force carousel to LTR direction programmatically as well
+            carousel.style.direction = 'ltr';
+            
+            startAutoScroll();
+
+            // Reinitialize Lucide icons after DOM updates
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Pause auto scroll on hover
+            carousel.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+            carousel.addEventListener('mouseleave', () => startAutoScroll());
+            
+            // Pause auto scroll when carousel is not in viewport
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const carouselObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Carousel is visible, start auto-scroll
+                        startAutoScroll();
+                    } else {
+                        // Carousel is not visible, stop auto-scroll
+                        clearInterval(autoScrollInterval);
+                    }
+                });
+            }, observerOptions);
+            
+            carouselObserver.observe(carousel);
+
+            // Recreate dots on window resize with debouncing for better performance
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    createDots();
+                    updateDots();
+                }, 250);
+            }, { passive: true });
         });
-        */
+
+        // Debounce function for performance
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Double-tap to redirect for logo carousel on mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.innerWidth <= 768) {
+                const logoLinks = document.querySelectorAll('.logo-carousel-item');
+                const tapStates = new Map();
+
+                logoLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        const href = this.getAttribute('href');
+                        const now = Date.now();
+                        const lastTap = tapStates.get(href);
+
+                        if (lastTap && (now - lastTap) < 500) {
+                            // Double tap detected - allow navigation
+                            tapStates.delete(href);
+                            return true;
+                        } else {
+                            // First tap - prevent navigation
+                            e.preventDefault();
+                            tapStates.set(href, now);
+                            
+                            // Visual feedback
+                            this.style.transform = 'scale(1.05)';
+                            setTimeout(() => {
+                                this.style.transform = '';
+                            }, 200);
+                        }
+                    });
+                });
+            }
+        });
 
         // Optional: Smooth scrolling for all internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2137,7 +2307,7 @@
         };
 
         function openServiceModal(serviceType) {
-            const modalElement = document.getElementById('serviceModal');
+            const modal = document.getElementById('serviceModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalIcon = document.getElementById('modalIcon');
             const modalContent = document.getElementById('modalContent');
@@ -2149,70 +2319,94 @@
             // Get translations for current language
             const t = translations[currentLang];
             
-            // Set title and icon
-            modalTitle.textContent = service.title;
-            modalIcon.className = `p-4 rounded-xl ${service.iconBg}`;
-            modalIcon.innerHTML = `<i data-lucide="${service.icon}" class="h-8 w-8 ${service.iconColor}"></i>`;
-            
-            // Build content
-            let contentHTML = `
-                <p class="text-lg text-gray-300 leading-relaxed mb-4">${service.description}</p>
-                <h3 class="text-2xl font-bold text-white mb-4 mt-4">${t.keyFeatures}</h3>
-                <div class="d-flex flex-column gap-3">
-            `;
-            
-            service.features.forEach(feature => {
-                contentHTML += `
-                    <div class="d-flex align-items-start p-3 rounded-3" style="background: rgba(59, 130, 246, 0.05);">
-                        <div class="flex-shrink-0 me-3">
-                            <div class="p-3 bg-blue-500/10 rounded-lg">
-                                <i data-lucide="${feature.icon}" class="h-6 w-6 text-blue-400"></i>
+            // Use requestAnimationFrame for smooth rendering
+            requestAnimationFrame(() => {
+                // Set title and icon
+                modalTitle.textContent = service.title;
+                modalIcon.className = `p-4 rounded-xl ${service.iconBg} border ${service.iconBorder}`;
+                modalIcon.innerHTML = `<i data-lucide="${service.icon}" class="h-8 w-8 ${service.iconColor}"></i>`;
+                
+                // Build content using DocumentFragment for better performance
+                const fragment = document.createDocumentFragment();
+                const container = document.createElement('div');
+                
+                let contentHTML = `
+                    <p class="text-lg text-gray-300 leading-relaxed mb-8">${service.description}</p>
+                    <h3 class="text-2xl font-bold text-white mb-6">${t.keyFeatures}</h3>
+                    <div class="space-y-4">
+                `;
+                
+                service.features.forEach(feature => {
+                    contentHTML += `
+                        <div class="service-feature-item">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                                    <i data-lucide="${feature.icon}" class="h-6 w-6 text-blue-400"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">${feature.title}</h4>
+                                <p class="text-gray-400">${feature.description}</p>
                             </div>
                         </div>
-                        <div class="flex-grow-1">
-                            <h4 class="fs-6 fw-semibold text-white mb-2">${feature.title}</h4>
-                            <p class="text-gray-400 mb-0 small">${feature.description}</p>
-                        </div>
+                    `;
+                });
+                
+                contentHTML += `
+                    </div>
+                    <div class="mt-10 p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-500/20">
+                        <h4 class="text-xl font-bold text-white mb-3">${t.readyToGetStarted}</h4>
+                        <p class="text-gray-300 mb-4">${t.contactUsToday}</p>
+                        <a href="#contact" onclick="closeServiceModal()" class="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300">
+                            <span>${t.contactUsBtn}</span>
+                            <i data-lucide="arrow-right" class="h-4 w-4"></i>
+                        </a>
                     </div>
                 `;
+                
+                container.innerHTML = contentHTML;
+                fragment.appendChild(container);
+                modalContent.innerHTML = '';
+                modalContent.appendChild(fragment);
+                
+                // Reinitialize Lucide icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+                
+                // Show modal
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
-            
-            contentHTML += `
-                </div>
-                <div class="mt-4 p-4 rounded-3" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);">
-                    <h4 class="fs-5 fw-bold text-white mb-2">${t.readyToGetStarted}</h4>
-                    <p class="text-gray-300 mb-3">${t.contactUsToday}</p>
-                    <a href="#contact" data-bs-dismiss="modal" class="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-2 rounded-3" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none;">
-                        <span>${t.contactUsBtn}</span>
-                        <i data-lucide="arrow-right" class="h-4 w-4"></i>
-                    </a>
-                </div>
-            `;
-            
-            modalContent.innerHTML = contentHTML;
-            
-            // Reinitialize Lucide icons
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-            
-            // Show Bootstrap modal
-            const bsModal = new bootstrap.Modal(modalElement);
-            bsModal.show();
-            
-            // Reset scroll to top when modal is shown
-            modalElement.addEventListener('shown.bs.modal', function () {
-                modalContent.scrollTop = 0;
-            }, { once: true });
         }
 
         function closeServiceModal() {
-            const modalElement = document.getElementById('serviceModal');
-            const bsModal = bootstrap.Modal.getInstance(modalElement);
-            if (bsModal) {
-                bsModal.hide();
+            const modal = document.getElementById('serviceModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
             }
         }
+
+        // Close modal on background click
+        const serviceModal = document.getElementById('serviceModal');
+        if (serviceModal) {
+            serviceModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeServiceModal();
+                }
+            });
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' || e.key === 'Esc') {
+                const modal = document.getElementById('serviceModal');
+                if (modal && modal.classList.contains('active')) {
+                    closeServiceModal();
+                }
+            }
+        });
 
         // Language Translation System
         const translations = {
@@ -2624,44 +2818,6 @@
         }
 
 
-    </script>
-
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Initialize Bootstrap Carousel with RTL support -->
-    <script>
-        // Initialize Bootstrap tooltips
-        document.addEventListener('DOMContentLoaded', function() {
-            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
-
-            // Pause carousel when not in viewport
-            const carousel = document.getElementById('clientsCarousel');
-            if (carousel) {
-                const bsCarousel = new bootstrap.Carousel(carousel, {
-                    interval: 3000,
-                    wrap: true,
-                    keyboard: true,
-                    touch: true
-                });
-
-                // Pause when carousel is not visible
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            bsCarousel.cycle();
-                        } else {
-                            bsCarousel.pause();
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                observer.observe(carousel);
-            }
-        });
     </script>
 
 </body>
