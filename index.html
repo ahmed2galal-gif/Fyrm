@@ -2648,10 +2648,10 @@
                     interval: 3000,
                     wrap: true,
                     keyboard: true,
-                    touch: true
+                    touch: !isRTL  // Disable default touch for RTL
                 });
 
-                // Reverse swipe direction for RTL
+                // Custom swipe handler for RTL
                 if (isRTL) {
                     let touchStartX = 0;
                     let touchEndX = 0;
@@ -2662,26 +2662,16 @@
                     
                     carousel.addEventListener('touchend', (e) => {
                         touchEndX = e.changedTouches[0].screenX;
-                        handleSwipe();
-                    }, { passive: true });
-                    
-                    function handleSwipe() {
-                        if (touchEndX < touchStartX - 50) {
-                            // Swipe left - go to previous (reversed for RTL)
+                        const swipeThreshold = 50;
+                        
+                        if (touchStartX - touchEndX > swipeThreshold) {
+                            // Swipe left - go to next (reversed for RTL)
+                            bsCarousel.next();
+                        } else if (touchEndX - touchStartX > swipeThreshold) {
+                            // Swipe right - go to prev (reversed for RTL)
                             bsCarousel.prev();
                         }
-                        if (touchEndX > touchStartX + 50) {
-                            // Swipe right - go to next (reversed for RTL)
-                            bsCarousel.next();
-                        }
-                    }
-                    
-                    // Prevent default Bootstrap touch behavior in RTL
-                    carousel.addEventListener('slide.bs.carousel', (e) => {
-                        if (e.from !== undefined) {
-                            e.preventDefault();
-                        }
-                    });
+                    }, { passive: true });
                 }
 
                 // Pause when carousel is not visible
