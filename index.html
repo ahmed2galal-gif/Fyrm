@@ -2838,19 +2838,30 @@
                 // Reverse swipe direction for RTL on mobile carousel only
                 const isRTL = () => document.documentElement.getAttribute('dir') === 'rtl';
                 
-                mobileCarousel.addEventListener('slide.bs.carousel', function (event) {
-                    if (isRTL()) {
-                        // For RTL, reverse the navigation direction
-                        const direction = event.direction;
-                        if (direction === 'start') {
-                            // Swipe right in RTL should go to previous
-                            event.preventDefault();
-                            bsMobileCarousel.prev();
-                        } else if (direction === 'end') {
-                            // Swipe left in RTL should go to next
-                            event.preventDefault();
-                            bsMobileCarousel.next();
-                        }
+                // Override touch events to reverse swipe direction in RTL
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                mobileCarousel.addEventListener('touchstart', function(e) {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+                
+                mobileCarousel.addEventListener('touchend', function(e) {
+                    if (!isRTL()) return; // Only reverse in RTL mode
+                    
+                    touchEndX = e.changedTouches[0].screenX;
+                    const swipeThreshold = 50;
+                    
+                    if (touchStartX - touchEndX > swipeThreshold) {
+                        // Swiped left - in RTL this should go previous
+                        e.preventDefault();
+                        e.stopPropagation();
+                        bsMobileCarousel.prev();
+                    } else if (touchEndX - touchStartX > swipeThreshold) {
+                        // Swiped right - in RTL this should go next
+                        e.preventDefault();
+                        e.stopPropagation();
+                        bsMobileCarousel.next();
                     }
                 });
                 
