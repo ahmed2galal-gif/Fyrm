@@ -2760,74 +2760,8 @@
                     interval: 3000,
                     wrap: true,
                     keyboard: true,
-                    touch: false  // Disable default touch for custom handling
+                    touch: true  // Enable Bootstrap default touch handling
                 });
-
-                // Prevent desktop from navigating to slide 6 (mobile-only slide)
-                let isNavigating = false;
-                carousel.addEventListener('slide.bs.carousel', function (event) {
-                    const isDesktop = window.innerWidth >= 992;
-                    
-                    // Only apply restrictions on desktop
-                    if (isDesktop) {
-                        // Prevent navigation to slide 6 on desktop
-                        if (event.to === 5) { // Slide 6 is index 5
-                            event.preventDefault();
-                            if (!isNavigating) {
-                                isNavigating = true;
-                                // Wrap to first slide when going forward from last desktop slide
-                                setTimeout(() => {
-                                    bsCarousel.to(0);
-                                    isNavigating = false;
-                                }, 50);
-                            }
-                        }
-                        // When on slide 1 going backwards, skip to slide 5 (last desktop slide)
-                        else if (event.from === 0 && event.to === 5 && event.direction === 'right') {
-                            event.preventDefault();
-                            if (!isNavigating) {
-                                isNavigating = true;
-                                setTimeout(() => {
-                                    bsCarousel.to(4); // Go to slide 5 (index 4)
-                                    isNavigating = false;
-                                }, 50);
-                            }
-                        }
-                    }
-                    // On mobile, allow normal wrapping (no restrictions)
-                });
-
-                // Custom swipe handler for both LTR and RTL
-                let touchStartX = 0;
-                let touchEndX = 0;
-                
-                carousel.addEventListener('touchstart', (e) => {
-                    touchStartX = e.changedTouches[0].screenX;
-                }, { passive: true });
-                
-                carousel.addEventListener('touchend', (e) => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    const swipeThreshold = 50;
-                    
-                    // Detect RTL dynamically on each swipe for proper direction
-                    const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
-                    
-                    if (isRTL) {
-                        // RTL: swipe left = prev, swipe right = next
-                        if (touchStartX - touchEndX > swipeThreshold) {
-                            bsCarousel.prev();
-                        } else if (touchEndX - touchStartX > swipeThreshold) {
-                            bsCarousel.next();
-                        }
-                    } else {
-                        // LTR: swipe left = next, swipe right = prev
-                        if (touchStartX - touchEndX > swipeThreshold) {
-                            bsCarousel.next();
-                        } else if (touchEndX - touchStartX > swipeThreshold) {
-                            bsCarousel.prev();
-                        }
-                    }
-                }, { passive: true });
 
                 // Pause when carousel is not visible
                 const observer = new IntersectionObserver((entries) => {
