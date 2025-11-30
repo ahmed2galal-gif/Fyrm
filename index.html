@@ -1477,7 +1477,7 @@
                     <div class="carousel-inner">
                         <!-- Mobile Slide 1 -->
                         <div class="carousel-item active">
-                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1" dir="ltr">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1">
                                 <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.orange.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/orange.png" alt="Orange" class="img-fluid client-logo">
@@ -1497,7 +1497,7 @@
                         </div>
                         <!-- Mobile Slide 2 -->
                         <div class="carousel-item">
-                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1" dir="ltr">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1">
                                 <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.pfizer.com/" target="_blank" class="client-logo-link">
                                         <img src="images/pfizer.png" alt="Pfizer" class="img-fluid client-logo">
@@ -1517,7 +1517,7 @@
                         </div>
                         <!-- Mobile Slide 3 -->
                         <div class="carousel-item">
-                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1" dir="ltr">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1">
                                 <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.vodafone.com.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/Vodafone_Logo_1.png" alt="Vodafone" class="img-fluid client-logo">
@@ -1537,7 +1537,7 @@
                         </div>
                         <!-- Mobile Slide 4 -->
                         <div class="carousel-item">
-                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1" dir="ltr">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1">
                                 <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://sama.jo/" target="_blank" class="client-logo-link">
                                         <img src="images/sama.png" alt="Sama Telecom" class="img-fluid client-logo">
@@ -1557,7 +1557,7 @@
                         </div>
                         <!-- Mobile Slide 5 -->
                         <div class="carousel-item">
-                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1" dir="ltr">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1">
                                 <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.enppi.com/" target="_blank" class="client-logo-link">
                                         <img src="images/enppi.png" alt="ENPPI" class="img-fluid client-logo">
@@ -1577,7 +1577,7 @@
                         </div>
                         <!-- Mobile Slide 6 -->
                         <div class="carousel-item">
-                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1" dir="ltr">
+                            <div class="d-flex flex-nowrap justify-content-center align-items-center gap-1 px-1">
                                 <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.jnj.com/" target="_blank" class="client-logo-link">
                                         <img src="images/johnson.png" alt="Johnson & Johnson" class="img-fluid client-logo">
@@ -2834,6 +2834,26 @@
             
             if (mobileCarousel) {
                 const bsMobileCarousel = bootstrap.Carousel.getOrCreateInstance(mobileCarousel);
+                
+                // Reverse swipe direction for RTL on mobile carousel only
+                const isRTL = () => document.documentElement.getAttribute('dir') === 'rtl';
+                
+                mobileCarousel.addEventListener('slide.bs.carousel', function (event) {
+                    if (isRTL()) {
+                        // For RTL, reverse the navigation direction
+                        const direction = event.direction;
+                        if (direction === 'start') {
+                            // Swipe right in RTL should go to previous
+                            event.preventDefault();
+                            bsMobileCarousel.prev();
+                        } else if (direction === 'end') {
+                            // Swipe left in RTL should go to next
+                            event.preventDefault();
+                            bsMobileCarousel.next();
+                        }
+                    }
+                });
+                
                 const observerMobile = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
