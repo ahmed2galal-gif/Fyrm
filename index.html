@@ -719,6 +719,13 @@
             border: none;
         }
 
+        /* Reduce padding on mobile for larger logos */
+        @media (max-width: 991px) {
+            .client-logo-link {
+                padding: 0.5rem;
+            }
+        }
+
         .client-logo-link:hover {
             transform: translateY(-5px);
         }
@@ -727,6 +734,13 @@
             transition: all 0.3s ease;
             max-height: 100px;
             object-fit: contain;
+        }
+
+        /* Larger logos on mobile */
+        @media (max-width: 991px) {
+            .client-logo {
+                max-height: 200px;
+            }
         }
 
         .client-logo-link:hover .client-logo {
@@ -744,6 +758,12 @@
             padding: 3rem 0;
         }
 
+        @media (max-width: 768px) {
+            #clientsCarousel {
+                padding: 1rem 0;
+            }
+        }
+
         #clientsCarousel .carousel-indicators {
             margin-bottom: -2rem;
         }
@@ -751,6 +771,7 @@
         @media (max-width: 768px) {
             #clientsCarousel .carousel-indicators {
                 display: none;
+                margin-bottom: 0;
             }
         }
 
@@ -1314,18 +1335,18 @@
                     <div class="carousel-inner">
                         <!-- Slide 1 -->
                         <div class="carousel-item active">
-                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-2 px-2">
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-1 px-1">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.orange.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/orange.png" alt="Orange" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.alfaegy.com/" target="_blank" class="client-logo-link">
                                         <img src="images/alfa.png" alt="Alfa Egypt" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.alfuttaim.com/" target="_blank" class="client-logo-link">
                                         <img src="images/Futim-Group.png" alt="Al-Futtaim Group" class="img-fluid client-logo">
                                     </a>
@@ -1356,18 +1377,18 @@
                         </div>
                         <!-- Slide 2 -->
                         <div class="carousel-item">
-                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-2 px-2">
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-1 px-1">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.pfizer.com/" target="_blank" class="client-logo-link">
                                         <img src="images/pfizer.png" alt="Pfizer" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://herostore.com.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/Hero_corporate_logo_RGB.png" alt="Hero Corporate" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.alfuttaim.com/" target="_blank" class="client-logo-link">
                                         <img src="images/futtaim.png" alt="Al-Futtaim ID" class="img-fluid client-logo">
                                     </a>
@@ -1398,18 +1419,18 @@
                         </div>
                         <!-- Slide 3 -->
                         <div class="carousel-item">
-                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-2 px-2">
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-1 px-1">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.vodafone.com.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/Vodafone_Logo_1.png" alt="Vodafone" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://moi.gov.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/4orta.png" alt="Ministry" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.hc-si.com/" target="_blank" class="client-logo-link">
                                         <img src="images/hc.png" alt="HC Securities" class="img-fluid client-logo">
                                     </a>
@@ -1440,18 +1461,18 @@
                         </div>
                         <!-- Slide 4 -->
                         <div class="carousel-item">
-                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-2 px-2">
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-1 px-1">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://sama.jo/" target="_blank" class="client-logo-link">
                                         <img src="images/sama.png" alt="Sama Telecom" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://arabiancementcompany.com/" target="_blank" class="client-logo-link">
                                         <img src="images/arab-asmant.png" alt="Arabian Cement" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://stfatimagroup.edu.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/st-fatima.png" alt="St. Fatima" class="img-fluid client-logo">
                                     </a>
@@ -1482,18 +1503,18 @@
                         </div>
                         <!-- Slide 5 -->
                         <div class="carousel-item">
-                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-2 px-2">
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-1 px-1">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.enppi.com/" target="_blank" class="client-logo-link">
                                         <img src="images/enppi.png" alt="ENPPI" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.shell.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/shell.png" alt="Shell Egypt" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.apmterminals.com/en/scct" target="_blank" class="client-logo-link">
                                         <img src="images/scct.png" alt="SCCT" class="img-fluid client-logo">
                                     </a>
@@ -1514,18 +1535,18 @@
                         </div>
                         <!-- Slide 6 - Mobile Only -->
                         <div class="carousel-item">
-                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-2 px-2">
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                            <div class="d-flex d-lg-none flex-nowrap justify-content-center align-items-center gap-1 px-1">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.jnj.com/" target="_blank" class="client-logo-link">
                                         <img src="images/johnson.png" alt="Johnson & Johnson" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.asu.edu.eg/" target="_blank" class="client-logo-link">
                                         <img src="images/ain-shams.png" alt="Ain Shams" class="img-fluid client-logo">
                                     </a>
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; max-width: 120px;">
+                                <div class="flex-shrink-0" style="width: 33%;">
                                     <a href="https://www.ca-egypt.com/" target="_blank" class="client-logo-link">
                                         <img src="images/credit-agreciole.png" alt="Crédit Agricole" class="img-fluid client-logo">
                                     </a>
@@ -2760,7 +2781,21 @@
                     interval: 3000,
                     wrap: true,
                     keyboard: true,
-                    touch: true  // Enable Bootstrap default touch handling
+                    touch: true
+                });
+
+                // Prevent desktop from navigating to slide 6 (mobile-only slide)
+                carousel.addEventListener('slide.bs.carousel', function (event) {
+                    const isDesktop = window.innerWidth >= 992;
+                    
+                    // Only block slide 6 on desktop
+                    if (isDesktop && event.to === 5) { // Slide 6 is index 5
+                        event.preventDefault();
+                        // Wrap to first slide when trying to go to mobile-only slide
+                        setTimeout(() => {
+                            bsCarousel.to(0);
+                        }, 0);
+                    }
                 });
 
                 // Pause when carousel is not visible
