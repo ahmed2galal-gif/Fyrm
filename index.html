@@ -1761,22 +1761,22 @@
                             <input type="hidden" name="_next" value="#contact?success=1">
 
                             <div class="mb-4">
-                                <label for="name" class="form-label text-white mb-2 fw-semibold">Full Name <span class="text-danger required-star">*</span></label>
+                                <label for="name" class="form-label text-white mb-2 fw-semibold" data-trans="fullName">Full Name <span class="text-danger required-star">*</span></label>
                                 <input type="text" class="form-control border-0 rounded-3" id="name" name="Name" placeholder="John Doe" required style="padding: 1rem; height: auto; background-color: #1f2937 !important; color: #ffffff !important;">
                             </div>
 
                             <div class="mb-4">
-                                <label for="email" class="form-label text-white mb-2 fw-semibold">Email Address <span class="text-danger required-star">*</span></label>
+                                <label for="email" class="form-label text-white mb-2 fw-semibold" data-trans="emailAddress">Email Address <span class="text-danger required-star">*</span></label>
                                 <input type="email" class="form-control border-0 rounded-3" id="email" name="Email" placeholder="john.doe@example.com" required style="padding: 1rem; height: auto; background-color: #1f2937 !important; color: #ffffff !important;">
                             </div>
 
                             <div class="mb-4">
-                                <label for="subject" class="form-label text-white mb-2 fw-semibold">Subject <span class="text-danger required-star">*</span></label>
+                                <label for="subject" class="form-label text-white mb-2 fw-semibold" data-trans="subject">Subject <span class="text-danger required-star">*</span></label>
                                 <input type="text" class="form-control border-0 rounded-3" id="subject" name="Subject" placeholder="Inquiry about FTTx Solutions" required style="padding: 1rem; height: auto; background-color: #1f2937 !important; color: #ffffff !important;">
                             </div>
 
                             <div class="mb-4">
-                                <label for="message" class="form-label text-white mb-2 fw-semibold">Message <span class="text-danger required-star">*</span></label>
+                                <label for="message" class="form-label text-white mb-2 fw-semibold" data-trans="message">Message <span class="text-danger required-star">*</span></label>
                                 <textarea class="form-control border-0 rounded-3" id="message" name="Message" placeholder="Tell us about your project needs" required style="height: 150px; padding: 1rem; background-color: #1f2937 !important; color: #ffffff !important;"></textarea>
                             </div>
                             
@@ -2805,19 +2805,19 @@
             
             if (nameInput) {
                 nameInput.placeholder = lang === 'ar' ? 'أحمد محمد' : 'John Doe';
-                document.querySelector('label[for="name"]').innerHTML = t.fullName + ' *';
+                document.querySelector('label[for="name"]').innerHTML = t.fullName + ' <span class="text-danger required-star">*</span>';
             }
             if (emailInput) {
                 emailInput.placeholder = lang === 'ar' ? 'ahmed@example.com' : 'john.doe@example.com';
-                document.querySelector('label[for="email"]').innerHTML = t.emailAddress + ' *';
+                document.querySelector('label[for="email"]').innerHTML = t.emailAddress + ' <span class="text-danger required-star">*</span>';
             }
             if (subjectInput) {
                 subjectInput.placeholder = lang === 'ar' ? 'استفسار عن حلول FTTx' : 'Inquiry about FTTx Solutions';
-                document.querySelector('label[for="subject"]').innerHTML = t.subject + ' *';
+                document.querySelector('label[for="subject"]').innerHTML = t.subject + ' <span class="text-danger required-star">*</span>';
             }
             if (messageInput) {
                 messageInput.placeholder = lang === 'ar' ? 'أخبرنا عن احتياجات مشروعك ومتطلباته...' : 'Tell us about your project needs and requirements...';
-                document.querySelector('label[for="message"]').innerHTML = t.message + ' *';
+                document.querySelector('label[for="message"]').innerHTML = t.message + ' <span class="text-danger required-star">*</span>';
             }
             
             // Footer
@@ -2934,26 +2934,38 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('contact-form');
-            const formInputs = form.querySelectorAll('input[required], textarea[required]');
+            
+            function hideAllStars() {
+                const allStars = document.querySelectorAll('.required-star');
+                allStars.forEach(function(star) {
+                    star.style.display = 'none';
+                });
+            }
             
             // Hide all stars initially
-            formInputs.forEach(function(input) {
-                const label = document.querySelector('label[for="' + input.id + '"]');
-                const requiredStar = label ? label.querySelector('.required-star') : null;
-                
-                if (requiredStar) {
-                    requiredStar.style.display = 'none';
-                }
+            hideAllStars();
+            
+            // Re-hide stars when language changes (after translation updates DOM)
+            const observer = new MutationObserver(function() {
+                hideAllStars();
+            });
+            
+            observer.observe(form, { 
+                childList: true, 
+                subtree: true,
+                characterData: true
             });
             
             // Show stars only on submit if field is empty
             form.addEventListener('submit', function(e) {
+                const formInputs = form.querySelectorAll('input[required], textarea[required]');
                 let hasEmpty = false;
                 
                 formInputs.forEach(function(input) {
                     const label = document.querySelector('label[for="' + input.id + '"]');
-                    const requiredStar = label ? label.querySelector('.required-star') : null;
+                    if (!label) return;
                     
+                    const requiredStar = label.querySelector('.required-star');
                     if (!requiredStar) return;
                     
                     if (input.value.trim() === '') {
@@ -2970,15 +2982,17 @@
             });
             
             // Hide star when user starts typing in an empty field
-            formInputs.forEach(function(input) {
-                input.addEventListener('input', function() {
+            form.addEventListener('input', function(e) {
+                const input = e.target;
+                if (input.tagName === 'INPUT' || input.tagName === 'TEXTAREA') {
                     const label = document.querySelector('label[for="' + input.id + '"]');
-                    const requiredStar = label ? label.querySelector('.required-star') : null;
+                    if (!label) return;
                     
+                    const requiredStar = label.querySelector('.required-star');
                     if (requiredStar && input.value.trim() !== '') {
                         requiredStar.style.display = 'none';
                     }
-                });
+                }
             });
         });
     </script>
