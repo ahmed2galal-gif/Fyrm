@@ -2853,15 +2853,15 @@
                     const swipeThreshold = 50;
                     
                     if (touchStartX - touchEndX > swipeThreshold) {
-                        // Swiped left - in RTL this should go previous
-                        e.preventDefault();
-                        e.stopPropagation();
-                        bsMobileCarousel.prev();
-                    } else if (touchEndX - touchStartX > swipeThreshold) {
-                        // Swiped right - in RTL this should go next
+                        // Swiped left - in RTL this should go next (right direction)
                         e.preventDefault();
                         e.stopPropagation();
                         bsMobileCarousel.next();
+                    } else if (touchEndX - touchStartX > swipeThreshold) {
+                        // Swiped right - in RTL this should go previous (left direction)
+                        e.preventDefault();
+                        e.stopPropagation();
+                        bsMobileCarousel.prev();
                     }
                 });
                 
