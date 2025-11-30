@@ -1465,7 +1465,7 @@
                 </div>
                 
                 <!-- Mobile Carousel -->
-                <div id="clientsCarouselMobile" class="carousel slide d-lg-none" data-bs-ride="carousel" data-bs-interval="3000" data-bs-wrap="true">
+                <div id="clientsCarouselMobile" class="carousel slide d-lg-none" data-bs-ride="carousel" data-bs-interval="3000" data-bs-wrap="true" data-bs-touch="false">
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#clientsCarouselMobile" data-bs-slide-to="0" class="active"></button>
                         <button type="button" data-bs-target="#clientsCarouselMobile" data-bs-slide-to="1"></button>
@@ -2835,33 +2835,50 @@
             if (mobileCarousel) {
                 const bsMobileCarousel = bootstrap.Carousel.getOrCreateInstance(mobileCarousel);
                 
-                // Reverse swipe direction for RTL on mobile carousel only
+                // Handle touch events for mobile carousel with RTL support
                 const isRTL = () => document.documentElement.getAttribute('dir') === 'rtl';
                 
-                // Override touch events to reverse swipe direction in RTL
                 let touchStartX = 0;
                 let touchEndX = 0;
+                let isSwiping = false;
                 
                 mobileCarousel.addEventListener('touchstart', function(e) {
                     touchStartX = e.changedTouches[0].screenX;
-                }, { passive: true });
+                    isSwiping = true;
+                });
+                
+                mobileCarousel.addEventListener('touchmove', function(e) {
+                    if (!isSwiping) return;
+                    touchEndX = e.changedTouches[0].screenX;
+                });
                 
                 mobileCarousel.addEventListener('touchend', function(e) {
-                    if (!isRTL()) return; // Only reverse in RTL mode
+                    if (!isSwiping) return;
+                    isSwiping = false;
                     
-                    touchEndX = e.changedTouches[0].screenX;
                     const swipeThreshold = 50;
+                    const diff = touchStartX - touchEndX;
                     
-                    if (touchStartX - touchEndX > swipeThreshold) {
-                        // Swiped left - in RTL this should go next (right direction)
-                        e.preventDefault();
-                        e.stopPropagation();
-                        bsMobileCarousel.next();
-                    } else if (touchEndX - touchStartX > swipeThreshold) {
-                        // Swiped right - in RTL this should go previous (left direction)
-                        e.preventDefault();
-                        e.stopPropagation();
-                        bsMobileCarousel.prev();
+                    if (Math.abs(diff) < swipeThreshold) return;
+                    
+                    if (isRTL()) {
+                        // In RTL: swipe left = next, swipe right = prev
+                        if (diff > 0) {
+                            // Swiped left
+                            bsMobileCarousel.next();
+                        } else {
+                            // Swiped right
+                            bsMobileCarousel.prev();
+                        }
+                    } else {
+                        // In LTR: swipe left = prev, swipe right = next (Bootstrap default)
+                        if (diff > 0) {
+                            // Swiped left
+                            bsMobileCarousel.next();
+                        } else {
+                            // Swiped right
+                            bsMobileCarousel.prev();
+                        }
                     }
                 });
                 
