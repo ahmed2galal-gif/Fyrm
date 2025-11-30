@@ -482,6 +482,7 @@
         .form-floating > .form-control:not(:placeholder-shown) ~ label {
             color: #3b82f6 !important;
             transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+            opacity: 1 !important;
         }
 
         .form-floating > .form-control:focus {
@@ -490,7 +491,40 @@
         }
 
         .form-floating > label {
-            color: #9ca3af;
+            color: #9ca3af !important;
+            padding: 1rem 1rem;
+            opacity: 1 !important;
+        }
+
+        /* Ensure labels are visible on dark backgrounds */
+        #contact-form .form-floating > label {
+            color: #d1d5db !important;
+            background-color: transparent !important;
+        }
+
+        #contact-form .form-floating > .form-control:focus ~ label,
+        #contact-form .form-floating > .form-control:not(:placeholder-shown) ~ label {
+            color: #60a5fa !important;
+            background-color: #1f2937 !important;
+            padding: 0.25rem 0.5rem;
+        }
+
+        /* Fix form input text visibility */
+        .form-control::placeholder {
+            color: #6b7280 !important;
+            opacity: 0.8;
+        }
+
+        .form-control {
+            color: #ffffff !important;
+        }
+
+        .form-control:focus {
+            color: #ffffff !important;
+        }
+
+        textarea.form-control {
+            color: #ffffff !important;
         }
 
         /* Bootstrap Offcanvas Custom Styling */
@@ -1726,24 +1760,24 @@
                             <!-- Redirect after successful submission (optional) -->
                             <input type="hidden" name="_next" value="#contact?success=1">
 
-                            <div class="form-floating mb-4">
-                                <input type="text" class="form-control bg-gray-800/80 text-white border-0 rounded-3" id="name" name="Name" placeholder="John Doe" required style="padding: 1.5rem 1rem; height: auto;">
-                                <label for="name" class="text-gray-400">Full Name *</label>
+                            <div class="mb-4">
+                                <label for="name" class="form-label text-white mb-2 fw-semibold">Full Name <span class="text-danger required-star">*</span></label>
+                                <input type="text" class="form-control border-0 rounded-3" id="name" name="Name" placeholder="John Doe" required style="padding: 1rem; height: auto; background-color: #1f2937 !important; color: #ffffff !important;">
                             </div>
 
-                            <div class="form-floating mb-4">
-                                <input type="email" class="form-control bg-gray-800/80 text-white border-0 rounded-3" id="email" name="Email" placeholder="john.doe@example.com" required style="padding: 1.5rem 1rem; height: auto;">
-                                <label for="email" class="text-gray-400">Email Address *</label>
+                            <div class="mb-4">
+                                <label for="email" class="form-label text-white mb-2 fw-semibold">Email Address <span class="text-danger required-star">*</span></label>
+                                <input type="email" class="form-control border-0 rounded-3" id="email" name="Email" placeholder="john.doe@example.com" required style="padding: 1rem; height: auto; background-color: #1f2937 !important; color: #ffffff !important;">
                             </div>
 
-                            <div class="form-floating mb-4">
-                                <input type="text" class="form-control bg-gray-800/80 text-white border-0 rounded-3" id="subject" name="Subject" placeholder="Inquiry about FTTx Solutions" required style="padding: 1.5rem 1rem; height: auto;">
-                                <label for="subject" class="text-gray-400">Subject *</label>
+                            <div class="mb-4">
+                                <label for="subject" class="form-label text-white mb-2 fw-semibold">Subject <span class="text-danger required-star">*</span></label>
+                                <input type="text" class="form-control border-0 rounded-3" id="subject" name="Subject" placeholder="Inquiry about FTTx Solutions" required style="padding: 1rem; height: auto; background-color: #1f2937 !important; color: #ffffff !important;">
                             </div>
 
-                            <div class="form-floating mb-4">
-                                <textarea class="form-control bg-gray-800/80 text-white border-0 rounded-3" id="message" name="Message" placeholder="Tell us about your project needs" required style="height: 150px; padding: 1.5rem 1rem;"></textarea>
-                                <label for="message" class="text-gray-400">Message *</label>
+                            <div class="mb-4">
+                                <label for="message" class="form-label text-white mb-2 fw-semibold">Message <span class="text-danger required-star">*</span></label>
+                                <textarea class="form-control border-0 rounded-3" id="message" name="Message" placeholder="Tell us about your project needs" required style="height: 150px; padding: 1rem; background-color: #1f2937 !important; color: #ffffff !important;"></textarea>
                             </div>
                             
                             <button type="submit" class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2 py-3 px-4 rounded-3 shadow-lg fs-5 fw-semibold" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none;">
@@ -2893,6 +2927,59 @@
                 }, { threshold: 0.1 });
                 observerMobile.observe(mobileCarousel);
             }
+        });
+    </script>
+    
+    <!-- Form Required Field Indicator Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contact-form');
+            const formInputs = form.querySelectorAll('input[required], textarea[required]');
+            
+            // Hide all stars initially
+            formInputs.forEach(function(input) {
+                const label = document.querySelector('label[for="' + input.id + '"]');
+                const requiredStar = label ? label.querySelector('.required-star') : null;
+                
+                if (requiredStar) {
+                    requiredStar.style.display = 'none';
+                }
+            });
+            
+            // Show stars only on submit if field is empty
+            form.addEventListener('submit', function(e) {
+                let hasEmpty = false;
+                
+                formInputs.forEach(function(input) {
+                    const label = document.querySelector('label[for="' + input.id + '"]');
+                    const requiredStar = label ? label.querySelector('.required-star') : null;
+                    
+                    if (!requiredStar) return;
+                    
+                    if (input.value.trim() === '') {
+                        requiredStar.style.display = 'inline';
+                        hasEmpty = true;
+                    } else {
+                        requiredStar.style.display = 'none';
+                    }
+                });
+                
+                if (hasEmpty) {
+                    e.preventDefault();
+                }
+            });
+            
+            // Hide star when user starts typing in an empty field
+            formInputs.forEach(function(input) {
+                input.addEventListener('input', function() {
+                    const label = document.querySelector('label[for="' + input.id + '"]');
+                    const requiredStar = label ? label.querySelector('.required-star') : null;
+                    
+                    if (requiredStar && input.value.trim() !== '') {
+                        requiredStar.style.display = 'none';
+                    }
+                });
+            });
         });
     </script>
 
