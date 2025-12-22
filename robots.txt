@@ -12,15 +12,17 @@ Disallow: /.github/
 Disallow: /.venv/
 Disallow: /node_modules/
 
-# Allow specific bot crawlers
+# Googlebot - Note: Googlebot ignores Crawl-delay
+# Use Google Search Console to control crawl rate instead
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0
 
+# Bingbot
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
+# Yahoo Slurp
 User-agent: Slurp
 Allow: /
 Crawl-delay: 1
@@ -35,12 +37,6 @@ Disallow: /
 User-agent: DotBot
 Disallow: /
 
-# Sitemap location
+# Sitemaps
 Sitemap: https://www.fyrmtech.com/sitemap.xml
-
-# Sitemap for image search
 Sitemap: https://www.fyrmtech.com/sitemap-images.xml
-
-# Request crawl rate (optional)
-Crawl-delay: 0.5
-Request-rate: 1/1s
