@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://www.fyrmtech.com/</loc>
+        <lastmod>2025-12-22</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <mobile:mobile/>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/fyrmtech-logo-bg.png</image:loc>
+            <image:title>FYRMTECH Logo</image:title>
+        </image:image>
+    </url>
+
+    <!-- Home Section Anchor -->
+    <url>
+        <loc>https://www.fyrmtech.com/#home</loc>
+        <lastmod>2025-12-22</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- About Us Section -->
+    <url>
+        <loc>https://www.fyrmtech.com/#about</loc>
+        <lastmod>2025-12-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <mobile:mobile/>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/Gemini_Generaffffff.jpg</image:loc>
+            <image:title>Engineering Team Collaboration</image:title>
+        </image:image>
+    </url>
+
+    <!-- Services Section -->
+    <url>
+        <loc>https://www.fyrmtech.com/#services</loc>
+        <lastmod>2025-12-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.95</priority>
+        <mobile:mobile/>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/service-network-infrastructure.jpg</image:loc>
+            <image:title>Network Infrastructure Solutions</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/service-security-access.jpg</image:loc>
+            <image:title>Security and Access Control</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/service-office-equipment.jpg</image:loc>
+            <image:title>Office and Data Equipment</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/service-computing.jpg</image:loc>
+            <image:title>Computing and Accessories</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/service-product-supply.jpg</image:loc>
+            <image:title>Product Supply and Logistics</image:title>
+        </image:image>
+    </url>
+
+    <!-- Clients Section -->
+    <url>
+        <loc>https://www.fyrmtech.com/#clients</loc>
+        <lastmod>2025-12-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- Partners Section -->
+    <url>
+        <loc>https://www.fyrmtech.com/#partners</loc>
+        <lastmod>2025-12-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- Contact Section -->
+    <url>
+        <loc>https://www.fyrmtech.com/#contact</loc>
+        <lastmod>2025-12-22</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <mobile:mobile/>
+    </url>
+
+</urlset>

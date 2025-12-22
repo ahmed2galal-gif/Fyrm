@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Homepage with all images -->
+    <url>
+        <loc>https://www.fyrmtech.com/</loc>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/fyrmtech-logo-bg.png</image:loc>
+            <image:title>FYRMTECH Logo</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/fyrmtech-logo.png</image:loc>
+            <image:title>FYRMTECH Logo (Header)</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/hero.jpg</image:loc>
+            <image:title>Fiber Optic Network Hero Image</image:title>
+        </image:image>
+    </url>
+    
+    <!-- About Section Images -->
+    <url>
+        <loc>https://www.fyrmtech.com/#about</loc>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/Gemini_Generaffffff.jpg</image:loc>
+            <image:title>Engineering Team Collaboration</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Services Section Images -->
+    <url>
+        <loc>https://www.fyrmtech.com/#services</loc>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/service-network-infrastructure.jpg</image:loc>
+            <image:title>Network Infrastructure Solutions</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/service-security-access.jpg</image:loc>
+            <image:title>Security and Access Control Systems</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/service-office-equipment.jpg</image:loc>
+            <image:title>Office and Data Equipment</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/service-computing.jpg</image:loc>
+            <image:title>Computing and Accessories</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/service-product-supply.jpg</image:loc>
+            <image:title>Product Supply and Logistics</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Client Logos -->
+    <url>
+        <loc>https://www.fyrmtech.com/#clients</loc>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/orange.png</image:loc>
+            <image:title>Orange Egypt Client Logo</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/alfa.png</image:loc>
+            <image:title>Alfa Egypt Client Logo</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/Futim-Group.png</image:loc>
+            <image:title>Al-Futtaim Group Client Logo</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/pfizer.png</image:loc>
+            <image:title>Pfizer Client Logo</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/vodafone.png</image:loc>
+            <image:title>Vodafone Client Logo</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Partner Technology Logos -->
+    <url>
+        <loc>https://www.fyrmtech.com/#partners</loc>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/Cisco_logo.svg</image:loc>
+            <image:title>Cisco Partner Logo</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/Microsoft_logo_(2012).svg</image:loc>
+            <image:title>Microsoft Partner Logo</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/Sophos_logo.svg</image:loc>
+            <image:title>Sophos Partner Logo</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.fyrmtech.com/images/Aruba_Networks-Logo.wine.svg</image:loc>
+            <image:title>HPE Aruba Partner Logo</image:title>
+        </image:image>
+    </url>
+
+</urlset>
