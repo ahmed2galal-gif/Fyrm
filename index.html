@@ -28,6 +28,20 @@
     
     <!-- Sitemap Link -->
     <link rel="sitemap" type="application/xml" href="https://www.fyrmtech.com/sitemap.xml">
+    
+    <!-- Google Official Site Name Schema (WebSite structured data per Google guidelines) -->
+    <!-- This is the MOST IMPORTANT schema for controlling site name display in Google Search -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "FYRMTECH",
+        "alternateName": ["FYRM TECH", "FYRM", "fyrmtech.com"],
+        "url": "https://www.fyrmtech.com/"
+    }
+    </script>
+    
+    <!-- Organization Schema (existing) -->
         <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -63,7 +77,6 @@
                 "EG",
                 "Egypt"
             ],
-            "priceRange": "$$",
             "foundingDate": "2010",
             "employee": [
                 {
@@ -124,7 +137,9 @@
                 "name": "FYRMTECH",
                 "url": "https://www.fyrmtech.com"
             },
-            "serviceType": "B2B Services"
+            "serviceType": "B2B Services",
+            "priceRange": "$$",
+            "areaServed": ["EG", "Egypt"]
         }
         </script>
     
