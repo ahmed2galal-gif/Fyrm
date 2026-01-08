@@ -3226,5 +3226,369 @@
         });
     </script>
 
+    <!-- ========================================
+         ANTI-SPAM SECURITY LAYER FOR CONTACT FORM
+         ======================================== -->
+    <script>
+        // Anti-Spam Configuration
+        const antiSpamConfig = {
+            // Rate limiting: max 3 submissions per hour per IP
+            maxSubmissionsPerHour: 3,
+            // Time window in milliseconds (1 hour)
+            timeWindow: 60 * 60 * 1000,
+            // Submission cooldown in milliseconds (5 minutes minimum between submissions)
+            submissionCooldown: 5 * 60 * 1000,
+            // Spam detection patterns
+            spamPatterns: [
+                /viagra|cialis|casino|lottery|win.*money|click.*here|buy.*now/gi,
+                /\b(http|https)?:\/\/[^\s]+\b/gi, // URLs in message
+                /[а-яА-ЯёЁ]/g, // Cyrillic characters (Russian spam)
+                /[ҳҷҳқҚҢҥҦҧҨҩҪҫҬҭҮҮҰұҲҳҴҵҶҷҸҹҺһҼҽҾҿ]/g, // Tajik/other Central Asian
+            ],
+            // Email blacklist patterns
+            emailBlacklist: [
+                /@(mailinator|tempmail|guerrillamail|temp-mail|throwaway|spam4\.me)\.com/i,
+                /\d{10,}@/i, // Emails starting with many numbers
+                /test.*@test/i,
+                /admin@admin/i,
+            ],
+            // Suspicious name patterns
+            suspiciousNames: [
+                /^test$/i,
+                /^admin$/i,
+                /^user$/i,
+                /^\d+$/,
+                /[а-яА-ЯёЁ]/g, // Cyrillic in name
+            ]
+        };
+
+        // Storage for submission tracking
+        const submissionTracker = {
+            // Get stored submission data
+            getSubmissions() {
+                const stored = localStorage.getItem('contactFormSubmissions');
+                return stored ? JSON.parse(stored) : [];
+            },
+
+            // Add new submission record
+            recordSubmission() {
+                const submissions = this.getSubmissions();
+                const now = Date.now();
+                
+                // Remove old entries outside the time window
+                const recentSubmissions = submissions.filter(timestamp => 
+                    now - timestamp < antiSpamConfig.timeWindow
+                );
+                
+                recentSubmissions.push(now);
+                localStorage.setItem('contactFormSubmissions', JSON.stringify(recentSubmissions));
+                
+                return recentSubmissions;
+            },
+
+            // Check if submission is within rate limit
+            isWithinRateLimit() {
+                const submissions = this.getSubmissions();
+                return submissions.length < antiSpamConfig.maxSubmissionsPerHour;
+            },
+
+            // Check if enough time has passed since last submission
+            isWithinCooldown() {
+                const submissions = this.getSubmissions();
+                if (submissions.length === 0) return true;
+                
+                const lastSubmission = submissions[submissions.length - 1];
+                const timeSinceLastSubmission = Date.now() - lastSubmission;
+                
+                return timeSinceLastSubmission >= antiSpamConfig.submissionCooldown;
+            },
+
+            // Get time until next submission is allowed
+            getTimeUntilNextSubmission() {
+                const submissions = this.getSubmissions();
+                if (submissions.length === 0) return 0;
+                
+                const lastSubmission = submissions[submissions.length - 1];
+                const timeSinceLastSubmission = Date.now() - lastSubmission;
+                const timeRemaining = antiSpamConfig.submissionCooldown - timeSinceLastSubmission;
+                
+                return Math.max(0, Math.ceil(timeRemaining / 1000));
+            }
+        };
+
+        // Email validation function
+        function isValidEmail(email) {
+            // Basic RFC 5322 compliant regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!emailRegex.test(email)) return false;
+
+            // Check against blacklist patterns
+            for (let pattern of antiSpamConfig.emailBlacklist) {
+                if (pattern.test(email)) return false;
+            }
+
+            // Reject emails with suspicious characteristics
+            const domain = email.split('@')[1];
+            if (domain.length > 100) return false; // Suspiciously long domain
+            if (email.length > 254) return false; // Max email length per RFC
+            if (email.split('@')[0].length > 64) return false; // Max local part length
+
+            return true;
+        }
+
+        // Content analysis for spam detection
+        function analyzeContentForSpam(name, email, subject, message) {
+            const errors = [];
+
+            // Check name
+            if (name.trim().length < 2) {
+                errors.push('Name is too short');
+            }
+            
+            for (let pattern of antiSpamConfig.suspiciousNames) {
+                if (pattern.test(name)) {
+                    errors.push('Name appears suspicious');
+                    break;
+                }
+            }
+
+            // Check email
+            if (!isValidEmail(email.trim())) {
+                errors.push('Email address is invalid or blacklisted');
+            }
+
+            // Check subject
+            if (subject.trim().length < 3) {
+                errors.push('Subject is too short');
+            }
+
+            // Check message
+            const messageLength = message.trim().length;
+            if (messageLength < 10) {
+                errors.push('Message is too short (minimum 10 characters)');
+            }
+
+            // Analyze message content
+            let spamScore = 0;
+            const messageText = message + ' ' + subject + ' ' + name;
+
+            // Check for spam patterns
+            for (let pattern of antiSpamConfig.spamPatterns) {
+                const matches = messageText.match(pattern);
+                if (matches) {
+                    spamScore += matches.length * 2;
+                }
+            }
+
+            // Check for excessive URLs
+            const urlMatches = message.match(/https?:\/\//g);
+            if (urlMatches && urlMatches.length > 1) {
+                errors.push('Too many links in message');
+            }
+
+            // Check for repetitive characters
+            if (/(.)\1{5,}/.test(messageText)) {
+                errors.push('Message contains repetitive characters (possible spam)');
+            }
+
+            // Check for excessive capitalization
+            const uppercaseRatio = (message.match(/[A-Z]/g) || []).length / messageLength;
+            if (uppercaseRatio > 0.5) {
+                errors.push('Message has too many uppercase letters');
+            }
+
+            if (spamScore > 2) {
+                errors.push('Message content appears to be spam');
+            }
+
+            return errors;
+        }
+
+        // Show error message to user
+        function showSpamError(message) {
+            const form = document.getElementById('contact-form');
+            
+            // Remove existing error message if present
+            const existingError = form.querySelector('.spam-error-alert');
+            if (existingError) {
+                existingError.remove();
+            }
+
+            // Create and insert error alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'spam-error-alert alert alert-danger alert-dismissible fade show';
+            alertDiv.role = 'alert';
+            alertDiv.style.marginBottom = '1rem';
+            alertDiv.innerHTML = `
+                <strong>⚠️ Submission Blocked:</strong> ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            form.insertBefore(alertDiv, form.firstChild);
+            
+            // Scroll to error message
+            alertDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Initialize form protection
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contact-form');
+            if (!form) return;
+
+            // Add honeypot fields (additional)
+            const honeypotsHTML = `
+                <input type="text" name="phone_number" style="display:none; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
+                <input type="text" name="website" style="display:none; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
+                <input type="text" name="company_size" style="display:none; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
+            `;
+            form.insertAdjacentHTML('afterbegin', honeypotsHTML);
+
+            // Add submission timestamp
+            const timestampInput = document.createElement('input');
+            timestampInput.type = 'hidden';
+            timestampInput.name = '_formSubmissionTime';
+            timestampInput.value = Date.now();
+            form.appendChild(timestampInput);
+
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                const nameField = document.getElementById('name');
+                const emailField = document.getElementById('email');
+                const subjectField = document.getElementById('subject');
+                const messageField = document.getElementById('message');
+
+                // Get form values
+                const name = nameField.value.trim();
+                const email = emailField.value.trim();
+                const subject = subjectField.value.trim();
+                const message = messageField.value.trim();
+
+                // Check honeypot fields
+                const honeypots = form.querySelectorAll('[name="phone_number"], [name="website"], [name="company_size"]');
+                for (let honeypot of honeypots) {
+                    if (honeypot.value.trim() !== '') {
+                        console.log('Honeypot triggered');
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+
+                // Check rate limiting
+                if (!submissionTracker.isWithinCooldown()) {
+                    const timeRemaining = submissionTracker.getTimeUntilNextSubmission();
+                    const minutes = Math.ceil(timeRemaining / 60);
+                    showSpamError(`Please wait ${minutes} minute(s) before submitting another message. (Rate limiting protection)`);
+                    e.preventDefault();
+                    return false;
+                }
+
+                if (!submissionTracker.isWithinRateLimit()) {
+                    showSpamError('Too many submissions in a short time. Please try again later. (Hourly limit: 3 submissions)`);
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Analyze content for spam
+                const spamErrors = analyzeContentForSpam(name, email, subject, message);
+                if (spamErrors.length > 0) {
+                    showSpamError(`${spamErrors[0]} - If you believe this is an error, please <a href="tel:+201555111502">call us</a> instead.`);
+                    e.preventDefault();
+                    return false;
+                }
+
+                // If all checks pass, record the submission
+                submissionTracker.recordSubmission();
+                
+                // Update timestamp
+                document.querySelector('[name="_formSubmissionTime"]').value = Date.now();
+
+                console.log('Form passed anti-spam validation');
+            });
+
+            // Add real-time email validation feedback
+            const emailInput = document.getElementById('email');
+            if (emailInput) {
+                emailInput.addEventListener('blur', function() {
+                    if (this.value.trim() && !isValidEmail(this.value.trim())) {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                    } else if (this.value.trim()) {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                    }
+                });
+            }
+
+            // Add message length indicator
+            const messageInput = document.getElementById('message');
+            if (messageInput) {
+                let indicator = document.querySelector('.message-length-indicator');
+                if (!indicator) {
+                    indicator = document.createElement('small');
+                    indicator.className = 'message-length-indicator d-block mt-2 text-gray-400';
+                    messageInput.parentNode.appendChild(indicator);
+                }
+
+                messageInput.addEventListener('input', function() {
+                    const length = this.value.trim().length;
+                    const minLength = 10;
+                    const status = length < minLength ? `⚠️ ${minLength - length} more characters needed` : `✓ ${length} characters`;
+                    indicator.textContent = status;
+                });
+            }
+        });
+
+        // Log anti-spam system initialization
+        console.log('✓ Anti-Spam Security Layer Initialized');
+        console.log('  • Rate Limit: 3 submissions per hour');
+        console.log('  • Cooldown: 5 minutes between submissions');
+        console.log('  • Email Validation: Enabled');
+        console.log('  • Content Analysis: Enabled');
+        console.log('  • Honeypot Fields: Enabled');
+        console.log('  • Spam Pattern Detection: Enabled');
+    </script>
+
+    <!-- Add validation styling -->
+    <style>
+        .form-control.is-invalid {
+            border-color: #dc3545;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath fill='%23dc3545' d='M8 4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3A.5.5 0 0 0 8 4z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+            padding-right: calc(1.5em + 0.75rem);
+        }
+
+        .form-control.is-valid {
+            border-color: #198754;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+            padding-right: calc(1.5em + 0.75rem);
+        }
+
+        .message-length-indicator {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .spam-error-alert {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-color: rgba(220, 53, 69, 0.3) !important;
+            color: #dc3545 !important;
+        }
+
+        .spam-error-alert a {
+            color: #0c63e4;
+            text-decoration: underline;
+        }
+
+        .spam-error-alert a:hover {
+            color: #0d6efd;
+        }
+    </style>
+
 </body>
 </html>
