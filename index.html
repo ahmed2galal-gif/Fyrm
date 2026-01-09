@@ -2000,6 +2000,7 @@
                             <div class="mb-4">
                                 <label for="message" class="form-label text-white mb-2 fw-semibold" data-trans="message">Message <span class="text-danger required-star">*</span></label>
                                 <textarea class="form-control border-0 rounded-3" id="message" name="Message" placeholder="Tell us about your project needs" required style="height: 150px; padding: 1rem; background-color: #1f2937 !important; color: #ffffff !important;"></textarea>
+                                <small id="message-error" class="text-danger mt-2" style="display:none;">Please provide a message.</small>
                             </div>
                             
                             <button type="submit" class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2 py-3 px-4 rounded-3 shadow-lg fs-5 fw-semibold" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none;">
@@ -2271,98 +2272,119 @@
             const email = document.getElementById('email').value.trim();
             const subject = document.getElementById('subject').value.trim();
             const message = document.getElementById('message').value.trim();
-            const errorMsg = document.getElementById('email-error');
+            const emailErrorMsg = document.getElementById('email-error');
+            const messageErrorMsg = document.getElementById('message-error');
             
-            let errorReason = '';
+            let emailError = '';
+            let messageError = '';
             
             // Rate limiting check
             const emailLower = email.toLowerCase();
             if (SUBMISSION_TRACKER.isBlocked(emailLower)) {
                 const remainingMinutes = SUBMISSION_TRACKER.getRemainingTime(emailLower);
-                errorReason = `Too many submission attempts. Please try again in ${remainingMinutes} minute(s).`;
+                emailError = `Too many submission attempts. Please try again in ${remainingMinutes} minute(s).`;
             }
             
             // Check 1: Strong email validation
-            if (!errorReason) {
+            if (!emailError) {
                 const emailValidation = isValidEmail(email);
                 if (!emailValidation.valid) {
-                    errorReason = emailValidation.reason;
+                    emailError = emailValidation.reason;
                 }
             }
             
             // Check 2: Direct email blocklist
-            if (!errorReason && BLOCKED_EMAILS.includes(emailLower)) {
-                errorReason = 'This email address is not allowed to submit this form.';
+            if (!emailError && BLOCKED_EMAILS.includes(emailLower)) {
+                emailError = 'This email address is not allowed to submit this form.';
             }
             
             // Check 3: Spam email patterns
-            if (!errorReason) {
+            if (!emailError) {
                 for (let pattern of SPAM_EMAIL_PATTERNS) {
                     if (pattern.test(email)) {
-                        errorReason = 'This email address format is not accepted. Please use a valid business email.';
+                        emailError = 'This email address format is not accepted. Please use a valid business email.';
                         break;
                     }
                 }
             }
             
             // Check 4: Suspicious name patterns
-            if (!errorReason) {
+            if (!emailError) {
                 for (let pattern of SUSPICIOUS_NAME_PATTERNS) {
                     if (pattern.test(nameLower)) {
-                        errorReason = 'Please provide a valid full name.';
+                        emailError = 'Please provide a valid full name.';
                         break;
                     }
                 }
             }
             
             // Check 5: Input sanitization (XSS prevention)
-            if (!errorReason) {
+            if (!emailError) {
                 const sanitizedName = sanitizeInput(name);
                 const sanitizedSubject = sanitizeInput(subject);
                 const sanitizedMessage = sanitizeInput(message);
                 
                 if (sanitizedName !== name || sanitizedSubject !== subject || sanitizedMessage !== message) {
-                    errorReason = 'Your input contains invalid characters or potential security issues.';
+                    emailError = 'Your input contains invalid characters or potential security issues.';
                 }
             }
             
             // Check 6: Spam keywords in message and subject
-            if (!errorReason) {
+            if (!emailError) {
                 const fullText = subject.toLowerCase() + ' ' + message.toLowerCase();
                 for (let keyword of SPAM_KEYWORDS) {
                     const regex = new RegExp(keyword, 'i');
                     if (regex.test(fullText)) {
-                        errorReason = 'Your message contains prohibited content. Please remove any marketing or promotional language.';
+                        messageError = 'Your message contains prohibited content. Please remove any marketing or promotional language.';
                         break;
                     }
                 }
             }
             
             // Check 7: Message too short (likely spam or bot)
-            if (!errorReason && message.length < 5) {
-                errorReason = 'Please provide a message (at least 5 characters).';
+            if (!messageError && message.length < 10) {
+                messageError = 'Please provide a more detailed message (at least 10 characters).';
             }
             
             // Check 8: Name validation
-            if (!errorReason && (name.length < 2 || name.split(' ').length === 1 && name.length < 4)) {
-                errorReason = 'Please provide a valid full name.';
+            if (!emailError && (name.length < 2 || name.split(' ').length === 1 && name.length < 4)) {
+                emailError = 'Please provide a valid full name.';
             }
             
             // If any validation failed
-            if (errorReason) {
+            if (emailError || messageError) {
                 event.preventDefault();
-                errorMsg.textContent = errorReason;
-                errorMsg.style.display = 'block';
-                document.getElementById('email').classList.add('border-danger');
+                
+                // Show email error
+                if (emailError) {
+                    emailErrorMsg.textContent = emailError;
+                    emailErrorMsg.style.display = 'block';
+                    document.getElementById('email').classList.add('border-danger');
+                } else {
+                    emailErrorMsg.style.display = 'none';
+                    document.getElementById('email').classList.remove('border-danger');
+                }
+                
+                // Show message error
+                if (messageError) {
+                    messageErrorMsg.textContent = messageError;
+                    messageErrorMsg.style.display = 'block';
+                    document.getElementById('message').classList.add('border-danger');
+                } else {
+                    messageErrorMsg.style.display = 'none';
+                    document.getElementById('message').classList.remove('border-danger');
+                }
                 
                 // Record failed attempt for rate limiting
                 SUBMISSION_TRACKER.recordAttempt(emailLower);
                 return false;
             }
             
-            // Remove error message if validation passes
-            errorMsg.style.display = 'none';
+            // Remove error messages if validation passes
+            emailErrorMsg.style.display = 'none';
+            messageErrorMsg.style.display = 'none';
             document.getElementById('email').classList.remove('border-danger');
+            document.getElementById('message').classList.remove('border-danger');
             
             // Record successful submission attempt
             SUBMISSION_TRACKER.recordAttempt(emailLower);
