@@ -225,6 +225,11 @@
     <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="dns-prefetch" href="https://formsubmit.co">
     
+    <!-- Security Libraries for Form Protection -->
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/validator.js/13.11.0/validator.min.js"></script>
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1965,12 +1970,12 @@
                             Replace "Support@fyrmtech.con" in the 'action' attribute below with the exact email 
                             address you want submissions to go to.
                         -->
-                        <form id="contact-form" action="https://formsubmit.co/support@fyrmtech.com" method="POST">
+                        <form id="contact-form" action="https://formsubmit.co/support@fyrmtech.com" method="POST" onsubmit="return validateContactForm(event)">
                             
                             <!-- Honeypot field (spam prevention) -->
                             <input type="text" name="_honey" style="display:none;">
-                            <!-- Disable Captcha (optional, but convenient) -->
-                            <input type="hidden" name="_captcha" value="false">
+                            <!-- Enable Captcha for better spam protection -->
+                            <input type="hidden" name="_captcha" value="true">
                             <!-- Subject line for the email -->
                             <input type="hidden" name="_subject" value="FYRMTECH Website Inquiry">
                             <!-- Redirect after successful submission (optional) -->
@@ -1984,6 +1989,7 @@
                             <div class="mb-4">
                                 <label for="email" class="form-label text-white mb-2 fw-semibold" data-trans="emailAddress">Email Address <span class="text-danger required-star">*</span></label>
                                 <input type="email" class="form-control border-0 rounded-3" id="email" name="Email" placeholder="john.doe@example.com" required style="padding: 1rem; height: auto; background-color: #1f2937 !important; color: #ffffff !important;">
+                                <small id="email-error" class="text-danger mt-2" style="display:none;">This email address is not allowed to submit this form.</small>
                             </div>
 
                             <div class="mb-4">
@@ -2061,6 +2067,308 @@
 
     <!-- JavaScript for responsiveness and dynamic content -->
     <script>
+        // ============================================================
+        // FORM SECURITY SYSTEM WITH MULTIPLE PROTECTION LAYERS
+        // ============================================================
+        
+        // Rate limiting - prevent spam floods
+        const SUBMISSION_TRACKER = {
+            attempts: {},
+            MAX_ATTEMPTS: 3,
+            TIME_WINDOW: 3600000, // 1 hour in milliseconds
+            
+            recordAttempt: function(identifier) {
+                const now = Date.now();
+                if (!this.attempts[identifier]) {
+                    this.attempts[identifier] = [];
+                }
+                // Remove old attempts outside time window
+                this.attempts[identifier] = this.attempts[identifier].filter(
+                    time => now - time < this.TIME_WINDOW
+                );
+                this.attempts[identifier].push(now);
+            },
+            
+            isBlocked: function(identifier) {
+                if (!this.attempts[identifier]) return false;
+                return this.attempts[identifier].length >= this.MAX_ATTEMPTS;
+            },
+            
+            getRemainingTime: function(identifier) {
+                if (!this.attempts[identifier] || this.attempts[identifier].length === 0) {
+                    return null;
+                }
+                const oldestAttempt = this.attempts[identifier][0];
+                const timeLeft = this.TIME_WINDOW - (Date.now() - oldestAttempt);
+                return Math.ceil(timeLeft / 60000); // Return minutes
+            }
+        };
+        
+        // Comprehensive spam prevention system
+        
+        // 1. Blocked email list (direct spammers)
+        const BLOCKED_EMAILS = [
+            'zekisuguc419@gmail.com'
+        ];
+
+        // 2. Disposable/temporary email domains to block
+        const DISPOSABLE_DOMAINS = [
+            'tempmail.com', '10minutemail.com', 'mailinator.com', 'temp-mail.org',
+            'throwaway.email', 'yopmail.com', 'maildrop.cc', 'fakeinbox.com',
+            'trashmail.com', 'temp.email', 'temporarymail.com', 'tempmail.co',
+            'sharklasers.com', 'spam4.me', 'throwawaymail.com', 'mailnesia.com',
+            'grr.la', 'dispostable.com', 'temp-mail.io', 'mintemail.com'
+        ];
+
+        // 3. Spam keyword patterns to detect in messages
+        const SPAM_KEYWORDS = [
+            'i write about.*prices',
+            'write about.*prices',
+            'write about',
+            'ego volo scire',
+            'vestri pretium',
+            'want to write',
+            'can i write',
+            'article about',
+            'content marketing',
+            'seo services',
+            'backlink',
+            'guest post',
+            'link exchange',
+            'pharma',
+            'casino',
+            'lottery',
+            'forex',
+            'crypto.*free',
+            'earn.*money.*fast',
+            'work from home',
+            'make \$',
+            'click here',
+            'buy cheap',
+            'viagra',
+            'cialis',
+            'poker',
+            'xxx',
+            'latin.*text',
+            'lorem ipsum',
+            'scire vestri',
+            'pretium'
+        ];
+
+        // 4. Spam email patterns
+        const SPAM_EMAIL_PATTERNS = [
+            /^[0-9]+@/,  // Emails starting with numbers
+            /\.(tk|ml|ga|cf)$/,  // Suspicious TLDs
+            /test|spam|admin|noreply|no-?reply|info@test/i,  // Common spam patterns
+            /\+.*@gmail\.com/  // Gmail aliases (often used for spam)
+        ];
+
+        // Suspicious name patterns (spam-like names)
+        const SUSPICIOUS_NAME_PATTERNS = [
+            /^[a-z]{3,}[A-Z][a-z]+[A-Z][a-z]+$/,  // LeealOfs, LeeaLof pattern
+            /(.)\1{2,}/,  // Repeating characters (eee, ooo, etc)
+            /^[0-9]/,  // Starts with number
+            /[^a-zA-Z\s'-]/,  // Invalid characters
+            /^\d+$/,  // Only numbers
+            /^[a-z]{20,}$/  // Too long single word
+        ];
+
+        // Strong email validator function using validator.js library
+        function isValidEmail(email) {
+            const email_lower = email.toLowerCase().trim();
+            
+            // Use validator.js library for RFC 5322 validation
+            if (typeof validator !== 'undefined' && !validator.isEmail(email_lower)) {
+                return { valid: false, reason: 'Invalid email format. Please enter a valid email address.' };
+            }
+            
+            // Fallback basic validation if validator library not loaded
+            const basicEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!basicEmailRegex.test(email_lower)) {
+                return { valid: false, reason: 'Invalid email format.' };
+            }
+            
+            // More strict email validation
+            const strictEmailRegex = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!strictEmailRegex.test(email_lower)) {
+                return { valid: false, reason: 'Email contains invalid characters.' };
+            }
+            
+            // Check for consecutive dots
+            if (email_lower.includes('..')) {
+                return { valid: false, reason: 'Email cannot contain consecutive dots.' };
+            }
+            
+            // Check email starts and ends properly
+            if (email_lower.startsWith('.') || email_lower.startsWith('@')) {
+                return { valid: false, reason: 'Email format is invalid.' };
+            }
+            
+            // Split email into local and domain parts
+            const [localPart, domain] = email_lower.split('@');
+            
+            // Validate local part (before @)
+            if (localPart.length === 0 || localPart.length > 64) {
+                return { valid: false, reason: 'Email local part must be 1-64 characters.' };
+            }
+            
+            if (localPart.endsWith('.')) {
+                return { valid: false, reason: 'Email local part cannot end with a dot.' };
+            }
+            
+            // Validate domain part (after @)
+            if (domain.length === 0 || domain.length > 255) {
+                return { valid: false, reason: 'Email domain is invalid.' };
+            }
+            
+            // Check for valid domain structure
+            const domainParts = domain.split('.');
+            if (domainParts.length < 2) {
+                return { valid: false, reason: 'Email domain must have at least one dot.' };
+            }
+            
+            // Check TLD (last part) is at least 2 characters and alphabetic
+            const tld = domainParts[domainParts.length - 1];
+            if (tld.length < 2 || !/^[a-z]+$/.test(tld)) {
+                return { valid: false, reason: 'Email domain extension (TLD) is invalid.' };
+            }
+            
+            // Check for disposable/temporary email domains
+            if (DISPOSABLE_DOMAINS.some(d => domain.endsWith(d))) {
+                return { valid: false, reason: 'Temporary email addresses are not accepted. Please use a business or personal email.' };
+            }
+            
+            // Check domain reputation (basic checks)
+            const singleCharDomains = domainParts.some(part => part.length === 1 && part !== '-');
+            if (singleCharDomains && domainParts.length === 2) {
+                return { valid: false, reason: 'Invalid domain structure.' };
+            }
+            
+            // Check for obviously fake domains
+            if (domain === 'example.com' || domain === 'test.com' || domain === 'localhost') {
+                return { valid: false, reason: 'Please use a valid email domain.' };
+            }
+            
+            return { valid: true, reason: '' };
+        }
+
+        // Input sanitization using DOMPurify
+        function sanitizeInput(input) {
+            if (typeof DOMPurify !== 'undefined') {
+                // Use DOMPurify to remove any potential XSS attacks
+                return DOMPurify.sanitize(input, { ALLOWED_TAGS: [] });
+            }
+            // Fallback sanitization if DOMPurify not loaded
+            const temp = document.createElement('div');
+            temp.textContent = input;
+            return temp.innerHTML;
+        }
+
+        // Contact form validation - comprehensive spam detection with security libraries
+        function validateContactForm(event) {
+            const name = document.getElementById('name').value.trim();
+            const nameLower = name.toLowerCase();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+            const errorMsg = document.getElementById('email-error');
+            
+            let errorReason = '';
+            
+            // Rate limiting check
+            const emailLower = email.toLowerCase();
+            if (SUBMISSION_TRACKER.isBlocked(emailLower)) {
+                const remainingMinutes = SUBMISSION_TRACKER.getRemainingTime(emailLower);
+                errorReason = `Too many submission attempts. Please try again in ${remainingMinutes} minute(s).`;
+            }
+            
+            // Check 1: Strong email validation
+            if (!errorReason) {
+                const emailValidation = isValidEmail(email);
+                if (!emailValidation.valid) {
+                    errorReason = emailValidation.reason;
+                }
+            }
+            
+            // Check 2: Direct email blocklist
+            if (!errorReason && BLOCKED_EMAILS.includes(emailLower)) {
+                errorReason = 'This email address is not allowed to submit this form.';
+            }
+            
+            // Check 3: Spam email patterns
+            if (!errorReason) {
+                for (let pattern of SPAM_EMAIL_PATTERNS) {
+                    if (pattern.test(email)) {
+                        errorReason = 'This email address format is not accepted. Please use a valid business email.';
+                        break;
+                    }
+                }
+            }
+            
+            // Check 4: Suspicious name patterns
+            if (!errorReason) {
+                for (let pattern of SUSPICIOUS_NAME_PATTERNS) {
+                    if (pattern.test(nameLower)) {
+                        errorReason = 'Please provide a valid full name.';
+                        break;
+                    }
+                }
+            }
+            
+            // Check 5: Input sanitization (XSS prevention)
+            if (!errorReason) {
+                const sanitizedName = sanitizeInput(name);
+                const sanitizedSubject = sanitizeInput(subject);
+                const sanitizedMessage = sanitizeInput(message);
+                
+                if (sanitizedName !== name || sanitizedSubject !== subject || sanitizedMessage !== message) {
+                    errorReason = 'Your input contains invalid characters or potential security issues.';
+                }
+            }
+            
+            // Check 6: Spam keywords in message and subject
+            if (!errorReason) {
+                const fullText = subject.toLowerCase() + ' ' + message.toLowerCase();
+                for (let keyword of SPAM_KEYWORDS) {
+                    const regex = new RegExp(keyword, 'i');
+                    if (regex.test(fullText)) {
+                        errorReason = 'Your message contains prohibited content. Please remove any marketing or promotional language.';
+                        break;
+                    }
+                }
+            }
+            
+            // Check 7: Message too short (likely spam or bot)
+            if (!errorReason && message.length < 10) {
+                errorReason = 'Please provide a more detailed message (at least 10 characters).';
+            }
+            
+            // Check 8: Name validation
+            if (!errorReason && (name.length < 2 || name.split(' ').length === 1 && name.length < 4)) {
+                errorReason = 'Please provide a valid full name.';
+            }
+            
+            // If any validation failed
+            if (errorReason) {
+                event.preventDefault();
+                errorMsg.textContent = errorReason;
+                errorMsg.style.display = 'block';
+                document.getElementById('email').classList.add('border-danger');
+                
+                // Record failed attempt for rate limiting
+                SUBMISSION_TRACKER.recordAttempt(emailLower);
+                return false;
+            }
+            
+            // Remove error message if validation passes
+            errorMsg.style.display = 'none';
+            document.getElementById('email').classList.remove('border-danger');
+            
+            // Record successful submission attempt
+            SUBMISSION_TRACKER.recordAttempt(emailLower);
+            return true;
+        }
+
         // Set current year in footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
