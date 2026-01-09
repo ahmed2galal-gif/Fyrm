@@ -2339,8 +2339,8 @@
             }
             
             // Check 7: Message too short (likely spam or bot)
-            if (!errorReason && message.length < 10) {
-                errorReason = 'Please provide a more detailed message (at least 10 characters).';
+            if (!errorReason && message.length < 5) {
+                errorReason = 'Please provide a message (at least 5 characters).';
             }
             
             // Check 8: Name validation
